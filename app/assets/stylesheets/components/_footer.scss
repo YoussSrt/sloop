@@ -1,0 +1,58 @@
+.footer {
+  background-color: #f7f4f0; // Couleur de fond similaire à votre design
+  border-top: 2px solid #CF5847; // Ligne décorative en haut
+  padding: 10px 20px; // Espacement interne
+  text-align: center;
+  height: 70px; // Hauteur fixe pour le footer
+  margin-top: auto;
+  }
+
+  .footer-container {
+    display: flex; // Affiche les éléments horizontalement
+    justify-content: space-between; // Espace égal entre les sections (logo, boutons, réseaux sociaux)
+    align-items: center; // Aligne les éléments verticalement
+    max-width: 1200px; // Limite la largeur du footer
+    margin: 0 auto; // Centre le footer horizontalement
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #CF5847;
+  }
+
+  .footer-links {
+    display: flex; // Affiche les boutons horizontalement
+    gap: 15px; // Ajoute de l'espace entre les boutons
+  }
+
+  .footer-button {
+    border: 2px solid #CF5847;
+    background-color: transparent;
+    color: #CF5847;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: #CF5847;
+      color: #fff;
+    }
+  }
+
+  .footer-social {
+    display: flex; // Affiche les icônes horizontalement
+    gap: 10px; // Ajoute de l'espace entre les icônes
+  }
+
+  .footer-social-link i {
+    font-size: 20px;
+    color: #CF5847;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #a23e30;
+    }
+  } 
