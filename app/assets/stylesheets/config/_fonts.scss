@@ -14,3 +14,18 @@ $headers-font: "Nunito", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+// Appliquer la police à tout le corps du site
+body {
+  font-family: $body-font;
+}
+
+// Si tu veux que cette police soit appliquée à d'autres éléments (comme les titres), tu peux le faire comme ceci :
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
+}
+
+// Appliquer les polices aux autres éléments spécifiques si nécessaire
+p, a, li, span {
+  font-family: $body-font;
+}
