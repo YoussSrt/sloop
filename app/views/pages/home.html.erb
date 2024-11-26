@@ -1,2 +1,21 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if user_signed_in? %>
+  <h1 class="text-center">Hello, <%= current_user.nickname %>!</h1>
+  <div class="text-center">
+    <%= link_to 'See my profile', profile_path, class: 'btn btn-primary' %>
+  </div>
+<% else %>
+
+<h2 class="text-center mt-5">Welcome to Sloop!</h2>
+
+  <p class="text-center">Log in to explore all the features!</p>
+  <div class="text-center">
+    <%= link_to 'Log in', new_user_session_path, class: 'btn btn-success' %>
+    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>
+
+<div class="text-center mt-5">
+  <h1>With SLOOP</h1>
+  <h2>Your Perfect Loop, Anytime, Anywhere!</h2>
+  <p class="large-text mt-4">The Game Changer Sloop is here to disrupt the status quo! Our app provides loop itineraries that not only connect cities but also create an engaging journey.</p>
+</div>
