@@ -13,7 +13,13 @@ class User < ApplicationRecord
     # has_many :chatrooms_as_first_user, class_name: 'Chatroom', foreign_key: 'first_user_id', dependent: :destroy
     # has_many :chatrooms_as_second_user, class_name: 'Chatroom', foreign_key: 'second_user_id', dependent: :destroy
 
+<<<<<<< HEAD
     # validates :first_name, presence: true
     # validates :last_name, presence: true
     # validates :nickname, presence: true, uniqueness: true
+=======
+    validates :first_name, presence: true
+    validates :last_name, presence: true
+    validates :nickname, presence: true, uniqueness: true
+>>>>>>> master
 end
