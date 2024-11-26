@@ -5,11 +5,10 @@
   <p><strong>First Name:</strong> <%= @user.first_name %></p>
   <p><strong>Last Name:</strong> <%= @user.last_name %></p>
   <p><strong>Email:</strong> <%= @user.email %></p>
-  <p><strong>Slooper since:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></p>
+  <p><strong>Slooper since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
 
   <h3>Profile Actions:</h3>
   <ul>
     <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %></li>
-    <li><%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %></li>
   </ul>
 </div>
