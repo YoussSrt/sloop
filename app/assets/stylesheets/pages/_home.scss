@@ -1,1 +1,21 @@
-// Specific CSS for your home-page
+// Homepage Styles
+// Appliquer l'image de fond à la page entière
+body, html {
+  height: 100%; /* S'assure que la hauteur du body et html est à 100% */
+  margin: 0; /* Éviter les marges par défaut */
+  display: flex;
+  flex-direction: column;
+}
+
+.homepage {
+  background-image: url('background_homepage.jpg');
+  background-size: 100%; /* Zoomer davantage sur l'image */
+  background-position: center center; /* Centre l'image */
+  background-attachment: fixed; /* Fixe l'image pour qu'elle ne défile pas avec le contenu */
+  background-repeat: no-repeat; /* Ne répète pas l'image */
+  flex-grow: 1; /* Permet à cette section de prendre tout l'espace disponible */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre le contenu verticalement */
+  padding-bottom: 50px; /* Laisse de la place pour le footer */
+}

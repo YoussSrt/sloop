@@ -1,31 +1,26 @@
-// Import Google fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Avenir+Next+Condensed:wght@300;400;600&display=swap');
 
-// Define fonts for body and headers
-$body-font: "Work Sans", "Helvetica", "sans-serif";
-$headers-font: "Nunito", "Helvetica", "sans-serif";
+$body-font: "Avenir Next Condensed", "Helvetica", "Arial", sans-serif;
+$headers-font: "Avenir Next Condensed", "Helvetica", "Arial", sans-serif;
 
-// To use a font file (.woff) uncomment following lines
-// @font-face {
-//   font-family: "Font Name";
-//   src: font-url('FontFile.eot');
-//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
-//        font-url('FontFile.woff') format('woff'),
-//        font-url('FontFile.ttf') format('truetype')
-// }
-// $my-font: "Font Name";
-
-// Appliquer la police à tout le corps du site
-body {
+body, html {
   font-family: $body-font;
 }
 
-// Si tu veux que cette police soit appliquée à d'autres éléments (comme les titres), tu peux le faire comme ceci :
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea, select, label {
   font-family: $headers-font;
 }
 
-// Appliquer les polices aux autres éléments spécifiques si nécessaire
-p, a, li, span {
-  font-family: $body-font;
+.footer,
+.footer-container,
+.footer-logo,
+.footer-links,
+.footer-button,
+.footer-social,
+.footer-social-link {
+  font-family: $headers-font;
 }
+
+// Bootstrap variables (si applicable)
+$headings-font-family: $headers-font;
+$body-font-family: $body-font;

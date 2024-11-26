@@ -1,28 +1,25 @@
 <nav class="navbar">
   <div class="container">
-    <!-- Logo à gauche -->
     <a href="/" class="navbar-brand">Sloop</a>
 
-    <!-- Menu central avec les boutons -->
     <div class="navbar-menu">
       <div class="navbar-links">
-        <a href="#" class="btn">New Sloop</a>
-        <a href="#" class="btn">Who we are</a>
-        <a href="#" class="btn">My Sloopies</a>
-        <a href="#" class="btn">Feed</a>
+        <a href="#" class="btn">NEW SLOOP</a>
+        <a href="#" class="btn">WHO WE ARE</a>
+        <a href="#" class="btn">MY SLOOPIES</a>
+        <a href="#" class="btn">SLOOPY FEED</a>
       </div>
     </div>
 
-    <!-- Bouton pour l'utilisateur connecté ou non à droite -->
     <div class="user-dropdown">
       <% if user_signed_in? %>
-        <button class="btn btn-secondary dropdown-toggle" id="userDropdown">
+        <button class="btn dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <%= current_user.nickname %>
         </button>
-        <div class="dropdown-menu" aria-labelledby="userDropdown">
-          <a href="<%= profile_path %>" class="dropdown-item">My Profile</a>
-          <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %>
-        </div>
+        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+          <li><a href="<%= profile_path %>" class="dropdown-item">My Profile</a></li>
+          <li><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></li>
+        </ul>
       <% else %>
         <div class="auth-links">
           <a href="<%= new_user_session_path %>" class="btn">Log In</a>
