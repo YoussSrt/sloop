@@ -1,4 +1,4 @@
-/* Styles généraux */
+/* Reset CSS */
 * {
   margin: 0;
   padding: 0;
@@ -9,13 +9,21 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* Variables de couleur */
+:root {
+  --primary-color: #CF5847; /* Couleur principale */
+  --secondary-color: #F5F3ED; /* Couleur secondaire */
+  --tertiary-color: #274028; /* Couleur tertiaire (pour les ombres et texte) */
+}
+
 /* Navbar */
 .navbar {
-  background-color: #F5F3ED; /* Fond de la navbar */
+  background-color: var(--secondary-color); /* Fond de la navbar */
   padding: 10px 20px;
   display: flex; /* Utilisation de flexbox pour gérer l'alignement */
   justify-content: space-between; /* Espacement entre le logo, les liens et l'utilisateur */
   align-items: center; /* Centrer verticalement tous les éléments */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère en bas de la navbar */
 }
 
 .container {
@@ -29,9 +37,8 @@ body {
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #CF5847; /* Logo en CF5847 */
+  color: var(--primary-color); /* Logo en CF5847 */
   text-transform: uppercase;
-  text-shadow: 2px 2px 5px #274028; /* Ombre du logo */
   text-decoration: none;
   margin-right: 20px; /* Marge pour espacer le logo du reste */
 }
@@ -53,17 +60,18 @@ body {
   padding: 10px 20px;
   font-size: 1rem;
   border-radius: 5px;
-  background-color: #F5F3ED;
-  color: #CF5847;
+  background-color: var(--secondary-color); /* Couleur de fond */
+  color: var(--primary-color); /* Couleur du texte */
   text-decoration: none;
   text-align: center;
-  border: 2px solid #CF5847;
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 4px 4px 0px #CF5847;
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre avec la couleur principale */
 }
 
+/* Rectangle au bas du bouton */
 .navbar-links .btn::after {
   content: "";
   position: absolute;
@@ -71,19 +79,45 @@ body {
   right: -8px; /* Décalage de 8px à droite */
   width: 100%; /* Largeur du rectangle de la même taille que le bouton */
   height: 15px; /* Hauteur du rectangle */
-  background-color: #CF5847; /* Couleur de fond du rectangle */
+  background-color: var(--primary-color); /* Couleur de fond du rectangle */
   z-index: -1; /* Place le rectangle sous le bouton */
 }
 
+/* Effet au survol */
 .navbar-links .btn:hover {
-  background-color: #CF5847; /* Fond au survol */
-  color: #F5F3ED; /* Texte en F5F3ED */
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au survol */
 }
 
-/* Utilisateur (le bouton avec le dropdown à droite) */
+/* Effet au clic (active) */
+.navbar-links .btn:active {
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au clic */
+}
+
+/* Dropdown Utilisateur (le bouton avec le dropdown à droite) */
 .user-dropdown {
   position: relative; /* Pour positionner le menu déroulant */
   margin-left: 20px; /* Ajouter un peu d'espace entre le menu utilisateur et les liens */
+}
+
+.user-dropdown .dropdown-toggle {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Fond du bouton */
+  color: var(--primary-color); /* Couleur du texte */
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-dropdown .dropdown-toggle:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .user-dropdown .dropdown-menu {
@@ -91,26 +125,26 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #F5F3ED;
+  background-color: var(--secondary-color);
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #274028;
+  border: 1px solid var(--tertiary-color);
   z-index: 10;
 }
 
 .user-dropdown:hover .dropdown-menu {
-  display: block;
+  display: block; /* Affiche le menu déroulant au survol */
 }
 
 .user-dropdown .dropdown-item {
   padding: 10px 20px;
   text-decoration: none;
-  color: #274028;
+  color: var(--tertiary-color);
 }
 
 .user-dropdown .dropdown-item:hover {
-  background-color: #CF5847;
-  color: #F5F3ED;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 /* Styles pour les petits écrans */
@@ -127,7 +161,7 @@ body {
   }
 
   .navbar-menu.active {
-    display: flex;
+    display: flex; /* Affiche les liens au clic sur le hamburger */
   }
 
   .navbar-links {
@@ -139,4 +173,54 @@ body {
     width: 100%;
     justify-content: flex-start;
   }
+}
+
+/* Réutilisation des mêmes styles de boutons pour Log In et Sign Up */
+.auth-links .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Fond du bouton */
+  color: var(--tertiary-color); /* Couleur du texte */
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--tertiary-color); /* Bordure avec la couleur principale */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre avec la couleur principale */
+}
+
+/* Rectangle au bas du bouton */
+.auth-links .btn::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* Décalage de 8px en bas */
+  right: -8px; /* Décalage de 8px à droite */
+  width: 100%; /* Largeur du rectangle de la même taille que le bouton */
+  height: 15px; /* Hauteur du rectangle */
+  background-color: var(--tertiary-color); /* Couleur de fond du rectangle */
+  z-index: -1; /* Place le rectangle sous le bouton */
+}
+
+
+
+/* Positionnement des boutons Log In et Sign Up à gauche */
+.auth-links {
+  display: flex;
+  gap: 10px;
+}
+
+/* Effet au survol */
+.auth-links .btn:hover {
+  color: var(--primary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre en tertiary color */
+  border-color: var(--primary-color); /* Bordure passe en tertiary color au survol */
+}
+
+/* Effet au clic (active) */
+.auth-links .btn:active {
+  color: var(--primary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre en tertiary color */
+  border-color: var(--primary-color); /* Bordure passe en tertiary color au clic */
 }

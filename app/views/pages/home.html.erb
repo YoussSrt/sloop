@@ -1,29 +1,28 @@
-<div class="text-center mt-3">
+<div class="homepage">
+  <div class="text-center mt-2">
+    <% if user_signed_in? %>
+      <h1 class="mt-2 ms-5 me-5 text-success"><em>Hello, <%= current_user.nickname %>!</em></h1>
+      <div class="btn-home">
+        <%= link_to 'See my profile', profile_path, class: 'btn' %>
+      </div>
+    <% else %>
+      <h1 class="mt-5">Welcome to Sloop!</h1>
+      <p class="mt-3">Log in to explore all the features!</p>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-5">
+    <h1 class="font-weight-bold text-success">With SLOOP</h1>
+    <h2 class="font-weight-bold text-primary">Your Perfect Loop, Anytime, Anywhere!</h2>
+    <h3 class="mt-4 ms-5 me-5 text-success">
+      The Game Changer Sloop is here to disrupt the status quo!<br>
+      Our platform provides loop itineraries that not only connect cities,<br> but also create an engaging journey.
+    </h3>
+  </div>
+
   <% if user_signed_in? %>
-    <h1>Hello, <%= current_user.nickname %>!</h1>
-    <div>
-      <%= link_to 'See my profile', profile_path, class: 'btn btn-primary' %>
-    </div>
-  <% else %>
-    <h1 class="mt-5">Welcome to Sloop!</h1>
-    <p class="mt-3">Log in to explore all the features!</p>
-    <div>
-      <%= link_to 'Log in', new_user_session_path, class: 'btn btn-success me-2' %>
-      <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-secondary' %>
+    <div class="btn-home text-center mt-5">
+      <%= link_to 'NEW SLOOP', "", class: 'btn-sloop' %>
     </div>
   <% end %>
 </div>
-
-<div class="text-center mt-5">
-  <h2>With SLOOP</h2>
-  <h3>Your Perfect Loop, Anytime, Anywhere!</h3>
-  <p class="mt-4">
-    The Game Changer Sloop is here to disrupt the status quo! Our app provides loop itineraries that not only connect cities but also create an engaging journey.
-  </p>
-</div>
-
-<% if user_signed_in? %>
-  <div class="text-center mt-5">
-    <%= link_to 'New Sloop', "", class: 'btn btn-warning' %>
-  </div>
-<% end %>

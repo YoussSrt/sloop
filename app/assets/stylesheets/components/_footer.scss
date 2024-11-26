@@ -1,58 +1,67 @@
+// Footer Styles
 .footer {
-  background-color: #f7f4f0; // Couleur de fond similaire à votre design
-  border-top: 2px solid #CF5847; // Ligne décorative en haut
-  padding: 10px 20px; // Espacement interne
+  font-family: $headers-font; /* Police pour les éléments du footer */
+  background-color: #f7f4f0; /* Couleur de fond du footer */
+  border-top: 2px solid #CF5847; /* Bordure supérieure */
+  padding: 10px 20px; /* Espacement intérieur */
   text-align: center;
-  height: 70px; // Hauteur fixe pour le footer
-  margin-top: auto;
-  }
+  height: 70px; /* Hauteur fixe pour le footer */
+  margin-top: auto; /* Assure que le footer est toujours au bas de la page */
+}
 
-  .footer-container {
-    display: flex; // Affiche les éléments horizontalement
-    justify-content: space-between; // Espace égal entre les sections (logo, boutons, réseaux sociaux)
-    align-items: center; // Aligne les éléments verticalement
-    max-width: 1200px; // Limite la largeur du footer
-    margin: 0 auto; // Centre le footer horizontalement
-  }
+.footer-container {
+  display: flex; /* Layout flexible pour les contenus du footer */
+  justify-content: space-between; /* Espacement entre les sections */
+  align-items: center; /* Alignement vertical des éléments */
+  max-width: 1200px; /* Largeur maximale du footer */
+  margin: 0 auto; /* Centrer horizontalement */
+}
 
-  .footer-logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #CF5847;
-  }
+.footer-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #CF5847;
+}
 
-  .footer-links {
-    display: flex; // Affiche les boutons horizontalement
-    gap: 15px; // Ajoute de l'espace entre les boutons
-  }
+.footer-links {
+  display: flex; /* Affichage horizontal pour les boutons */
+  gap: 15px; /* Espacement entre les boutons */
+}
 
-  .footer-button {
-    border: 2px solid #CF5847;
-    background-color: transparent;
-    color: #CF5847;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+.footer-button {
+  border: 2px solid #CF5847;
+  background-color: transparent;
+  color: #CF5847;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    &:hover {
-      background-color: #CF5847;
-      color: #fff;
-    }
-  }
+.footer-social {
+  display: flex; /* Affichage horizontal des icônes */
+  gap: 10px; /* Espacement entre les icônes */
+}
 
-  .footer-social {
-    display: flex; // Affiche les icônes horizontalement
-    gap: 10px; // Ajoute de l'espace entre les icônes
-  }
+.footer-social-link i {
+  font-size: 20px;
+  color: #CF5847;
+  transition: color 0.3s;
+}
 
-  .footer-social-link i {
-    font-size: 20px;
-    color: #CF5847;
-    transition: color 0.3s;
+.footer-social-link i:hover {
+  color: #a23e30;
+}
 
-    &:hover {
-      color: #a23e30;
-    }
-  } 
+/* Effets de survol et de clic pour les boutons */
+.footer-links .footer-button:hover {
+  color: var(--tertiary-color); /* Couleur du texte au survol */
+  border-color: var(--tertiary-color); /* Bordure au survol */
+}
+
+/* Effet au clic (active) des boutons */
+.footer-links .footer-button:active {
+  color: var(--tertiary-color); /* Couleur du texte au clic */
+  border-color: var(--tertiary-color); /* Bordure au clic */
+}
