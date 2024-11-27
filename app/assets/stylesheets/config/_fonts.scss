@@ -1,7 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Avenir+Next+Condensed:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Avenir+Next+Condensed:wght@200;300;400;500;700;900&display=swap');
 
 $body-font: "Avenir Next Condensed", "Helvetica", "Arial", sans-serif;
 $headers-font: "Avenir Next Condensed", "Helvetica", "Arial", sans-serif;
+
+$avenir-ultra-light: 200;
+$avenir-light: 300;
+$avenir-regular: 400;
+$avenir-medium: 500;
+$avenir-bold: 700;
+$avenir-heavy: 900;
+
 
 body, html {
   font-family: $body-font;

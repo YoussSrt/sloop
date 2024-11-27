@@ -1,21 +1,94 @@
 // Homepage Styles
 // Appliquer l'image de fond à la page entière
-body, html {
-  height: 100%; /* S'assure que la hauteur du body et html est à 100% */
-  margin: 0; /* Éviter les marges par défaut */
+
+.div_home {
+  height: 100vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
 .homepage {
   background-image: url('background_homepage.jpg');
-  background-size: 100%; /* Zoomer davantage sur l'image */
+  background-size: cover; /* L'image couvre toute la surface sans déformation */
   background-position: center center; /* Centre l'image */
-  background-attachment: fixed; /* Fixe l'image pour qu'elle ne défile pas avec le contenu */
+  background-attachment: fixed; /* L'image reste fixe pendant le défilement */
   background-repeat: no-repeat; /* Ne répète pas l'image */
-  flex-grow: 1; /* Permet à cette section de prendre tout l'espace disponible */
+  // height: 100vh; /* Utilise 100% de la hauteur de la fenêtre */
   display: flex;
+  // margin-top: 100px;
   flex-direction: column;
   justify-content: center; /* Centre le contenu verticalement */
-  padding-bottom: 50px; /* Laisse de la place pour le footer */
+}
+
+.title_home {
+  font-size: 100px;
+  font-weight: $avenir-bold;
+  color: $secondary-color; /* Couleur du texte */
+  -webkit-text-stroke: 1px $primary-color; /* Contour de 2px en couleur $primary-color */
+  text-shadow: 0px 6px 0px $primary-color;
+}
+
+.second_title_home {
+  font-family: $avenir-heavy;
+  font-size: 30px;
+  color: $tertiary-color; /* Couleur du texte */
+}
+
+.corps_home {
+  font-family: $avenir-ultra-light;
+  font-weight: 400;
+  font-size: 20px;
+  color: $primary-color; /* Couleur du texte */
+}
+
+.btn-home {
+  display: flex;
+  align-items: center; /* Alignement des éléments sur la même ligne */
+  justify-content: center; /* Centrer les boutons au centre de la navbar */
+  // flex-grow: 1; /* Prend tout l'espace restant pour centrer les boutons */
+}
+
+.form-container-home,
+.form-container-home-bis {
+  width: 100%; /* S'assurer qu'ils prennent toute la largeur du parent */
+  max-width: 900px; /* Largeur maximale fixe */
+  margin: 0 auto; /* Centrer les deux conteneurs */
+  box-sizing: border-box; /* Inclut padding et border dans les dimensions */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre uniforme */
+}
+
+.form-container-home {
+  background-color: $secondary-color; /* Fond blanc */
+  padding: 50px; /* Espacement interne */
+  border-radius: 8px 8px 0 0; /* Coins supérieurs arrondis */
+}
+
+.form-container-home-bis {
+  background-color: $primary-color;
+  padding: 15px 50px; /* Espacement interne */
+  border-radius: 0 0 8px 8px; /* Coins inférieurs arrondis */
+}
+
+
+
+.form-row {
+  display: flex; /* Place les éléments côte à côte */
+  align-items: center; /* Aligne les éléments verticalement */
+  gap: 20px; /* Espacement entre les champs */
+}
+
+.input-group {
+  flex: 1; /* Chaque champ prend une largeur égale */
+}
+
+.form-control {
+  border: 1px solid #ced4da; /* Bordure légère */
+  border-radius: 4px; /* Coins arrondis pour les champs */
+}
+
+button {
+  flex-shrink: 0; /* Évite que le bouton soit compressé */
+  padding: 10px 20px; /* Taille du bouton */
 }

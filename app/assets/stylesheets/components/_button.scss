@@ -1,7 +1,8 @@
 /* Style de base du bouton */
 .btn-home .btn {
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 30px;
+  font-weight: 900;
   border-radius: 5px;
   background-color: var(--secondary-color);
   color: var(--primary-color);
@@ -10,6 +11,8 @@
   border: 2px solid var(--primary-color);
   position: relative;
   overflow: hidden;
+  box-shadow: 4px 4px 0px var(--primary-color);
+  -webkit-text-stroke: 1px $primary-color;
 }
 
 /* Effet au survol */
@@ -17,6 +20,8 @@
   background-color: var(--secondary-color);
   color: var(--tertiary-color);
   border-color: var(--tertiary-color);
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+  -webkit-text-stroke: 1px $tertiary-color;
 }
 
 /* Effet au clic (active) */
