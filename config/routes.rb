@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :sloopies
 
-  resources :chatrooms, only: [:show] do
+  resources :chatrooms, only: [:show, :create] do
     resources :messages, only: [:create]
   end
 end
