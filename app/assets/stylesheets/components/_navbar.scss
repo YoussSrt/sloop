@@ -5,10 +5,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-}
-
 /* Variables de couleur */
 :root {
   --primary-color: #CF5847; /* Couleur principale */
@@ -18,13 +14,21 @@ body {
 
 /* Navbar */
 .navbar {
-  background-color: var(--secondary-color); /* Fond de la navbar */
+  background-color: $secondary-color; /* Fond de la navbar */
   padding: 10px 20px;
-  display: flex; /* Utilisation de flexbox pour gérer l'alignement */
-  justify-content: space-between; /* Espacement entre le logo, les liens et l'utilisateur */
-  align-items: center; /* Centrer verticalement tous les éléments */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère en bas de la navbar */
+  position: fixed; /* Fixe la navbar en haut de la page */
+  top: 0; /* Positionne-la en haut de la page */
+  left: 0; /* Assure que la navbar commence à gauche */
+  right: 0; /* Assure que la navbar s'étend sur toute la largeur */
+  z-index: 1000; /* Met la navbar au-dessus des autres éléments */
+  width: 100%; /* S'assure que la navbar prend toute la largeur de la page */
+  margin-top: 0; /* Enlève l'espace en haut */
 }
+
 
 .container {
   display: flex;
@@ -33,14 +37,12 @@ body {
   width: 100%;
 }
 
-/* Logo */
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary-color); /* Logo en CF5847 */
+.navbar-brand img {
+  width: 150px;  /* Ajuste la taille de l'image selon tes besoins */
+  height: auto;  /* Conserve les proportions de l'image */
   text-transform: uppercase;
   text-decoration: none;
-  margin-right: 20px; /* Marge pour espacer le logo du reste */
+  margin-right: 20px;
 }
 
 /* Liens (les 4 boutons au centre) */
@@ -58,7 +60,8 @@ body {
 
 .navbar-links .btn {
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 12px;
+  font-weight: $avenir-heavy;
   border-radius: 5px;
   background-color: var(--secondary-color); /* Couleur de fond */
   color: var(--primary-color); /* Couleur du texte */

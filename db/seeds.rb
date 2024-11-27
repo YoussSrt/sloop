@@ -63,7 +63,7 @@ puts "Création des sloopies..."
 
   # Statut : 20% "done", le reste aléatoire
   if i < 2 # 20% des sloopies
-    status = "done"
+    status = "false"
     departure_date = Date.today - rand(30..365) # Départ il y a max 1 an
     return_date = departure_date + duration
   else
