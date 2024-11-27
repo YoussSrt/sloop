@@ -1,13 +1,14 @@
-<h1>We have generate <%= @sloopies.count %> for you, are you ready to trip?</h1>
+<h1>We have generate <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
 
 <div class="container">
   <% @sloopies.each_with_index do |sloopy, index| %>
-    <h2> Sloopy <%= index + 1 %> </h2>
-      <%= sloopy.departure_date %> <%= sloopy.return_date %>
     <ul>
-      <%= sloopy.origin %>
-      <%= sloopy.destination %>
+      <li><h2> Sloopy <%= index + 1 %> </h2></li>
+        <li><%= sloopy.departure_date %> to <%= sloopy.return_date %> </li>
+        <li><%= sloopy.origin %>  </li>
+        <li><%= sloopy.destination %>  </li>
+        <%= sloopy.summary %>
+      <li><%= link_to "see details", sloopy_path(sloopy) %></li>
     </ul>
-    <%= link_to "see details", sloopy_path(sloopy) %>
   <% end %>
 </div>
