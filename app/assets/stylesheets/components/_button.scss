@@ -1,0 +1,68 @@
+/* Style de base du bouton */
+.btn-home .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--primary-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet au survol */
+.btn-home .btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+}
+
+/* Effet au clic (active) */
+.btn-home .btn:active {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+}
+
+.btn-home .btn-sloop {
+  padding: 10px 20px;
+  font-size: 2rem;
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Couleur de fond */
+  color: var(--primary-color); /* Couleur du texte */
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre avec la couleur principale */
+}
+
+/* Rectangle au bas du bouton */
+.btn-home .btn-sloop::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* Décalage de 8px en bas */
+  right: -8px; /* Décalage de 8px à droite */
+  width: 100%; /* Largeur du rectangle de la même taille que le bouton */
+  height: 15px; /* Hauteur du rectangle */
+  background-color: var(--primary-color); /* Couleur de fond du rectangle */
+  z-index: -1; /* Place le rectangle sous le bouton */
+}
+
+/* Effet au survol */
+.btn-home .btn-sloop:hover {
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au survol */
+}
+
+/* Effet au clic (active) */
+.btn-home .btn-sloop:active {
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au clic */
+}

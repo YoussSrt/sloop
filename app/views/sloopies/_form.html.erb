@@ -1,0 +1,26 @@
+<%= simple_form_for(sloopy) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="mb-3">
+      <%= f.input :origin, label: false, input_html: { class: "form-control", placeholder: "Your city" } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :destination, label: false, input_html: { class: "form-control", placeholder: "Your destination" } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :departure_date, label: false, input_html: { class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :return_date, label: false, input_html: { class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :budget, label: false, input_html: { class: "form-control", placeholder: "approximative budget" } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :duration, label: false, input_html: { class: "form-control", placeholder: "duration of the trip" } %>
+    </div>
+  </div>
+  <div class="form-actions d-flex justify-content-center">
+    <%= f.button :submit, "Generate your Sloopies"%>
+  </div>
+<% end %>
