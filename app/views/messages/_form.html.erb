@@ -1,0 +1,10 @@
+<%= form_with model: [chatroom, message], 
+              class: "message-form",
+              data: { controller: "reset-form",
+                     action: "turbo:submit-end->reset-form#reset" } do |form| %>
+  <%= form.text_area :content,
+                    placeholder: "Write your message...",
+                    required: true,
+                    class: "message-input" %>
+  <%= form.submit "Send", class: "send-button" %>
+<% end %>
