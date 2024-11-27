@@ -63,8 +63,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
   # pour forcer la compilation des assets
-  # config.assets.debug = true
-  # config.assets.compile = true
+  config.assets.debug = true
+  config.assets.compile = true
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

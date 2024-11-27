@@ -1,12 +1,12 @@
 <div class="chat-sidebar">
   <div class="sidebar-header">
-    <h2>Messages</h2>
+    <h2>Messaging 📮</h2>
   </div>
-  
+
   <div class="users-list">
     <% users.each do |user| %>
       <% chatroom = chatrooms.find { |c| c.participants.include?(user) } %>
-      <%= link_to(chatroom ? chatroom_path(chatroom) : chatrooms_path(second_user_id: user.id), 
+      <%= link_to(chatroom ? chatroom_path(chatroom) : chatrooms_path(second_user_id: user.id),
           data: { turbo_method: chatroom ? :get : :post },
           class: "user-item #{'active' if local_assigns[:current_chatroom]&.participants&.include?(user)}") do %>
         <div class="user-avatar">
