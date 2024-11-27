@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :favorites, dependent: :destroy
     has_many :reviews, through: :sloopies
     # has_many :user_preferences, dependent: :destroy
+    has_many :user_preferences
     has_many :preferences, through: :user_preferences
     # has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
     # has_many :chatrooms_as_first_user, class_name: 'Chatroom', foreign_key: 'first_user_id', dependent: :destroy
