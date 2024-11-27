@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_161200) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_27_155250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_161200) do
     t.bigint "step_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
     t.index ["step_id"], name: "index_activities_on_step_id"
   end
 
@@ -78,15 +79,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_161200) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "summary"
     t.index ["user_id"], name: "index_sloopies_on_user_id"
   end
 
   create_table "steps", force: :cascade do |t|
-    t.string "city_name"
-    t.integer "step_duration"
+    t.string "city"
     t.bigint "sloopy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "transport"
+    t.integer "cost"
+    t.integer "duration"
     t.index ["sloopy_id"], name: "index_steps_on_sloopy_id"
   end
 

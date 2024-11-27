@@ -1,0 +1,8 @@
+<h1>Chatrooms</h1>
+<ul>
+  <% @chatrooms.each do |chatroom| %>
+    <li>
+      <%= link_to "Chatroom between #{chatroom.first_user.nickname} et #{chatroom.second_user.nickname}", chatroom_path(chatroom) %>
+    </li>
+  <% end %>
+</ul>
