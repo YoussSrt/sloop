@@ -1,0 +1,15 @@
+<div class="message-wrapper <%= message.sender?(current_user) ? 'message-sent' : 'message-received' %>">
+  <div class="message">
+    <div class="message-content">
+      <%= message.content %>
+    </div>
+    <div class="message-metadata">
+      <span class="message-time">
+        <%= l(message.created_at, format: :short) %>
+      </span>
+      <span class="message-sender">
+        <%= message.sender.nickname %>
+      </span>
+    </div>
+  </div>
+</div>

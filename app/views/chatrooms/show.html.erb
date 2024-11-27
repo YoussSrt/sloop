@@ -1,0 +1,37 @@
+<div class="chat-wrapper">
+  <%= render "shared/sidebar", users: @users, chatrooms: @chatrooms, current_chatroom: @chatroom %>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <h1>Chat with <%= @chatroom.other_user(current_user).nickname %></h1>
+    </div>
+
+    <%= turbo_stream_from [@chatroom, "messages", current_user] %>
+
+    <div id="messages"
+         class="messages-container"
+         data-controller="chat"
+         data-chat-target="container">
+      <%= render @chatroom.messages, current_user: current_user %>
+    </div>
+
+    <div class="chat-footer">
+      <%= form_with model: [@chatroom, @message],
+                    class: "message-form",
+                    data: {
+                      controller: "message-form reset-form",
+                      action: "turbo:submit-end->reset-form#reset",
+                      message_form_target: "form"
+                    } do |form| %>
+        <div class="message-input-wrapper">
+          <%= form.text_area :content,
+                            placeholder: "Type your message...",
+                            required: true,
+                            class: "message-input",
+                            data: { message_form_target: "input" } %>
+        </div>
+        <%= form.submit "Send", class: "send-button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
