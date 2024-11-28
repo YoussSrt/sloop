@@ -39,3 +39,5 @@
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
+
+app/views/sloopies/_step_info_window.html.erb
