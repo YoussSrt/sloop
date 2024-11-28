@@ -54,6 +54,7 @@ gem "sassc-rails"
 gem "ostruct"
 gem "ruby-openai"
 gem "cloudinary"
+gem "geocoder"
 
 
 group :development, :test do
