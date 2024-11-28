@@ -1,12 +1,15 @@
 class Sloopy < ApplicationRecord
   belongs_to :user
-
-  # par qui il a ete liké et qui a liké
   has_many :steps, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
   validates :origin, :destination, :departure_date, :return_date, :duration, presence: true
   validates :duration, numericality: { greater_than: 0 }
-  # validates :status, inclusion: { in: [true, false] }
+
+  geocoded_by :origin, latitude: :origin_latitude, longitude: :origin_longitude
+  after_validation :geocode, if: :origin_changed?
+
+  reverse_geocoded_by :destination_latitude, :destination_longitude, address: :destination
+  after_validation :reverse_geocode, if: :destination_changed?
 end

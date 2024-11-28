@@ -1,14 +1,22 @@
-<h1>We have generate <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
+<div class="container mt-4 div-home">
+  <div class="map-container"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+    style="width: 100%; height: 400px;">
+  </div>
 
-<div class="container">
-  <% @sloopies.each_with_index do |sloopy, index| %>
-    <ul>
-      <li><h2> Sloopy <%= index + 1 %> </h2></li>
-        <li><%= sloopy.departure_date %> to <%= sloopy.return_date %> </li>
-        <li><%= sloopy.origin %>  </li>
-        <li><%= sloopy.destination %>  </li>
-        <%= sloopy.summary %>
-      <li><%= link_to "see details", sloopy_path(sloopy) %></li>
-    </ul>
-  <% end %>
+  <div class="sloopies-list mt-4">
+    <% @sloopies.each do |sloopy| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= sloopy.origin %> → <%= sloopy.destination %></h5>
+          <p class="card-text">
+            Budget: <%= sloopy.budget %>€ • Duration: <%= sloopy.duration %> days
+          </p>
+          <%= link_to "Details", sloopy_path(sloopy), class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
