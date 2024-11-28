@@ -30,16 +30,27 @@ class SloopiesController < ApplicationController
       {
         lat: @sloopy.origin_latitude,
         lng: @sloopy.origin_longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy, location: @sloopy.origin }),
+        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
         marker_html: render_to_string(partial: "marker", locals: { marker_type: "origin" })
       },
       {
         lat: @sloopy.destination_latitude,
         lng: @sloopy.destination_longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy, location: @sloopy.destination }),
+        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
         marker_html: render_to_string(partial: "marker", locals: { marker_type: "destination" })
       }
     ]
+
+    # Ajouter les marqueurs pour chaque étape
+    @sloopy.steps.each do |step|
+      next unless step.latitude && step.longitude
+      @markers << {
+        lat: step.latitude,
+        lng: step.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
+        marker_html: render_to_string(partial: "marker", locals: { marker_type: "step" })
+      }
+    end
   end
 
   def new
