@@ -1,3 +1,4 @@
+
 <div class="div_home">
   <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
   <div class="sloopy-container">
@@ -9,6 +10,14 @@
         <p><strong>To:</strong> <%= sloopy.destination %></p>
         <p><%= sloopy.summary %></p>
         <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+
+      <div class="container mt-4 div-home">
+        <div class="map-container"
+          data-controller="map"
+          data-map-markers-value="<%= @markers.to_json %>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+          style="width: 100%; height: 400px;">
+        </div>
       </div>
     <% end %>
   </div>

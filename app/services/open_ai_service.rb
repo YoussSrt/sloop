@@ -24,6 +24,7 @@ class OpenAiService
         new_step = Step.create(
           sloopy: @sloopy,
           city: detail["city"],
+          city_stop: detail["city"].split('to')[-1].strip,
           transport: detail["transport"],
           cost: detail["cost"],
           duration: detail["duration"]
