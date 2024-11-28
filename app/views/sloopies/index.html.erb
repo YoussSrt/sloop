@@ -1,20 +1,22 @@
-<div class="container mt-4 div-home">
-  <div class="map-container"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-    style="width: 100%; height: 400px;">
-  </div>
 
-  <div class="sloopies-list mt-4">
-    <% @sloopies.each do |sloopy| %>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title"><%= sloopy.origin %> → <%= sloopy.destination %></h5>
-          <p class="card-text">
-            Budget: <%= sloopy.budget %>€ • Duration: <%= sloopy.duration %> days
-          </p>
-          <%= link_to "Details", sloopy_path(sloopy), class: "btn btn-primary" %>
+<div class="div_home">
+  <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
+  <div class="sloopy-container">
+    <% @sloopies.each_with_index do |sloopy, index| %>
+      <div class="sloopy-card">
+        <h2>Sloopy <%= index + 1 %></h2>
+        <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
+        <p><strong>From:</strong> <%= sloopy.origin %></p>
+        <p><strong>To:</strong> <%= sloopy.destination %></p>
+        <p><%= sloopy.summary %></p>
+        <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+
+      <div class="container mt-4 div-home">
+        <div class="map-container"
+          data-controller="map"
+          data-map-markers-value="<%= @markers.to_json %>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+          style="width: 100%; height: 400px;">
         </div>
       </div>
     <% end %>
