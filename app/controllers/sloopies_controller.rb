@@ -20,7 +20,7 @@ class SloopiesController < ApplicationController
           info_window_html: render_to_string(partial: "info_window", locals: { sloopy: sloopy })
         }
       ]
-
+      end
     end
   end
 
