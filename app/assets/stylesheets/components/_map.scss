@@ -1,8 +1,10 @@
 .map-container {
-  width: 100%;
-  height: 600px;
+  width: 500px;
+  height: 300px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+  border-color: var(--tertiary-color);
+  margin-bottom: 40px;
 }
 
 .mapboxgl-canvas {
@@ -39,7 +41,7 @@
 .info-window {
   padding: 10px;
   max-width: 200px;
-  
+
   h2 {
     font-size: 16px;
     margin-bottom: 8px;
@@ -94,7 +96,7 @@
   gap: 20px;
 }
 
-.sloopy-card {
+.sloopy-card-map {
   background: white;
   border-radius: 8px;
   padding: 20px;

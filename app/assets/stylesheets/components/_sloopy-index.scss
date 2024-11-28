@@ -20,7 +20,7 @@
   border-color: var(--tertiary-color);
 }
 
-.sloopy-card {
+.sloopy-card-index {
   background-color: #ffffff;
   border: 2px solid #d64545;
   border-radius: 20px;
@@ -40,4 +40,13 @@
 
 .div-sloopy {
   margin-top: 100px;
+  margin-bottom: 80px;
+}
+
+.sloopy-title {
+  text-align: center;
+  color: $primary-color ;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  padding: 10px;
 }

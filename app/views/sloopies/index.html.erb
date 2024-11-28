@@ -1,24 +1,23 @@
 <div class="div-sloopy">
-  <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
-  <div class="sloopy-container">
-    <% @sloopies.each_with_index do |sloopy, index| %>
-      <div class="sloopy-card">
-        <h2>Sloopy <%= index + 1 %></h2>
-        <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
-        <p><strong>From:</strong> <%= sloopy.origin %></p>
-        <p><strong>To:</strong> <%= sloopy.destination %></p>
-        <p><%= sloopy.summary %></p>
-        <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="container mt-4 div-home">
+  <div class="container mt-4">
     <div class="map-container"
       data-controller="map"
       data-map-markers-value="<%= @markers.to_json %>"
       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
       style="width: 100%; height: 400px;">
     </div>
+  </div>
+  <h2 class="sloopy-title">We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h2>
+  <div class="sloopy-container">
+    <% @sloopies.each_with_index do |sloopy, index| %>
+      <div class="sloopy-card-index">
+        <h2>Sloopy <%= index + 1 %></h2>
+        <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
+        <p class="mb-0"><strong>From:</strong> <%= sloopy.origin %></p>
+        <p><strong>To:</strong> <%= sloopy.destination %></p>
+        <p><%= sloopy.summary %></p>
+        <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+      </div>
+    <% end %>
   </div>
 </div>
