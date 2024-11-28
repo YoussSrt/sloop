@@ -8,8 +8,6 @@ class Sloopy < ApplicationRecord
   validates :duration, numericality: { greater_than: 0 }
 
   geocoded_by :origin, latitude: :origin_latitude, longitude: :origin_longitude
-  after_validation :geocode, if: :origin_changed?
 
   reverse_geocoded_by :destination_latitude, :destination_longitude, address: :destination
-  after_validation :reverse_geocode, if: :destination_changed?
 end

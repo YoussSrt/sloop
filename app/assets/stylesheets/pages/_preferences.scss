@@ -1,0 +1,18 @@
+// Masque les cases à cocher
+.user_preferences {
+  input[type="checkbox"] {
+    display: none; 
+  }
+  
+  .tag-item:has(> input[type=checkbox]:checked) {
+    background-color: $primary-color;
+    color: white;
+  }
+  
+  fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
