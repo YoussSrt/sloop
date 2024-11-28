@@ -1,1 +1,9 @@
 Sloopy
+
+<% @sloopy.steps.each do |step| %>
+  <%= step.city %>
+  <%= step.transport %>
+  <% step.activities.each do |activity| %>
+    <%= activity.name %>
+  <% end %>
+<% end %>

@@ -54,16 +54,16 @@ users = User.create!([
 puts "Utilisateurs créés avec succès."
 
 puts "Création des sloopies..."
-10.times do |i|
+3.times do |i|
   # Durée fixe pour rendre le seed déterministe
-  duration = [7, 14, 21, 30, 45, 60, 75, 90].sample
+  duration = [3,4,5,6,7].sample
 
   # Budget par jour (entre 10 et 300), multiplié par la durée
-  budget = rand(10..300) * duration
+  budget = rand(200..1000) * duration
 
   # Statut : 20% "done", le reste aléatoire
   if i < 2 # 20% des sloopies
-    status = "done"
+    status = "false"
     departure_date = Date.today - rand(30..365) # Départ il y a max 1 an
     return_date = departure_date + duration
   else
