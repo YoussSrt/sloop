@@ -6,7 +6,7 @@ class Sloopy < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  validates :origin, :destination, :departure_date, :return_date, :duration, presence: true
+  validates :origin, :destination, :departure_date, :duration, presence: true
   validates :duration, numericality: { greater_than: 0 }
   # validates :status, inclusion: { in: [true, false] }
 end

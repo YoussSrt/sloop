@@ -49,16 +49,16 @@ class OpenAiService
     chatgpt_response = client.chat(parameters: {
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt}],
-      temperature: 0.5
+      temperature: 0.7
     })
     return chatgpt_response["choices"][0]["message"]["content"]
   end
 
   def build_prompt
     <<~PROMPT
-      Generate two round-trip itinerary between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, to #{@sloopy.return_date}, with a maximum transport budget of #{@sloopy.budget}.
+      Generate two round-trip itinerary between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, with a maximum transport budget of #{@sloopy.budget}€.
       The itinerary should include:
-      Outbound: Several stops where I can stay a few days (at least 2 stops between #{@sloopy.origin} and #{@sloopy.destination}) and do some activities (with the adresses) in relation with my tastes: #{user.formatted_preferences}.
+      Outbound: Several stops where I can stay a few days (at least 2 stops between #{@sloopy.origin} and #{@sloopy.destination}) and do several activities (with the adresses) in relation with my tastes: #{@sloopy.user.formatted_preferences}.
       In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days.
       Return: A different itinerary from the outbound, with at least 1 or 2 new stops where I can stay for one or more nights.
       Return to #{@sloopy.origin} on #{@sloopy.return_date}.

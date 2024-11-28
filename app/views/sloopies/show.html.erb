@@ -1,9 +1,12 @@
 Sloopy
+<div class="div_home">
 
-<% @sloopy.steps.each do |step| %>
-  <%= step.city %>
-  <%= step.transport %>
-  <% step.activities.each do |activity| %>
-    <%= activity.name %>
+  <div class="sloopy-card">
+  <% @sloopy.steps.each do |step| %>
+    <%= step.city %>
+    <%= step.transport %>
+    <% step.activities.each do |activity| %>
+      <%= activity.name %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

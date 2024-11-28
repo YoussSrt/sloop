@@ -1,6 +1,10 @@
 class SloopiesController < ApplicationController
   def index
-    @sloopies = Sloopy.all
+    if user_signed_in?
+      @sloopies = current_user.sloopies
+    else
+      @sloopies = []
+    end
   end
 
   def show
@@ -18,6 +22,8 @@ class SloopiesController < ApplicationController
   def create
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
+    @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
+    @sloopy.return_date = sloopy_params[:departure_date].split("to").last
 
     open_ai_service = OpenAiService.new(@sloopy).call
     if @sloopy.save
