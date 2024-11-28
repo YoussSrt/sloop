@@ -58,7 +58,7 @@ class OpenAiService
     <<~PROMPT
       Generate two round-trip itinerary between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, to #{@sloopy.return_date}, with a maximum transport budget of #{@sloopy.budget}.
       The itinerary should include:
-      Outbound: Several stops where I can stay a few days (at least 2 stops between #{@sloopy.origin} and #{@sloopy.destination}) and do some activities (with the adresses) in relation with my tastes.
+      Outbound: Several stops where I can stay a few days (at least 2 stops between #{@sloopy.origin} and #{@sloopy.destination}) and do some activities (with the adresses) in relation with my tastes: #{user.formatted_preferences}.
       In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days.
       Return: A different itinerary from the outbound, with at least 1 or 2 new stops where I can stay for one or more nights.
       Return to #{@sloopy.origin} on #{@sloopy.return_date}.
