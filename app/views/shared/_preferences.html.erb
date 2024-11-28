@@ -1,0 +1,16 @@
+<div id="preferences-form">
+  <%= form_with url: preferences_path, method: :post, local: true do |f| %>
+    <% Preference::PREFERENCES.each do |category, choices| %>
+      <div class="preference-category">
+        <h3><%= category.to_s.humanize %></h3>
+        <% choices.each do |choice| %>
+          <label>
+            <%= check_box_tag "preferences[#{category}][]", choice %>
+            <%= choice %>
+          </label>
+        <% end %>
+      </div>
+    <% end %>
+    <button type="submit">Submit</button>
+  <% end %>
+</div>

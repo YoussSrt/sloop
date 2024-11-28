@@ -11,6 +11,8 @@
 @import "components/index";
 @import "pages/index";
 @import 'components/footer';
+@import 'components/layout';
+@import "pages/preferences";
 
 html {
   scroll-behavior: smooth;
@@ -23,4 +25,3 @@ body {
   font-family: 'Avenir Next Condensed', 'sans-serif';
   margin: 0; /* Éviter les marges par défaut */
 }
-
