@@ -16,26 +16,11 @@
 
 
   <div class="div_home" id="form_new_sloop">
-
-    <div class="form-container-home">
-
-      <form class="form-inline">
         <div class="form-row">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Input 1" required>
-          </div>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Input 2" required>
-          </div>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Input 3" required>
-          </div>
+          <%= render "sloopies/form", sloopy: @sloopy %>
+        </div>
         </div>
       </form>
-    </div>
-
-    <div class="form-container-home-bis">
-      <button type="submit" class="btn btn-primary ml-3">Submit</button>
     </div>
   </div>
 </div>

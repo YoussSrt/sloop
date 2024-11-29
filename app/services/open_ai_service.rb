@@ -27,7 +27,8 @@ class OpenAiService
           city_stop: detail["city"].split('to')[-1].strip,
           transport: detail["transport"],
           cost: detail["cost"],
-          duration: detail["duration"]
+          duration: detail["duration"],
+          stays: step["stays"]
         )
 
           detail["activities"].each do |activity|
