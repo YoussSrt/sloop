@@ -1,0 +1,95 @@
+// Styles pour la page Sloopie
+
+.sloopie-page {
+  background-image: url('background_homepage.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sloopie-form-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sloopie-form-container,
+.sloopie-form-container-bis {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sloopie-form-container {
+  background-color: $secondary-color;
+  padding: 50px;
+  border-radius: 8px 8px 0 0;
+  margin-top: 50px;
+}
+
+.sloopie-form-container-bis {
+  background-color: $primary-color;
+  padding: 15px 50px;
+  border-radius: 0 0 8px 8px;
+}
+
+.sloopie-form-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sloopie-input-group {
+  flex: 1;
+}
+
+.sloopie-form-control {
+  color: var(--primary-color) !important;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  border: 2px solid #F3C59D;
+  box-shadow: 4px 4px 0px #F3C59D;
+  margin-bottom: 20px !important;
+}
+
+.label-style {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.range-wrapper {
+  position: relative;
+}
+
+.range-value {
+  position: absolute;
+  top: 30px;  /* Positionner la valeur au-dessus du curseur */
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.price-value {
+  color: var(--primary-color);
+  font-weight: 700;
+
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  border: 2px solid #F3C59D;
+  box-shadow: 4px 4px 0px #F3C59D;
+  margin-bottom: 20px;
+  padding: 5px 20px;
+
+}

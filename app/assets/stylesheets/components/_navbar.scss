@@ -102,53 +102,61 @@
 
 /* Dropdown Utilisateur (le bouton avec le dropdown à droite) */
 .user-dropdown {
-  position: relative; /* Pour positionner le menu déroulant */
-  margin-left: 20px; /* Ajouter un peu d'espace entre le menu utilisateur et les liens */
+  position: relative; /* Nécessaire pour positionner le menu par rapport au bouton */
+  margin-left: 20px;
+
+  .dropdown-toggle {
+    padding: 10px 40px 10px 20px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px var(--primary-color);
+    font-weight: 700;
+
+    &:hover,
+    &.active {
+      background-color: var(--secondary-color);
+      color: var(--tertiary-color);
+      border-color: var(--tertiary-color);
+      box-shadow: 4px 4px 0px var(--tertiary-color);
+      -webkit-text-stroke: 1px $tertiary-color;
+    }
+  }
+
+  .dropdown-menu {
+    display: none; /* Initialement caché */
+    position: absolute;
+    top: calc(100% + 10px); /* 20px d'espacement sous le bouton */
+    left: 0;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--tertiary-color);
+    box-shadow: 4px 4px 0px var(--tertiary-color);
+    -webkit-text-stroke: 1px $tertiary-color;
+    z-index: 10;
+    min-width: 100%; /* Empêche un menu plus étroit que le bouton */
+    width: 100%;
+
+
+    .dropdown-item {
+      padding: 10px 20px;
+      text-decoration: none;
+      color: var(--tertiary-color);
+
+      &:hover {
+        background-color: var(--primary-color);
+        color: var(--tertiary-color);
+      }
+    }
+  }
 }
 
-.user-dropdown .dropdown-toggle {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  background-color: var(--secondary-color); /* Fond du bouton */
-  color: var(--primary-color); /* Couleur du texte */
-  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.user-dropdown .dropdown-toggle:hover {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-}
-
-.user-dropdown .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--secondary-color);
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--tertiary-color);
-  z-index: 10;
-}
-
-.user-dropdown:hover .dropdown-menu {
-  display: block; /* Affiche le menu déroulant au survol */
-}
-
-.user-dropdown .dropdown-item {
-  padding: 10px 20px;
-  text-decoration: none;
-  color: var(--tertiary-color);
-}
-
-.user-dropdown .dropdown-item:hover {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-}
 
 /* Styles pour les petits écrans */
 @media (max-width: 768px) {

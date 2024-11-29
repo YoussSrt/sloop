@@ -12,21 +12,59 @@
       </div>
     </div>
 
-    <div class="user-dropdown">
-      <% if user_signed_in? %>
-        <button class="btn dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          <%= current_user.nickname %>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-          <li><a href="<%= profile_path %>" class="dropdown-item">My Profile</a></li>
-          <li><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></li>
-        </ul>
-      <% else %>
-        <div class="auth-links">
-          <a href="<%= new_user_session_path %>" class="btn">Log In</a>
-          <a href="<%= new_user_registration_path %>" class="btn">Sign Up</a>
-        </div>
-      <% end %>
+<div class="user-dropdown">
+  <% if user_signed_in? %>
+    <button class="btn dropdown-toggle" id="userDropdown" aria-expanded="false">
+      <%= current_user.nickname %>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+      <li><a href="<%= profile_path %>" class="dropdown-item">My Profile</a></li>
+      <li><%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %></li>
+    </ul>
+  <% else %>
+    <div class="auth-links">
+      <a href="<%= new_user_session_path %>" class="btn">Log In</a>
+      <a href="<%= new_user_registration_path %>" class="btn">Sign Up</a>
     </div>
+  <% end %>
+</div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const dropdownButton = document.getElementById('userDropdown');
+  const dropdownMenu = document.querySelector('.user-dropdown .dropdown-menu');
+
+  // Toggle the menu visibility on button click
+  dropdownButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = dropdownButton.getAttribute('aria-expanded') === 'true';
+    dropdownButton.setAttribute('aria-expanded', !isExpanded);
+    dropdownMenu.style.display = isExpanded ? 'none' : 'block';
+
+    // Ajoute ou retire la classe active pour le bouton
+    dropdownButton.classList.toggle('active', !isExpanded);
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', () => {
+    dropdownMenu.style.display = 'none';
+    dropdownButton.setAttribute('aria-expanded', 'false');
+    dropdownButton.classList.remove('active');
+  });
+
+  // Keep menu open and button active when hovering over the menu
+  dropdownMenu.addEventListener('mouseover', () => {
+    dropdownMenu.style.display = 'block';
+    dropdownButton.classList.add('active');
+  });
+
+  dropdownMenu.addEventListener('mouseleave', () => {
+    dropdownMenu.style.display = 'none';
+    dropdownButton.setAttribute('aria-expanded', 'false');
+    dropdownButton.classList.remove('active');
+  });
+});
+
+</script>
