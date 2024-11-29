@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center align-items-center min-vh-70">
+<div class="d-flex justify-content-center align-items-center min-vh-70 sibling" data-controller="next-button">  
   <%= simple_form_for :user_preferences, url: preferences_path, method: :post do |f| %>
     <% Preference::PREFERENCES.each do |category, choices| %>
       <div class="form-container-home">
@@ -12,12 +12,12 @@
                     class: "form-check-input"
                   },
                   wrapper_html: {
-                    data: { controller: "preferences-form" }
+                    data: { controller: "preferences-form", next_button_target: "wrapper" }
                   },
                   item_wrapper_class: 'tag-item btn-orange mx-3' %>
-        <div class="form-container-home-bis" data-controller="next-button">
+        <div class="form-container-home-bis" data-controller="preferences-form">
           <% if category_title(category) == "What is your main travel goal?" %>
-            <button type="submit" class="btn btn-success mt-3">Submit</button>
+            <button type="submit" class="btn btn-success mt-3" data-action="click->preferences-form#check">Submit</button>
           <% else %>
             <button type="button" class="btn btn-success mt-3" data-action="click->next-button#next">Next</button>
           <% end %>
