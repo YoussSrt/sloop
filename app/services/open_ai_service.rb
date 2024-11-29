@@ -19,6 +19,7 @@ class OpenAiService
 
     # Création de steps
     @sloopy.update(summary: hash["summary"])
+
     hash["steps"].each do |step|
       step["details"].each do |detail|
         new_step = Step.create(
@@ -28,7 +29,7 @@ class OpenAiService
           transport: detail["transport"],
           cost: detail["cost"],
           duration: detail["duration"],
-          stays: step["stays"]
+          stays: detail["stay"]
         )
 
           detail["activities"].each do |activity|
