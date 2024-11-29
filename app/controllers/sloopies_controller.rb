@@ -7,48 +7,63 @@ class SloopiesController < ApplicationController
                 end
 
     @markers = @sloopies.flat_map do |sloopy|
-      [
-        {
-          lat: sloopy.origin_latitude,
-          lng: sloopy.origin_longitude,
-          info_window_html: render_to_string(partial: "info_window", locals: { sloopy: sloopy }),
-          marker_html: render_to_string(partial: "marker", locals: { marker_type: "origin" })
-        },
-        {
-          lat: sloopy.destination_latitude,
-          lng: sloopy.destination_longitude,
-          info_window_html: render_to_string(partial: "info_window", locals: { sloopy: sloopy }),
-          marker_html: render_to_string(partial: "marker", locals: { marker_type: "destination" })
-        }
-      ]
+      route_coordinates = []
+      markers = []
+
+      # Départ
+      if sloopy.origin_latitude && sloopy.origin_longitude
+        route_coordinates << [sloopy.origin_longitude, sloopy.origin_latitude]
+        markers << { lat: sloopy.origin_latitude, lng: sloopy.origin_longitude, type: "origin" }
+      end
+
+      # Étapes
+      sloopy.steps.each do |step|
+        if step.latitude && step.longitude
+          route_coordinates << [step.longitude, step.latitude]
+          markers << { lat: step.latitude, lng: step.longitude, type: "step" }
+        end
+      end
+
+      # Arrivée
+      if sloopy.destination_latitude && sloopy.destination_longitude
+        route_coordinates << [sloopy.destination_longitude, sloopy.destination_latitude]
+        markers << { lat: sloopy.destination_latitude, lng: sloopy.destination_longitude, type: "destination" }
+      end
+
+      markers.first[:route_coordinates] = route_coordinates if markers.any?
+      markers
     end
   end
 
   def show
     @sloopy = Sloopy.find(params[:id])
-    @markers = [
-      {
+    @markers = []
+    
+    # Point de départ
+    if @sloopy.origin_latitude.present? && @sloopy.origin_longitude.present?
+      @markers << {
         lat: @sloopy.origin_latitude,
         lng: @sloopy.origin_longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
-        marker_html: render_to_string(partial: "marker", locals: { marker_type: "origin" })
-      },
-      {
+        type: "origin"
+      }
+    end
+
+    # Point d'arrivée
+    if @sloopy.destination_latitude.present? && @sloopy.destination_longitude.present?
+      @markers << {
         lat: @sloopy.destination_latitude,
         lng: @sloopy.destination_longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
-        marker_html: render_to_string(partial: "marker", locals: { marker_type: "destination" })
+        type: "destination"
       }
-    ]
+    end
 
-    # Ajouter les marqueurs pour chaque étape
+    # Étapes
     @sloopy.steps.each do |step|
-      next unless step.latitude && step.longitude
+      next unless step.latitude.present? && step.longitude.present?
       @markers << {
         lat: step.latitude,
         lng: step.longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { sloopy: @sloopy }),
-        marker_html: render_to_string(partial: "marker", locals: { marker_type: "step" })
+        type: "step"
       }
     end
   end
@@ -62,6 +77,8 @@ class SloopiesController < ApplicationController
   end
 
   def create
+    current_user.sloopies.destroy_all
+
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
@@ -73,6 +90,12 @@ class SloopiesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @sloopy = Sloopy.find(params[:id])
+    @sloopy.destroy
+    redirect_to sloopies_path, status: :see_other
   end
 
   private
