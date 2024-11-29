@@ -45,7 +45,7 @@ class SloopiesController < ApplicationController
     @sloopy = Sloopy.find(params[:id])
     @markers = []
     route_coordinates = []
-    
+
     # Point de départ
     if @sloopy.origin_latitude.present? && @sloopy.origin_longitude.present?
       route_coordinates << [@sloopy.origin_longitude, @sloopy.origin_latitude]
@@ -95,8 +95,6 @@ class SloopiesController < ApplicationController
   end
 
   def create
-    current_user.sloopies.destroy_all
-
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first

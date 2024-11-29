@@ -58,6 +58,39 @@
   gap: 15px;
 }
 
+/* Définition du bouton navbar */
+.btn-navbar {
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: bold; /* Utilisation de 'bold' si vous n'utilisez pas Sass */
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Couleur de fond */
+  color: var(--primary-color); /* Couleur du texte */
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre avec la couleur principale */
+}
+
+/* Effet au survol du bouton */
+.btn-navbar:hover {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+  -webkit-text-stroke: 1px var(--tertiary-color); /* Utilisation de la variable CSS */
+}
+
+/* Effet au clic (active) */
+.btn-navbar:active {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+}
+
 .btn-orange {
   padding: 10px 20px;
   font-size: 12px;
