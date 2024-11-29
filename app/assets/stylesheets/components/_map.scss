@@ -359,21 +359,6 @@ h1 {
   }
 }
 
-.btn-delete {
-  margin-left: 1rem;
-  padding: 0.75rem;
-  border-radius: 8px;
-  background: rgba($primary-color, 0.1);
-  transition: all 0.2s ease;
-  border: 2px solid $tertiary-color;
-  box-shadow: 4px 4px 0px $tertiary-color;
-
-  &:hover {
-    background: rgba($primary-color, 0.2);
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px $tertiary-color;
-  }
-}
 
 @media (min-width: 992px) {
   .sloopies-container {
