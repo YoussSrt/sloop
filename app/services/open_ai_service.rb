@@ -18,7 +18,7 @@ class OpenAiService
     hash = JSON.parse(response_text)
 
     # Création de steps
-    hash["summary"]
+    @sloopy.update(summary: hash["summary"])
     hash["steps"].each do |step|
       step["details"].each do |detail|
         new_step = Step.create(

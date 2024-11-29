@@ -62,6 +62,8 @@ class SloopiesController < ApplicationController
   end
 
   def create
+    current_user.sloopies.destroy_all
+
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
@@ -73,6 +75,12 @@ class SloopiesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @sloopy = Sloopy.find(params[:id])
+    @sloopy.destroy
+    redirect_to sloopies_path, status: :see_other
   end
 
   private
