@@ -6,7 +6,7 @@ class SloopiesController < ApplicationController
                   Sloopy.all
                 end
 
-    @markers = @sloopies.flat_map do |sloopy|
+    @markers = @sloopies.flat_map.with_index do |sloopy, index|
       route_coordinates = []
       markers = []
 
@@ -30,7 +30,13 @@ class SloopiesController < ApplicationController
         markers << { lat: sloopy.destination_latitude, lng: sloopy.destination_longitude, type: "destination" }
       end
 
+      # Fermer la boucle en ajoutant le point de départ à la fin
+      if route_coordinates.any?
+        route_coordinates << route_coordinates.first
+      end
+
       markers.first[:route_coordinates] = route_coordinates if markers.any?
+      markers.first[:route_id] = index if markers.any?
       markers
     end
   end
@@ -38,9 +44,11 @@ class SloopiesController < ApplicationController
   def show
     @sloopy = Sloopy.find(params[:id])
     @markers = []
+    route_coordinates = []
 
     # Point de départ
     if @sloopy.origin_latitude.present? && @sloopy.origin_longitude.present?
+      route_coordinates << [@sloopy.origin_longitude, @sloopy.origin_latitude]
       @markers << {
         lat: @sloopy.origin_latitude,
         lng: @sloopy.origin_longitude,
@@ -48,8 +56,21 @@ class SloopiesController < ApplicationController
       }
     end
 
+    # Étapes
+    @sloopy.steps.each do |step|
+      if step.latitude.present? && step.longitude.present?
+        route_coordinates << [step.longitude, step.latitude]
+        @markers << {
+          lat: step.latitude,
+          lng: step.longitude,
+          type: "step"
+        }
+      end
+    end
+
     # Point d'arrivée
     if @sloopy.destination_latitude.present? && @sloopy.destination_longitude.present?
+      route_coordinates << [@sloopy.destination_longitude, @sloopy.destination_latitude]
       @markers << {
         lat: @sloopy.destination_latitude,
         lng: @sloopy.destination_longitude,
@@ -57,15 +78,12 @@ class SloopiesController < ApplicationController
       }
     end
 
-    # Étapes
-    @sloopy.steps.each do |step|
-      next unless step.latitude.present? && step.longitude.present?
-      @markers << {
-        lat: step.latitude,
-        lng: step.longitude,
-        type: "step"
-      }
-    end
+    # Fermer la boucle
+    route_coordinates << route_coordinates.first if route_coordinates.any?
+
+    # Ajouter les coordonnées du tracé au premier marqueur
+    @markers.first[:route_coordinates] = route_coordinates if @markers.any?
+    @markers.first[:route_id] = 0 if @markers.any? # Un seul tracé dans la vue show
   end
 
   def new

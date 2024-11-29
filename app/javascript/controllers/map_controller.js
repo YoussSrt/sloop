@@ -41,28 +41,44 @@ export default class extends Controller {
   }
 
   #addRouteToMap() {
-    if (!this.markersValue[0]?.route_coordinates) return;
+    this.markersValue.forEach((marker) => {
+      if (!marker.route_coordinates) return;
 
-    this.map.addSource('route', {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: this.markersValue[0].route_coordinates
+      const routeId = marker.route_id;
+      // Générer une couleur unique basée sur l'ID de l'itinéraire
+      const colors = [
+        '#FF0000', // Rouge
+        '#00FF00', // Vert
+        '#0000FF', // Bleu
+        '#FFA500', // Orange
+        '#800080', // Violet
+        '#008080', // Turquoise
+        '#FF69B4', // Rose
+        '#4B0082', // Indigo
+      ];
+      const color = colors[routeId % colors.length];
+
+      this.map.addSource(`route-${routeId}`, {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: marker.route_coordinates
+          }
         }
-      }
-    });
+      });
 
-    this.map.addLayer({
-      id: 'route',
-      type: 'line',
-      source: 'route',
-      paint: {
-        'line-color': '#FF0000',
-        'line-width': 3
-      }
+      this.map.addLayer({
+        id: `route-${routeId}`,
+        type: 'line',
+        source: `route-${routeId}`,
+        paint: {
+          'line-color': color,
+          'line-width': 3
+        }
+      });
     });
   }
 
