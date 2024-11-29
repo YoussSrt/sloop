@@ -1,0 +1,155 @@
+.map-container {
+  width: 500px;
+  height: 300px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+  border-color: var(--tertiary-color);
+  margin-bottom: 40px;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.marker {
+  background-color: white;
+  padding: 8px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.origin {
+    color: #FF385C;
+  }
+
+  &.destination {
+    color: #00A699;
+  }
+
+  &.step {
+    color: #E67E22;
+  }
+
+  i {
+    font-size: 20px;
+  }
+}
+
+.info-window {
+  padding: 10px;
+  max-width: 200px;
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #484848;
+  }
+
+  p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+}
+
+.step-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h4 {
+    color: #484848;
+    margin-bottom: 8px;
+  }
+
+  h5 {
+    color: #767676;
+    margin: 12px 0 8px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 4px 0;
+    color: #484848;
+  }
+}
+
+.sloopies-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.sloopies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.sloopy-card-map {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    color: #484848;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+
+  .sloopy-details {
+    p {
+      margin-bottom: 8px;
+      color: #484848;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      i {
+        width: 20px;
+        color: #767676;
+      }
+    }
+
+    .sloopy-summary {
+      margin: 16px 0;
+      color: #767676;
+      font-size: 14px;
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 992px) {
+  .sloopies-container {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+
+    .map-container {
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 100px);
+    }
+  }
+}

@@ -1,14 +1,19 @@
-<h1>My profile</h1>
-
-<div class="profile-container">
-  <p><strong>Nickname:</strong> <%= @user.nickname %></p>
-  <p><strong>First Name:</strong> <%= @user.first_name %></p>
-  <p><strong>Last Name:</strong> <%= @user.last_name %></p>
-  <p><strong>Email:</strong> <%= @user.email %></p>
-  <p><strong>Slooper since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
-
-  <h3>Profile Actions:</h3>
-  <ul>
-    <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %></li>
-  </ul>
+<div class="marge-dashbord">
+  <div class="dashboard-card">
+    <div class="card-image">
+      <img src="path/to/image.jpg" alt="Profile Image" />
+    </div>
+    <div class="card-info">
+      <div class="card-content">
+        <p><strong>Nickname:</strong> <%= @user.nickname %></p>
+        <p><strong>First Name:</strong> <%= @user.first_name %></p>
+        <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+        <p><strong>Email:</strong> <%= @user.email %></p>
+        <p><strong>Slooper since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+      </div>
+      <div class="card-actions">
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit" %>
+      </div>
+    </div>
+  </div>
 </div>

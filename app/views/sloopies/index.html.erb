@@ -1,14 +1,32 @@
-<h1>We have generate <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
-
-<div class="container">
-  <% @sloopies.each_with_index do |sloopy, index| %>
-    <ul>
-      <li><h2> Sloopy <%= index + 1 %> </h2></li>
-        <li><%= sloopy.departure_date %> to <%= sloopy.return_date %> </li>
-        <li><%= sloopy.origin %>  </li>
-        <li><%= sloopy.destination %>  </li>
-        <%= sloopy.summary %>
-      <li><%= link_to "see details", sloopy_path(sloopy) %></li>
-    </ul>
-  <% end %>
+<div class="div-sloopy">
+  <div class="container mt-4">
+    <div class="map-container"
+      data-controller="map"
+      data-map-markers-value="<%= @markers.to_json %>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+      style="width: 100%; height: 400px;">
+    </div>
+  </div>
+  <h2 class="sloopy-title">We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h2>
+  <div class="sloopy-container">
+    <% @sloopies.each_with_index do |sloopy, index| %>
+      <div class="sloopy-card-index">
+        <h2>Sloopy <%= index + 1 %></h2>
+        <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
+        <p class="mb-0"><strong>From:</strong> <%= sloopy.origin %></p>
+        <p><strong>To:</strong> <%= sloopy.destination %></p>
+        <p><%= sloopy.summary %></p>
+        <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+        <% if user_signed_in? && current_user.owns?(sloopy) %>
+                  <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
+                      sloopy_path(sloopy),
+                      data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                      },
+                      class: "btn btn-delete" %>
+              <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

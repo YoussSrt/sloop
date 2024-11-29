@@ -71,3 +71,43 @@
   box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
   border-color: var(--tertiary-color); /* Bordure passe en tertiary color au clic */
 }
+
+button {
+  flex-shrink: 0;
+  padding: 10px 20px;
+}
+
+.btn-new-sloopes .btn {
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--secondary-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px var(--secondary-color);
+}
+
+.btn-new-sloopes .btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+}
+
+/* Effet au clic (active) */
+.btn-new-sloopes .btn:active {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+}
+
+.btn-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
