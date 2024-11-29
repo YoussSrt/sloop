@@ -1,0 +1,72 @@
+.marge-dashbord {
+  margin-top: 100px; // Ajout de la marge en haut
+
+  .dashboard-card {
+    display: flex;
+    align-items: flex-start; // Aligner les éléments en haut
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%; // Permet à la carte d'occuper toute la largeur disponible
+
+    .card-image {
+      flex-shrink: 0;
+      width: 190px; // Largeur de l'image
+      height: 190px; // Hauteur égale à la largeur pour rendre l'image carrée
+      margin-right: 15px;
+      border-radius: 8px; // Rayons arrondis
+      overflow: hidden;
+
+      img {
+        width: 100%; // Image s'adapte à la largeur
+        height: 100%; // Image s'adapte à la hauteur
+        object-fit: cover; // S'assure que l'image couvre toute la zone sans être déformée
+      }
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      width: 100%; // Assure que la section d'informations occupe tout l'espace restant
+
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        color: #333;
+
+        p {
+          margin: 5px 0;
+
+          strong {
+            color: #555;
+          }
+        }
+      }
+
+      .card-actions {
+        margin-top: 10px;
+
+        .btn-edit {
+          background-color: #007bff;
+          color: #fff;
+          padding: 5px 10px;
+          font-size: 12px;
+          border-radius: 4px;
+          text-decoration: none;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+    }
+  }
+}

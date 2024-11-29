@@ -1,26 +1,78 @@
-<%= simple_form_for(sloopy) do |f| %>
-  <%= f.error_notification %>
-  <div class="form-inputs div_home">
-    <div class="mb-3">
-      <%= f.input :origin, label: false, input_html: { class: "form-control", placeholder: "Your city" } %>
+<div class="sloopie-page">
+  <%= simple_form_for(sloopy) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="sloopie-form-wrapper">
+      <div class="sloopie-form-container">
+        <form class="form-inline">
+
+          <div class="sloopie-form-row">
+            <div class="sloopie-input-group">
+              <%= f.input :origin, label: "Origin city", label_html: { class: "label-style" }, input_html: { class: "sloopie-form-control", placeholder: "Paris" }, required: false %>
+            </div>
+
+            <div class="sloopie-input-group">
+              <%= f.input :destination, label: "Destination city", label_html: { class: "label-style" }, input_html: { class: "sloopie-form-control", placeholder: "Berlin" }, required: false %>
+            </div>
+
+            <div class="sloopie-input-group">
+              <%= f.input :duration, label: "Duration at your destination city", label_html: { class: "label-style" }, input_html: { class: "sloopie-form-control mb-0", placeholder: "Days in Berlin?" }, required: false %>
+            </div>
+          </div>
+
+          <div class="sloopie-form-row">
+            <div class="sloopie-input-group">
+              <%= f.input :departure_date, label: "Departure Date", label_html: { class: "label-style" }, input_html: { class: "sloopie-form-control no-margin-bottom", placeholder: "Select your departure date" }, required: false %>
+            </div>
+          </div>
+
+          <div class="sloopie-form-row">
+            <div class="sloopie-input-group">
+              <%= f.input :return_date, label: "Return Date", label_html: { class: "label-style" }, input_html: { class: "sloopie-form-control no-margin-bottom", placeholder: "Select your return date" }, required: false %>
+            </div>
+          </div>
+
+         <!-- Remplacer l'input du Budget par un range avec affichage au-dessus -->
+          <div class="sloopie-form-row">
+            <div class="sloopie-input-group">
+              <label for="budget" class="label-style mb-2">Budget by day</label>
+              <div class="range-wrapper d-flex justify-content-center position-relative">
+                <input type="range" class="form-range mb-5" id="budget" name="sloopy[budget]" min="0" max="200" step="1" value="<%= sloopy.budget %>">
+                <span id="budget-value" class="range-value price-value position-absolute"> <%= sloopy.budget %>€ </span>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="sloopie-form-container-bis">
+        <div class="sloopie-form-actions d-flex justify-content-center btn-new-sloopes btn">
+          <%= f.button :submit, "Generate your Sloopies" %>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <%= f.input :destination, label: false, input_html: { class: "form-control", placeholder: "Your destination" } %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :departure_date, label: false, input_html: { class: "form-control"} %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :return_date, label: false, input_html: { class: "form-control"} %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :budget, label: false, input_html: { class: "form-control", placeholder: "approximative budget" } %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :duration, label: false, input_html: { class: "form-control", placeholder: "duration of the trip" } %>
-    </div>
-  </div>
-  <div class="form-actions d-flex justify-content-center">
-    <%= f.button :submit, "Generate your Sloopies"%>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+<!-- Script pour gérer l'affichage dynamique de la valeur au-dessus du curseur -->
+<script>
+  const budgetSlider = document.getElementById('budget');
+  const budgetValue = document.getElementById('budget-value');
+
+  // Fonction pour mettre à jour la valeur du budget et la position du texte
+  function updateBudgetValue() {
+    const value = budgetSlider.value;
+    budgetValue.textContent = `${value}€`;
+
+    // Calculer la position du curseur
+    const position = (value - budgetSlider.min) / (budgetSlider.max - budgetSlider.min) * 100;
+    budgetValue.style.left = `calc(${position}% - 35px)`;  // Ajuster le décalage pour centrer la valeur
+  }
+
+  // Appel de la fonction lors du changement de valeur du slider
+  budgetSlider.addEventListener('input', updateBudgetValue);
+
+  // Appel initial pour positionner correctement la valeur au chargement de la page
+  updateBudgetValue();
+</script>
