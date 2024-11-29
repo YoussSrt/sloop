@@ -10,13 +10,13 @@ export default class extends Controller {
   }
 
   connect() {
-    const firstDiv = this.wrapperTargets[0].parentElement
+    const firstDiv = this.wrapperTargets[0].parentElement.parentElement
     firstDiv.classList.remove("d-none")
   }
 
   next() {
-    const currentDiv = this.wrapperTargets[this.currentIndexValue].parentElement
-    const nextDiv = this.wrapperTargets[this.currentIndexValue + 1].parentElement
+    const currentDiv = this.wrapperTargets[this.currentIndexValue].parentElement.parentElement
+    const nextDiv = this.wrapperTargets[this.currentIndexValue + 1].parentElement.parentElement
 
     currentDiv.classList.add('d-none');
     nextDiv.classList.remove("d-none");

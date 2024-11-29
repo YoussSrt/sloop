@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center align-items-center min-vh-70 sibling" data-controller="next-button">  
+<div class="d-flex justify-content-center align-items-center min-vh-70" data-controller="next-button">  
   <%= simple_form_for :user_preferences, url: preferences_path, method: :post do |f| %>
     <% Preference::PREFERENCES.each do |category, choices| %>
       <div class="form-container-home d-none">
