@@ -16,14 +16,11 @@
 
 
   <div class="div_home" id="form_new_sloop">
-        <div class="form-row">
-          <%= render "sloopies/form", sloopy: @sloopy %>
-        </div>
-        </div>
-      </form>
+      <div class="form-row">
+        <%= render "sloopies/form", sloopy: @sloopy %>
+      </div>
     </div>
+  <div id="preferences-form">
+    <%= render "shared/preferences", user: current_user %>
   </div>
-</div>
-<div id="preferences-form">
-  <%= render "shared/preferences", user: current_user %>
 </div>

@@ -28,7 +28,7 @@ class OpenAiService
           transport: detail["transport"],
           cost: detail["cost"],
           duration: detail["duration"],
-          stays: step["stays"]
+          stays: detail["stay"]
         )
 
           detail["activities"].each do |activity|
