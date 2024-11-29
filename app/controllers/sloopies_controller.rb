@@ -75,6 +75,12 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def destroy
+    @sloopy = Sloopy.find(params[:id])
+    @sloopy.destroy
+    redirect_to sloopies_path, status: :see_other
+  end
+
   private
 
   def sloopy_params
