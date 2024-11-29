@@ -5,10 +5,10 @@
 
     <div class="navbar-menu">
       <div class="navbar-links">
-        <%= link_to "NEW SLOOP", new_sloopy_path, class: "btn" %>
-        <a href="#" class="btn">WHO WE ARE</a>
-        <%= link_to "MY SLOOPIES", sloopies_path, class: "btn" %>
-        <a href="#" class="btn">SLOOPY FEED</a>
+        <%= link_to "NEW SLOOP", new_sloopy_path, class: "btn-navbar" %>
+        <a href="#" class="btn-navbar">WHO WE ARE</a>
+        <%= link_to "MY SLOOPIES", sloopies_path, class: "btn-navbar" %>
+        <a href="#" class="btn-navbar">SLOOPY FEED</a>
       </div>
     </div>
 
@@ -32,39 +32,51 @@
 </nav>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', initDropdownMenu);
+document.addEventListener('turbo:load', initDropdownMenu); // Compatible avec Turbo
+
+function initDropdownMenu() {
   const dropdownButton = document.getElementById('userDropdown');
   const dropdownMenu = document.querySelector('.user-dropdown .dropdown-menu');
 
-  // Toggle the menu visibility on button click
-  dropdownButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isExpanded = dropdownButton.getAttribute('aria-expanded') === 'true';
-    dropdownButton.setAttribute('aria-expanded', !isExpanded);
-    dropdownMenu.style.display = isExpanded ? 'none' : 'block';
-
-    // Ajoute ou retire la classe active pour le bouton
-    dropdownButton.classList.toggle('active', !isExpanded);
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener('click', () => {
-    dropdownMenu.style.display = 'none';
+  if (dropdownButton && dropdownMenu) {
+    // Réinitialiser le menu
     dropdownButton.setAttribute('aria-expanded', 'false');
     dropdownButton.classList.remove('active');
-  });
-
-  // Keep menu open and button active when hovering over the menu
-  dropdownMenu.addEventListener('mouseover', () => {
-    dropdownMenu.style.display = 'block';
-    dropdownButton.classList.add('active');
-  });
-
-  dropdownMenu.addEventListener('mouseleave', () => {
     dropdownMenu.style.display = 'none';
-    dropdownButton.setAttribute('aria-expanded', 'false');
-    dropdownButton.classList.remove('active');
-  });
-});
 
+    // Supprimer tous les anciens gestionnaires pour éviter les doublons
+    dropdownButton.replaceWith(dropdownButton.cloneNode(true));
+    dropdownMenu.replaceWith(dropdownMenu.cloneNode(true));
+
+    const newDropdownButton = document.getElementById('userDropdown');
+    const newDropdownMenu = document.querySelector('.user-dropdown .dropdown-menu');
+
+    // Ajouter des gestionnaires d'événements frais
+    newDropdownButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = newDropdownButton.getAttribute('aria-expanded') === 'true';
+      newDropdownButton.setAttribute('aria-expanded', !isExpanded);
+      newDropdownMenu.style.display = isExpanded ? 'none' : 'block';
+      newDropdownButton.classList.toggle('active', !isExpanded);
+    });
+
+    document.addEventListener('click', () => {
+      newDropdownMenu.style.display = 'none';
+      newDropdownButton.setAttribute('aria-expanded', 'false');
+      newDropdownButton.classList.remove('active');
+    });
+
+    newDropdownMenu.addEventListener('mouseenter', () => {
+      newDropdownMenu.style.display = 'block';
+      newDropdownButton.classList.add('active');
+    });
+
+    newDropdownMenu.addEventListener('mouseleave', () => {
+      newDropdownMenu.style.display = 'none';
+      newDropdownButton.setAttribute('aria-expanded', 'false');
+      newDropdownButton.classList.remove('active');
+    });
+  }
+}
 </script>
