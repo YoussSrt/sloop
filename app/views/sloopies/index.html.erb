@@ -17,6 +17,15 @@
         <p><strong>To:</strong> <%= sloopy.destination %></p>
         <p><%= sloopy.summary %></p>
         <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+        <% if user_signed_in? && current_user.owns?(sloopy) %>
+                  <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
+                      sloopy_path(sloopy),
+                      data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                      },
+                      class: "btn btn-delete" %>
+              <% end %>
       </div>
     <% end %>
   </div>
