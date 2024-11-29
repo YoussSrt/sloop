@@ -4,26 +4,23 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["wrapper"]
 
-  connect() {
-    this.wrapperTargets.forEach((element) => {
-      if (this.wrapperTargets.indexOf(element) > 0) {
-        element.classList.add("d-none")
-      }
-    })
+  static values = {
+    currentIndex: Number,
+    default: 0
   }
-  next(event) {
-    const currentDiv = Array.from(this.wrapperTargets).find((element) => !element.classList.contains("d-none"))
-    const currentIndex = this.wrapperTargets.indexOf(currentDiv);
-    console.log(currentIndex);
-    console.log("Next button clicked!");
-    // let el = document.getElementById("sibling").previousElementSibling;
 
-    // static targets = ["element"];
-    // toggle() {
-    //   this.elementTarget.classList.toggle('d-none');
-    // }
+  connect() {
+    const firstDiv = this.wrapperTargets[0].parentElement
+    firstDiv.classList.remove("d-none")
+  }
 
-    this.wrapperTargets[currentIndex + 1].classList.remove("d-none");
+  next() {
+    const currentDiv = this.wrapperTargets[this.currentIndexValue].parentElement
+    const nextDiv = this.wrapperTargets[this.currentIndexValue + 1].parentElement
+
     currentDiv.classList.add('d-none');
+    nextDiv.classList.remove("d-none");
+
+    this.currentIndexValue += 1;
   }
 }
