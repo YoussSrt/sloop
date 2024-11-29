@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center align-items-center min-vh-70">
+  <%= simple_form_for :user_preferences, url: preferences_path, method: :post do |f| %>
+    <% Preference::PREFERENCES.each do |category, choices| %>
+      <div class="form-container-home">
+        <h2><%= category_title(category) %></h2>
+        <%= f.input category.to_sym,
+                  collection: choices,
+                  legend_tag: false,
+                  as: :check_boxes,
+                  input_html: {
+                    data: { action: "change->preferences-form#check" },
+                    class: "form-check-input"
+                  },
+                  wrapper_html: {
+                    data: { controller: "preferences-form" }
+                  },
+                  item_wrapper_class: 'tag-item btn-orange mx-3' %>
+        <div class="form-container-home-bis" data-controller="next-button">
+          <% if category_title(category) == "What is your main travel goal?" %>
+            <button type="submit" class="btn btn-success mt-3">Submit</button>
+          <% else %>
+            <button type="button" class="btn btn-success mt-3" data-action="click->next-button#next">Next</button>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

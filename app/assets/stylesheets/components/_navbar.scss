@@ -58,7 +58,7 @@
   gap: 15px;
 }
 
-.navbar-links .btn {
+.btn-orange {
   padding: 10px 20px;
   font-size: 12px;
   font-weight: $avenir-heavy;
@@ -75,7 +75,7 @@
 }
 
 /* Rectangle au bas du bouton */
-.navbar-links .btn::after {
+.btn-orange::after {
   content: "";
   position: absolute;
   bottom: -8px; /* Décalage de 8px en bas */
@@ -87,14 +87,14 @@
 }
 
 /* Effet au survol */
-.navbar-links .btn:hover {
+.btn-orange:hover {
   color: var(--tertiary-color); /* Texte en couleur tertiary */
   box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
   border-color: var(--tertiary-color); /* Bordure passe en tertiary color au survol */
 }
 
 /* Effet au clic (active) */
-.navbar-links .btn:active {
+.btn-orange:active {
   color: var(--tertiary-color); /* Texte en couleur tertiary */
   box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
   border-color: var(--tertiary-color); /* Bordure passe en tertiary color au clic */
