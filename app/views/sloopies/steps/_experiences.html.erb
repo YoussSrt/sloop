@@ -1,4 +1,4 @@
-<h2 class="login-form-container-ter" style="max-width: unset;"><%= category_title(category.to_sym) %></h2>
+<h2 class="login-form-container-ter h2" style="max-width: unset;"><%= category_title(category.to_sym) %></h2>
 <div class="sloopie-form-container">
   <%= f.input category.to_sym,
             collection: Preference::PREFERENCES[category.to_sym],
