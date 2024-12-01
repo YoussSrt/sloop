@@ -1,5 +1,4 @@
 <div class="homepage">
-
   <div class="text-center div_home mt-2">
     <h1 class="title_home">With SLOOP</h1>
     <h2 class="second_title_home">Your Perfect Loop, Anytime, Anywhere!</h2>
@@ -16,6 +15,10 @@
 
 
   <div class="div_home" id="form_new_sloop">
+
+    <div class="form-row">
+      <%= render "sloopies/form", sloopy: @sloopy %>
+      
       <div class="form-row">
         <%= render "sloopies/form", sloopy: @sloopy %>
       </div>
@@ -24,3 +27,10 @@
     <%= render "shared/preferences", user: current_user %>
   </div>
 </div>
+
+
+
+<%# <div id="preferences-form"> %>
+  <%#= render "shared/preferences", user: current_user %>
+<%# </div> %>
+
