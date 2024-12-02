@@ -25,9 +25,11 @@ Rails.application.routes.draw do
   resources :sloopies do
     member do
       patch :update_save
-      
+    end
+  end
+
   resources :user_preferences, only: [] do
-    collection do 
+    collection do
       get :edit
     end
   end
