@@ -29,10 +29,11 @@ class User < ApplicationRecord
     # Ajoute les nouvelles préférences
     preferences_hash.each do |category, choice|
       next unless choice.present?
-
+      choice.shift
       choice.each do |choice|
-        preference = Preference.find_or_create_by(category: category, choice: choice)
-        user_preferences.create(preference: preference)
+
+        preference = Preference.find_or_create_by(choice: choice)
+        user_preferences.create(user: self, preference: preference)
       end
     end
   end
