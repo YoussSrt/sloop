@@ -62,6 +62,14 @@
 
         <%= link_to "Voir tous mes Sloopies", sloopies_path(user_id: @user.id), class: "btn-see-all" %>
       </div>
+      <div class="profile-section">
+        <h2>My Preferences</h2>
+          <div class="sloopies-grid">
+            <% @user.preferences_by_category.each do |category, choices| %>
+              <p><%= category.humanize %> → <%= choices.join(", ") %></p>
+            <% end %>
+          </div>
+      <%# <%= link_to "Change my preferences", edit_user_preferences(user_id: @user.id), class: "btn-see-all" %> 
     </div>
   </div>
 </div>

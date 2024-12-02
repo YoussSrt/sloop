@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center align-items-center min-vh-70" data-controller="next-button">  
   <%= simple_form_for :user_preferences, url: preferences_path, method: :post do |f| %>
     <% Preference::PREFERENCES.each do |category, choices| %>
-      <div class="form-container-home d-none">
+      <div class="form-container-home">
         <h2><%= category_title(category) %></h2>
         <%= f.input category.to_sym,
                   collection: choices,

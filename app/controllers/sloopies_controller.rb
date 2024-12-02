@@ -105,12 +105,13 @@ class SloopiesController < ApplicationController
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
-
-    open_ai_service = OpenAiService.new(@sloopy).call
+    formatted_preferences = current_user.formatted_preferences
     if @sloopy.save
-      redirect_to sloopies_path, notice: "Sloopy itinerary generated successfully!"
+      current_index = current_user.sloopies.length
+      GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
+      redirect_to sloopies_path, notice: 'Job was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

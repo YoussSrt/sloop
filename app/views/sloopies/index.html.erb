@@ -1,5 +1,6 @@
 <div class="div-sloopy">
-  <h1>We have generated <%= @sloopies.count %> Sloopies for you. Are you ready to travel?</h1>
+
+  <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
 
   <div class="main-content">
     <div class="map-section">
@@ -14,7 +15,7 @@
     </div>
 
     <div class="sloopy-section">
-      <div class="sloopy-container">
+      <div class="sloopy-container" id="sloopies">
         <% @sloopies.each_with_index do |sloopy, index| %>
           <div class="sloopy-card">
             <h2>Sloopy <%= index + 1 %></h2>
@@ -56,6 +57,7 @@
                           class: "btn btn-deleter" %>
             <% end %>
           </div>
+          <%= render "sloopy", sloopy: sloopy, index: index %>
         <% end %>
       </div>
     </div>

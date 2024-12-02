@@ -111,3 +111,65 @@ button {
   top: 10px;
   right: 10px;
 }
+
+.btn-next {
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: $avenir-heavy;
+    border-radius: 5px;
+    background-color: var(--secondary-color); /* Couleur de fond */
+    color: var(--tertiary-color); /* Couleur du texte */
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid var(--tertiary-color); /* Bordure avec la couleur principale */
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre avec la couleur principale */
+  }
+
+.btn-next:hover{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-color: var(--bonus-color);
+    box-shadow: 4px 4px 0px var(--bonus-color);
+    -webkit-text-stroke: 1px var(--bonus-color); /* Utilisation de la variable CSS */
+  }
+
+/* Effet au clic (active) */
+.btn-next:active {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+}
+
+.btn-back {
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: $avenir-heavy;
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Couleur de fond */
+  color: var(--primary-color); /* Couleur du texte */
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre avec la couleur principale */
+}
+
+.btn-back:hover{
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-color: var(--tertiary-color);
+  box-shadow: 4px 4px 0px var(--tertiary-color);
+  -webkit-text-stroke: 1px var(--tertiary-color); /* Utilisation de la variable CSS */
+}
+
+/* Effet au clic (active) */
+.btn-back:active {
+background-color: var(--secondary-color);
+color: var(--tertiary-color);
+border-color: var(--tertiary-color);
+}
