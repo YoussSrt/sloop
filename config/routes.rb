@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
+  # config/routes.rb
+
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,5 +18,11 @@ Rails.application.routes.draw do
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
+  end
+
+  resources :sloopies do
+    member do
+      patch :update_save
+    end
   end
 end

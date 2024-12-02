@@ -44,7 +44,7 @@
       <div class="profile-section">
         <h2>My Sloopies</h2>
         <div class="sloopies-grid">
-          <% @user.sloopies.order(created_at: :desc).limit(3).each do |sloopy| %>
+          <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
             <div class="sloopy-card">
               <div class="sloopy-info">
                 <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
@@ -59,6 +59,7 @@
             </div>
           <% end %>
         </div>
+
         <%= link_to "Voir tous mes Sloopies", sloopies_path(user_id: @user.id), class: "btn-see-all" %>
       </div>
     </div>
