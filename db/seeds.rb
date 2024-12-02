@@ -89,4 +89,96 @@ puts "Création des sloopies..."
 end
 
 puts "Sloopies créés avec succès."
-puts "Nouvelle seed créé avec succè."
+puts "Nouvelle seed créé avec succès."
+
+puts "Création des preferences"
+
+# favorite_activities
+[
+  "Outdoor",
+  "Sports",
+  "Creative",
+  "Cultural",
+  "Relaxation",
+  "Social",
+  "Party"
+].each do |preference| 
+  Preference.create(
+    category: "favorite_activities",
+    choice: preference
+  )
+end
+
+# ideal_travel_pace
+[
+  "Very active",
+  "Active",
+  "Balanced",
+  "Relaxed",
+  "Flexible",
+  "Lazy"
+].each do |preference| 
+  Preference.create(
+    category: "ideal_travel_pace",
+    choice: preference
+  )
+end
+
+# exciting_experiences
+[
+  "Nature",
+  "City exploration",
+  "Local events",
+  "Food & drinks",
+  "Shopping",
+  "Learning"
+].each do |preference| 
+  Preference.create(
+    category: "exciting_experiences",
+    choice: preference
+  )
+end
+
+# traveling_with
+ [
+  "Solo",
+  "Couple",
+  "Family",
+  "Friends",
+  "Group"
+].each do |preference| 
+  Preference.create(
+    category: "traveling_with",
+    choice: preference
+  )
+end
+
+# preferred_vibe
+ [
+  "Adventure",
+  "Chill",
+  "Luxury",
+  "Off-the-beaten-path",
+  "Minimal",
+  "Social",
+  "Lonely"
+].each do |preference| 
+  Preference.create(
+    category: "preferred_vibe",
+    choice: preference
+  )
+end
+
+# main_travel_goal 
+ [
+  "Adventure",
+  "Relaxation",
+  "Discovering cultures",
+  "Trying new foods",
+  "Connecting with people"
+].each do |preference| 
+  Preference.create(
+    category: "main_travel_goal",
+    choice: preference
+  )
+end

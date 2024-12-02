@@ -93,6 +93,9 @@
 
 .btn-orange {
   padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 12px;
   font-weight: $avenir-heavy;
   border-radius: 5px;
