@@ -55,6 +55,8 @@ gem "ostruct"
 gem "ruby-openai"
 gem "cloudinary"
 gem "geocoder"
+gem "solid_queue"
+gem "solid_cable"
 
 
 group :development, :test do
