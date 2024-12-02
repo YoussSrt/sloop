@@ -28,7 +28,9 @@
           <div class="step-details">
             <h3><%= step.city %></h3>
             <p><strong>Transport:</strong> <%= step.transport %></p>
-            <p><strong>Stays:</strong> <%= step.stays %> night(s)</p>
+            <p><strong>Duration:</strong> <%= step.duration %> hours</p>
+            <p><strong>Cost:</strong> <%= step.cost %>€</p>
+            <p><strong>Stays:</strong> <%= step.stays %> night(s) in <%= step.city_stop %></p>
             <% if step.activities.any? %>
               <div class="activities">
                 <p><strong>Activities:</strong></p>
