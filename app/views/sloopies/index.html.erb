@@ -20,12 +20,13 @@
           <div class="sloopy-card">
             <h2>Sloopy <%= index + 1 %></h2>
             <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
-            <p><strong>From:</strong> <%= sloopy.origin %></p>
-            <p><strong>To:</strong> <%= sloopy.destination %></p>
 
+            <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
+            <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>
             <p id="save-status-<%= sloopy.id %>">
               <strong>Saved:</strong> <%= sloopy.is_saved ? 'Yes' : 'No' %>
             </p>
+
 
             <% if sloopy.steps.any? %>
               <p class="steps-line">
@@ -34,7 +35,10 @@
               </p>
             <% end %>
 
-            <p><%= sloopy.summary %></p>
+            <p class="justified"><%= sloopy.summary %></p>
+            <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated.split('€')[1] %>€</p>
+            <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+
 
             <!-- Save/Unsave button -->
               <%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
@@ -47,6 +51,7 @@
             <%= link_to "See Details", sloopy_path(sloopy), class: "btn-sloopy" %>
 
             <!-- Delete button for the owner -->
+
             <% if user_signed_in? && current_user.owns?(sloopy) %>
               <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
                           sloopy_path(sloopy),

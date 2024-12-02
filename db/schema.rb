@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_151901) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_161944) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +85,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_151901) do
     t.float "origin_longitude"
     t.float "destination_latitude"
     t.float "destination_longitude"
+    t.string "budget_estimated"
     t.boolean "is_saved", default: false, null: false
     t.index ["user_id"], name: "index_sloopies_on_user_id"
   end
@@ -224,7 +226,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_151901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "transport"
-    t.integer "cost"
+    t.string "cost"
     t.integer "duration"
     t.float "latitude"
     t.float "longitude"
