@@ -23,6 +23,7 @@ class User < ApplicationRecord
     end.join("; ")
   end
 
+
   def update_preferences(preferences_hash)
     user_preferences.destroy_all
 
@@ -31,7 +32,6 @@ class User < ApplicationRecord
       next unless choice.present?
       choice.shift
       choice.each do |choice|
-
         preference = Preference.find_or_create_by(choice: choice)
         user_preferences.create(user: self, preference: preference)
       end
