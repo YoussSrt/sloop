@@ -1,6 +1,6 @@
 <div class="sloopie-form-wrapper">
   <div class="login-form-container-ter" style="max-width: unset;">
-    <div class="sloopie-form-actions d-flex justify-content-center btn-new-sloopes" >
+    <div class="sloopie-form-actions d-flex justify-content-center btn-new-sloopes h2" >
       Discover a new sloopy!
     </div>
   </div>
@@ -62,6 +62,7 @@
                     min="0"
                     max="1500"
                     step="10"
+
                     value="<%= sloopy.budget %>">
             <span id="budget-value" class="range-value price-value position-absolute">
               <%= sloopy.budget %>€
@@ -79,3 +80,74 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('form'); // Sélectionne le formulaire
+
+    // Fonction pour afficher un message d'erreur au-dessus de l'input sans affecter l'alignement
+    function showError(inputElement, message) {
+      let errorElement = inputElement.parentNode.querySelector('.error-message');
+
+      // Si un message d'erreur existe déjà, on le met à jour
+      if (!errorElement) {
+        // Crée un nouveau message d'erreur au-dessus de l'input
+        errorElement = document.createElement('div');
+        errorElement.classList.add('error-message');
+        errorElement.style.color = 'red'; // Peut être personnalisé avec CSS
+        errorElement.style.position = 'absolute'; // Positionnement absolu pour ne pas affecter la mise en page
+        errorElement.style.top = '-20px'; // Décale le message d'erreur au-dessus de l'input
+        errorElement.style.fontSize = '0.875rem'; // Taille du texte
+        inputElement.parentNode.style.position = 'relative'; // Pour que le message d'erreur soit positionné par rapport au parent
+        inputElement.parentNode.appendChild(errorElement); // Ajoute l'erreur au-dessus de l'input
+      }
+      errorElement.textContent = message; // Affiche le message d'erreur
+    }
+
+    // Fonction pour supprimer les messages d'erreur
+    function clearError(inputElement) {
+      const errorElement = inputElement.parentNode.querySelector('.error-message');
+      if (errorElement) {
+        errorElement.remove();
+      }
+    }
+
+    form.addEventListener('submit', function(event) {
+      let isValid = true;
+
+      // Efface les messages d'erreur avant de faire une nouvelle validation
+      const inputs = form.querySelectorAll('input');
+      inputs.forEach(input => clearError(input));
+
+      // Vérification des champs : origin, destination, duration et departure_date
+      const origin = form.querySelector('input[name="sloopy[origin]"]');
+      const destination = form.querySelector('input[name="sloopy[destination]"]');
+      const duration = form.querySelector('input[name="sloopy[duration]"]');
+      const departureDate = form.querySelector('input[name="sloopy[departure_date]"]');
+
+      // Vérifie si ces champs sont vides
+      if (!origin.value.trim()) {
+        isValid = false;
+        showError(origin, "Please select an origin city.");
+      }
+      if (!destination.value.trim()) {
+        isValid = false;
+        showError(destination, "Please select a destination city.");
+      }
+      if (!duration.value.trim()) {
+        isValid = false;
+        showError(duration, "Please specify the duration of your stay.");
+      }
+      if (!departureDate.value.trim()) {
+        isValid = false;
+        showError(departureDate, "Please select your trip dates.");
+      }
+
+      // Si la validation échoue, empêche la soumission du formulaire
+      if (!isValid) {
+        event.preventDefault(); // Empêche l'envoi du formulaire
+      }
+    });
+  });
+</script>
+

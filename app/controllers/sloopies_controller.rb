@@ -1,4 +1,7 @@
 class SloopiesController < ApplicationController
+  before_action :set_sloopy, only: [:show, :update_save, :destroy]
+
+
   def index
     @sloopies = if user_signed_in?
                   current_user.sloopies
@@ -95,16 +98,20 @@ class SloopiesController < ApplicationController
   end
 
   def create
+
+    Sloopy.where(user: current_user, is_saved: false).destroy_all
+    
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
-
-    open_ai_service = OpenAiService.new(@sloopy).call
+    formatted_preferences = current_user.formatted_preferences
     if @sloopy.save
-      redirect_to sloopies_path, notice: "Sloopy itinerary generated successfully!"
+      current_index = current_user.sloopies.length
+      GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
+      redirect_to sloopies_path, notice: 'Job was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -112,6 +119,30 @@ class SloopiesController < ApplicationController
     @sloopy = Sloopy.find(params[:id])
     @sloopy.destroy
     redirect_to sloopies_path, status: :see_other
+  end
+
+  def update_save
+    @sloopy.is_saved = !@sloopy.is_saved
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          # Mettre à jour les éléments nécessaires avec turbo_stream
+          render turbo_stream: [
+            turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("btn-save-toggle-#{@sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy })
+          ]
+        end
+        format.html { redirect_to request.referer, notice: "Sloopy save status updated!" }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy })
+        end
+        format.html { redirect_to request.referer, alert: "Unable to update save status." }
+      end
+    end
   end
 
   private
@@ -150,5 +181,9 @@ class SloopiesController < ApplicationController
       self.send("#{latitude_attribute}=", coordinates[0])
       self.send("#{longitude_attribute}=", coordinates[1])
     end
+  end
+
+  def set_sloopy
+    @sloopy = Sloopy.find(params[:id])
   end
 end

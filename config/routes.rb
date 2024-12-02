@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
+  # config/routes.rb
+
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -8,6 +10,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "profile", to: "pages#profile"
   post "preferences", to: "users#update_preferences", as: :preferences
+  # get "preferences", to: "users#edit_preferences", as: :edit_preferences
+
 
 
   # Defines the root path route ("/")
@@ -16,5 +20,15 @@ Rails.application.routes.draw do
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
+  end
+
+  resources :sloopies do
+    member do
+      patch :update_save
+      
+  resources :user_preferences, only: [] do
+    collection do 
+      get :edit
+    end
   end
 end

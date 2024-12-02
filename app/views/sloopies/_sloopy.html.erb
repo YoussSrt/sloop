@@ -1,0 +1,24 @@
+<div id="sloopy_<%= sloopy.id %>" class="sloopy-container">
+  <%= turbo_stream_from "sloopy_#{sloopy.id}" %>
+    <div class="sloopy-card">
+      <h2>Sloopy <%= index + 1 %></h2>
+      <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
+      <p><strong>From:</strong> <%= sloopy.origin %></p>
+      <p><strong>To:</strong> <%= sloopy.destination %></p>
+      <% if sloopy.steps.any? %>
+        <p class="steps-line">
+          <strong>Steps:</strong>
+          <span class="city-stops"><%= sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
+        </p>
+      <% end %>
+      <p><%= sloopy.summary %></p>
+      <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+        <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
+            sloopy_path(sloopy),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            },
+            class: "btn btn-deleter" %>
+    </div>
+</div>

@@ -58,7 +58,8 @@
 
 .h2{
   margin-bottom: 0px;
-  font-family: "Avenir Next Condensed", "Helvetica", "Arial", sans-serif;
+  font-family: $body-font;
+  color: $secondary-color;
 }
 
 .login-title {

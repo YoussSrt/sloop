@@ -3,8 +3,10 @@ require 'json'
 
 
 class OpenAiService
-  def initialize(sloopy)
+  def initialize(sloopy, formatted_preferences, current_index)
     @sloopy = sloopy
+    @formatted_preferences = formatted_preferences
+    @current_index = current_index
   end
 
   def call
@@ -80,6 +82,14 @@ class OpenAiService
           end
       end
     end
+
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "sloopy_#{@sloopy.id}",
+      target: "sloopy_#{@sloopy.id}",
+      partial: "sloopies/sloopy",
+      locals: { sloopy: @sloopy, index: @current_index - 1 }
+    )
+
   end
 
   private
@@ -99,8 +109,8 @@ class OpenAiService
     <<~PROMPT
       Generate two distinct round-trip itineraries("It is mandatory to generate two itineraries, you cannot generate just one. You must create two distinct itineraries. This step is MANDATORY.") between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, with a maximum transport budget of #{@sloopy.budget}€.
       The itinerary should include:
-      Outbound: Several stops where I can stay a few days (At least 3 stops logically located between #{@sloopy.origin} and #{@sloopy.destination} (e.g., cities or towns geographically aligned on a plausible route)) and do several activities (with the adresses) in relation with my tastes: #{@sloopy.user.formatted_preferences}.
-      In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days and very important, with a list of daily activities (with addresses) that match my tastes: #{@sloopy.user.formatted_preferences}.
+      Outbound: Several stops where I can stay a few days (At least 3 stops logically located between #{@sloopy.origin} and #{@sloopy.destination} (e.g., cities or towns geographically aligned on a plausible route)) and do several activities (with the adresses) in relation with my tastes: #{@formatted_preferences}.
+      In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days and very important, with a list of daily activities (with addresses) that match my tastes: #{@formatted_preferences}.
       Return: A different itinerary from the outbound, with at least 2 or 3 new stops where I can stay for one or more nights.
       Return to #{@sloopy.origin} on #{@sloopy.return_date}.
       Provide the preferred modes of transport (car, bike, bus, train, boat, carpooling but no plane) to stay within the budget, and a summary of the costs for each step.
