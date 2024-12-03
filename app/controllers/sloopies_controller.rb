@@ -1,4 +1,7 @@
 class SloopiesController < ApplicationController
+  before_action :set_sloopy, only: [:show, :update_save, :update_status, :destroy]
+
+
   def index
     @sloopies = if user_signed_in?
                   current_user.sloopies
@@ -95,16 +98,18 @@ class SloopiesController < ApplicationController
   end
 
   def create
+    # Nous gardons tous les sloopies générés, qu'ils soient sauvegardés ou non
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
-
-    open_ai_service = OpenAiService.new(@sloopy).call
+    formatted_preferences = current_user.formatted_preferences
     if @sloopy.save
-      redirect_to sloopies_path, notice: "Sloopy itinerary generated successfully!"
+      current_index = current_user.sloopies.length
+      GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
+      redirect_to sloopies_path, notice: 'Job was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -114,10 +119,64 @@ class SloopiesController < ApplicationController
     redirect_to sloopies_path, status: :see_other
   end
 
+  def update_save
+    @sloopy.is_saved = !@sloopy.is_saved
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          # Mettre à jour les éléments nécessaires avec turbo_stream
+          render turbo_stream: [
+            turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("btn-save-toggle-#{@sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy })
+          ]
+        end
+        format.html { redirect_to request.referer, notice: "Sloopy save status updated!" }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy })
+        end
+        format.html { redirect_to request.referer, alert: "Unable to update save status." }
+      end
+    end
+  end
+
+  def update_status
+    # Ensure @sloopy is properly set here
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+      return
+    end
+
+    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+          ]
+        end
+        format.html { redirect_to request.referer, notice: "Sloopy status updated!" }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+        end
+        format.html { redirect_to request.referer, alert: "Unable to update status." }
+      end
+    end
+  end
+
+
   private
 
   def sloopy_params
-    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration)
+    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration, :status, :is_saved)
   end
 
   def set_coordinates
@@ -149,6 +208,17 @@ class SloopiesController < ApplicationController
       coordinates = results.first.coordinates
       self.send("#{latitude_attribute}=", coordinates[0])
       self.send("#{longitude_attribute}=", coordinates[1])
+    end
+  end
+
+  # def set_sloopy
+  #   @sloopy = Sloopy.find(params[:id])
+  # end
+
+  def set_sloopy
+    @sloopy = Sloopy.find_by(id: params[:id]) # Use `find_by` to avoid exceptions if not found
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
     end
   end
 end

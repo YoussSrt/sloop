@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
+  # config/routes.rb
+
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -22,8 +24,15 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
+  resources :sloopies do
+    member do
+      patch :update_save
+      patch :update_status
+    end
+  end
+
   resources :user_preferences, only: [] do
-    collection do 
+    collection do
       get :edit
     end
   end

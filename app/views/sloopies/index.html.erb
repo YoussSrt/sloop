@@ -1,43 +1,65 @@
 <div class="div-sloopy">
+
   <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
 
   <div class="main-content">
     <div class="map-section">
       <div class="container mt-4 div-home">
         <div class="map-container"
-          data-controller="map"
-          data-map-markers-value="<%= @markers.to_json %>"
-          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-          style="width: 100%; height: 400px;">
+             data-controller="map"
+             data-map-markers-value="<%= @markers.to_json %>"
+             data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+             style="width: 100%; height: 400px;">
         </div>
       </div>
     </div>
 
     <div class="sloopy-section">
-      <div class="sloopy-container">
+      <%= turbo_stream_from "sloopies" %>
+      <div class="sloopy-container" id="sloopies">
         <% @sloopies.each_with_index do |sloopy, index| %>
-          <div class="sloopy-card">
+          <div id="sloopy_<%= sloopy.id %>" class="sloopy-card">
             <h2>Sloopy <%= index + 1 %></h2>
             <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
-            <p><strong>From:</strong> <%= sloopy.origin %></p>
-            <p><strong>To:</strong> <%= sloopy.destination %></p>
+
+            <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
+            <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>
+            <p id="save-status-<%= sloopy.id %>">
+              <strong>Saved:</strong> <%= sloopy.is_saved ? 'Yes' : 'No' %>
+            </p>
+
+
             <% if sloopy.steps.any? %>
               <p class="steps-line">
                 <strong>Steps:</strong>
                 <span class="city-stops"><%= sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
               </p>
             <% end %>
-            <p><%= sloopy.summary %></p>
-            <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
+
+            <p class="justified"><%= sloopy.summary %></p>
+            <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated %></p>
+
+            <!-- Save/Unsave button -->
+              <%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+              <%= form.submit sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
+                              class: "btn-save-toggle btn-orange",
+                              id: "btn-save-toggle-#{sloopy.id}" %>
+            <% end %>
+
+
+            <%= link_to "See Details", sloopy_path(sloopy), class: "btn-sloopy" %>
+
+            <!-- Delete button for the owner -->
+
             <% if user_signed_in? && current_user.owns?(sloopy) %>
-                  <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
-                      sloopy_path(sloopy),
-                      data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "Are you sure?"
-                      },
-                      class: "btn btn-deleter" %>
-              <% end %>
+              <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
+                          sloopy_path(sloopy),
+                          data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "Are you sure?"
+                          },
+                          class: "btn btn-deleter" %>
+            <% end %>
           </div>
         <% end %>
       </div>

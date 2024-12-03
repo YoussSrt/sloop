@@ -22,7 +22,7 @@
 .sloopie-form-container,
 .sloopie-form-container-bis {
   width: 100%;
-  max-width: 900px;
+  max-width: 750px;
   margin: 0 auto;
   box-sizing: border-box;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -30,13 +30,13 @@
 
 .sloopie-form-container {
   background-color: $secondary-color;
-  padding: 50px;
+  padding: 40px 40px;
   // border-radius: 8px 8px 0 0;
 }
 
 .sloopie-form-container-bis {
   background-color: $primary-color;
-  padding: 15px 50px;
+  padding: 15px 40px;
   border-radius: 0 0 8px 8px;
 }
 
@@ -44,10 +44,18 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .sloopie-input-group {
   flex: 1;
+  min-width: 200px;
+  max-width: 100%;
+  
+  input, select, textarea {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .sloopie-form-control {
@@ -58,6 +66,16 @@
   border: 2px solid #F3C59D;
   box-shadow: 4px 4px 0px #F3C59D;
   margin-bottom: 20px !important;
+  min-width: 200px;
+  padding: 12px 15px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 100%;
+}
+
+input[type="string"].sloopie-form-control {
+  min-width: 200px;
+  max-width: 100%;
 }
 
 .label-style {
@@ -92,5 +110,3 @@
   padding: 5px 20px;
 
 }
-
-

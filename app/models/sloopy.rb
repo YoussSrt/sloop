@@ -10,4 +10,6 @@ class Sloopy < ApplicationRecord
   # geocoded_by :origin, latitude: :origin_latitude, longitude: :origin_longitude
 
   # reverse_geocoded_by :destination_latitude, :destination_longitude, address: :destination
+
+  
 end

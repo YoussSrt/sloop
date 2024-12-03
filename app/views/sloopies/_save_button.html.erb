@@ -1,0 +1,3 @@
+<%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, remote: true do |form| %>
+  <%= form.submit sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy', class: "btn-save-toggle btn-orange", id: "btn-save-toggle-#{sloopy.id}" %>
+<% end %>

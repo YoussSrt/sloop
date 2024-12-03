@@ -24,7 +24,8 @@
     </ul>
   <% else %>
     <div class="auth-links">
-      <a href="<%= new_user_session_path %>" class="btn">Log In</a>
+      <%= link_to "Log In", new_user_session_path, class: "btn", data: { turbo: false } %>
+      <%# <a href="new_user_session_path" class="btn">Log In</a> %>
       <a href="<%= new_user_registration_path %>" class="btn">Sign Up</a>
     </div>
   <% end %>
