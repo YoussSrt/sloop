@@ -45,13 +45,13 @@ class OpenAiService
       end
     end
 
+    # Remplacer la card en chargement par la card complète
     Turbo::StreamsChannel.broadcast_replace_to(
-      "sloopy_#{@sloopy.id}",
+      "sloopies",
       target: "sloopy_#{@sloopy.id}",
       partial: "sloopies/sloopy",
-      locals: { sloopy: @sloopy, index: @current_index - 1 }
+      locals: { sloopy: @sloopy, index: @current_index }
     )
-
   end
 
   private

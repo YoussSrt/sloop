@@ -1,5 +1,5 @@
 class SloopiesController < ApplicationController
-  before_action :set_sloopy, only: [:show, :update_save, :destroy]
+  before_action :set_sloopy, only: [:show, :update_save, :update_status, :destroy]
 
 
   def index
@@ -99,7 +99,6 @@ class SloopiesController < ApplicationController
   end
 
   def create
-
     Sloopy.where(user: current_user, is_saved: false).destroy_all
 
     @sloopy = Sloopy.new(sloopy_params)
@@ -107,10 +106,21 @@ class SloopiesController < ApplicationController
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
     formatted_preferences = current_user.formatted_preferences
+
     if @sloopy.save
-      current_index = current_user.sloopies.length
+      current_index = current_user.sloopies.length - 1
+
+      # Afficher immédiatement la card en chargement
+      # Turbo::StreamsChannel.broadcast_append_to(
+      #   "sloopies",
+      #   target: "sloopies",
+      #   partial: "sloopies/loading_card",
+      #   locals: { sloopy: @sloopy, index: current_index }
+      # )
+
+      # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Job was successfully created.'
+      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
     else
       render :new, status: :unprocessable_entity
     end
@@ -146,10 +156,40 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def update_status
+    # Ensure @sloopy is properly set here
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+      return
+    end
+
+    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+          ]
+        end
+        format.html { redirect_to request.referer, notice: "Sloopy status updated!" }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+        end
+        format.html { redirect_to request.referer, alert: "Unable to update status." }
+      end
+    end
+  end
+
+
   private
 
   def sloopy_params
-    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration)
+    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration, :status, :is_saved)
   end
 
   def set_coordinates
@@ -184,7 +224,14 @@ class SloopiesController < ApplicationController
     end
   end
 
+  # def set_sloopy
+  #   @sloopy = Sloopy.find(params[:id])
+  # end
+
   def set_sloopy
-    @sloopy = Sloopy.find(params[:id])
+    @sloopy = Sloopy.find_by(id: params[:id]) # Use `find_by` to avoid exceptions if not found
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+    end
   end
 end

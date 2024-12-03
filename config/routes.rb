@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :sloopies do
     resources :questions, only: [:index, :create]
+    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
   end
 
   resources :chatrooms, only: [:index, :show, :create] do
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   resources :sloopies do
     member do
       patch :update_save
+      patch :update_status
     end
   end
 
