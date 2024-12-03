@@ -10,13 +10,17 @@ class User < ApplicationRecord
   has_many :user_preferences, dependent: :destroy
   has_many :preferences, through: :user_preferences
   has_many :questions
-  # has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
-  # has_many :chatrooms_as_first_user, class_name: 'Chatroom', foreign_key: 'first_user_id', dependent: :destroy
-  # has_many :chatrooms_as_second_user, class_name: 'Chatroom', foreign_key: 'second_user_id', dependent: :destroy
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
+  has_many :chatrooms_as_first_user, class_name: 'Chatroom', foreign_key: 'first_user_id', dependent: :destroy
+  has_many :chatrooms_as_second_user, class_name: 'Chatroom', foreign_key: 'second_user_id', dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :nickname, presence: true, uniqueness: true
+
+  def chatrooms
+    Chatroom.where("first_user_id = :id OR second_user_id = :id", id: id)
+  end
 
   def formatted_preferences # appeler cette méthode au prompt chatgpt #{user.formatted_preferences}
     preferences_by_category.map do |category, choices|

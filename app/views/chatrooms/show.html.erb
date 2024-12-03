@@ -1,5 +1,8 @@
 <div class="chat-wrapper">
-  <%= render "shared/sidebar", users: @users, chatrooms: @chatrooms, current_chatroom: @chatroom %>
+  <%= turbo_stream_from "user_#{current_user.id}_sidebar" %>
+  <div id="chat_sidebar">
+    <%= render "shared/sidebar", users: @users, chatrooms: @chatrooms, current_chatroom: @chatroom, current_user: current_user %>
+  </div>
 
   <div class="chat-container">
     <div class="chat-header">
