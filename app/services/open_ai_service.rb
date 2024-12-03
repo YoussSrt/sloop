@@ -19,7 +19,6 @@ class OpenAiService
     response_text.gsub!('json', '')
     sloopies = JSON.parse(response_text)
     first_travel = sloopies["itineraries"][0]
-    second_travel = sloopies["itineraries"][1]
     # Création de steps
     @sloopy.update(summary: first_travel["summary"], budget_estimated: first_travel["budget"]["overall"])
 
@@ -33,43 +32,6 @@ class OpenAiService
           cost: detail["cost"],
           duration: detail["duration"],
           stays: detail["stay"]
-        )
-
-          detail["activities"].each do |activity|
-            new_activity = Activity.new(
-              name: activity["name"],
-              address: activity["address"]
-            )
-            new_activity.step = new_step
-            new_activity.save
-          end
-      end
-    end
-
-    second_sloopy = Sloopy.create(
-      origin: @sloopy.origin,
-      destination: @sloopy.destination,
-      duration: @sloopy.duration,
-      departure_date: @sloopy.departure_date,
-      return_date: @sloopy.return_date,
-      user: @sloopy.user,
-      summary: second_travel["summary"],
-      budget_estimated: second_travel["budget"]["overall"]
-      )
-
-      return if second_travel.nil?
-
-    second_travel["steps"].each do |step|
-      step["details"].each do |detail|
-        new_step = Step.create(
-          sloopy: second_sloopy,
-          city: detail["city"],
-          city_stop: detail["city"].split('to')[-1].strip,
-          transport: detail["transport"],
-          cost: detail["cost"],
-          duration: detail["duration"],
-          stays: detail["stay"]
-
         )
 
           detail["activities"].each do |activity|
@@ -107,7 +69,7 @@ class OpenAiService
 
   def build_prompt
     <<~PROMPT
-      Generate two distinct round-trip itineraries("It is mandatory to generate two itineraries, you cannot generate just one. You must create two distinct itineraries. This step is MANDATORY.") between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, with a maximum transport budget of #{@sloopy.budget}€.
+      Generate one distinct round-trip itineraries between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, with a maximum transport budget of #{@sloopy.budget}€.
       The itinerary should include:
       Outbound: Several stops where I can stay a few days (At least 3 stops logically located between #{@sloopy.origin} and #{@sloopy.destination} (e.g., cities or towns geographically aligned on a plausible route)) and do several activities (with the adresses) in relation with my tastes: #{@formatted_preferences}.
       In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days and very important, with a list of daily activities (with addresses) that match my tastes: #{@formatted_preferences}.
@@ -117,7 +79,6 @@ class OpenAiService
       Write a short and unique summary for each itinerary, highlighting its distinct experiences, the charm of the stops, and the overall travel vibe to make it feel exciting and personalized.
       Without any of your own answer like 'Here is a round-trip itinerary'.
       Stops must be geographically relevant: Chosen stops should form a coherent path between #{@sloopy.origin} and #{@sloopy.destination} without significant detours.
-      Ensure that the output generates two complete and distinct itineraries with clear differences in routes and activities.
       Can you serialize the data with a Hash wich looks like this:
        {
       "itineraries": [
