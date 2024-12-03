@@ -55,7 +55,7 @@
             <h3><%= step.city %></h3>
             <p><strong>Transport:</strong> <%= step.transport %></p>
             <p><strong>Duration:</strong> <%= step.duration %> hours</p>
-            <p><strong>Cost:</strong> <%= step.cost %>€</p>
+            <p><strong>Cost:</strong> <%= step.cost %></p>
             <p><strong>Stays:</strong> <%= step.stays %> night(s) in <%= step.city_stop %></p>
 
             <% if step.activities.any? %>
@@ -73,6 +73,15 @@
 
         <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-sloopy" %>
       </div>
+    </div>
+
+    <div class="container chatbot">
+      <h1>Chat with us</h1>
+      <div id="questions">
+        <%= render partial: "questions/question", collection: @questions, as: :question %>
+      </div>
+
+      <%= render "questions/form", question: @question, sloopy: @sloopy %>
     </div>
   </div>
 </div>

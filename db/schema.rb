@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_161944) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_12_03_113032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +59,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_161944) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text "user_question"
+    t.text "ai_answer"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "sloopy_id", null: false
+    t.index ["sloopy_id"], name: "index_questions_on_sloopy_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "rating"
@@ -76,7 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_161944) do
     t.date "return_date"
     t.integer "budget"
     t.integer "duration"
-    t.string "status", default: "f"
+    t.boolean "status", default: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -266,6 +276,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_161944) do
   add_foreign_key "favorites", "users"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "questions", "sloopies"
+  add_foreign_key "questions", "users"
   add_foreign_key "reviews", "sloopies"
   add_foreign_key "sloopies", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
