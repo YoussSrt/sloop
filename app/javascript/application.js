@@ -34,3 +34,20 @@ document.addEventListener("turbo:load", () => {
     });
   });
 });
+
+
+document.addEventListener("turbo:load", () => {
+  const forms = document.querySelectorAll(".sloopy-form");
+
+  forms.forEach(form => {
+    form.addEventListener("submit", function (event) {
+      const btn = form.querySelector("input[type='submit']");
+      if (btn && btn.value.includes("Done")) {
+        const confirmMessage = "Are you sure you want to mark this Sloopy as Done?";
+        if (!confirm(confirmMessage)) {
+          event.preventDefault();
+        }
+      }
+    });
+  });
+});

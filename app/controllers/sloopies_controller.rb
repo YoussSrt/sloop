@@ -1,5 +1,5 @@
 class SloopiesController < ApplicationController
-  before_action :set_sloopy, only: [:show, :update_save, :destroy]
+  before_action :set_sloopy, only: [:show, :update_save, :update_status, :destroy]
 
 
   def index
@@ -143,10 +143,40 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def update_status
+    # Ensure @sloopy is properly set here
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+      return
+    end
+
+    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+          ]
+        end
+        format.html { redirect_to request.referer, notice: "Sloopy status updated!" }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+        end
+        format.html { redirect_to request.referer, alert: "Unable to update status." }
+      end
+    end
+  end
+
+
   private
 
   def sloopy_params
-    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration)
+    params.require(:sloopy).permit(:origin, :destination, :departure_date, :return_date, :budget, :duration, :status, :is_saved)
   end
 
   def set_coordinates
@@ -181,7 +211,14 @@ class SloopiesController < ApplicationController
     end
   end
 
+  # def set_sloopy
+  #   @sloopy = Sloopy.find(params[:id])
+  # end
+
   def set_sloopy
-    @sloopy = Sloopy.find(params[:id])
+    @sloopy = Sloopy.find_by(id: params[:id]) # Use `find_by` to avoid exceptions if not found
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+    end
   end
 end

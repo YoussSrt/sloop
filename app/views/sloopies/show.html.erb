@@ -1,6 +1,5 @@
 <div class="div-sloopy position-sticky">
   <h1>Your Sloopy Journey</h1>
-
   <div class="main-content">
     <div class="map-section">
       <div class="map-container"
@@ -18,9 +17,7 @@
         <p><strong>From:</strong> <%= @sloopy.origin %></p>
         <p><strong>To:</strong> <%= @sloopy.destination %></p>
 
-        <p id="save-status-<%= @sloopy.id %>">
-          <strong>Saved:</strong> <%= @sloopy.is_saved ? 'Yes' : 'No' %>
-        </p>
+
 
         <% if @sloopy.steps.any? %>
           <p class="steps-line">
@@ -29,20 +26,34 @@
           </p>
         <% end %>
 
-        <!-- Save/Unsave button -->
-        <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
-          <%= form.submit @sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
-                          class: "btn-save-toggle btn-orange",
-                          id: "btn-save-toggle-#{@sloopy.id}" %>
-        <% end %>
+       <div class="button-container" style="display: flex; gap: 24px;">
+      <!-- Save/Unsave button -->
+      <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+        <%= form.submit @sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
+                        class: "btn-save-toggle btn-orange flex-grow: 1;",
+                        id: "btn-save-toggle-#{@sloopy.id}" %>
+      <% end %>
 
-        <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-sloopy" %>
+      <!-- Done/In Progress Button -->
+      <% if @sloopy.is_saved %>
+      <%= form_with model: @sloopy, url: update_status_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+        <%= form.submit @sloopy.status == 'done' ? 'In Progress' : 'Done',
+                        class: "btn-status-toggle btn-orange flex-grow: 1;",
+                        id: "btn-status-toggle-#{@sloopy.id}" %>
+      <% end %>
+      <% end %>
+
+      <!-- Back to all Sloopies Link -->
+      <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-orange flex-grow: 1;" %>
+    </div>
+
+
+
 
         <% @sloopy.steps.each do |step| %>
           <div class="step-details">
             <h3><%= step.city %></h3>
             <p><strong>Transport:</strong> <%= step.transport %></p>
-
             <p><strong>Duration:</strong> <%= step.duration %> hours</p>
             <p><strong>Cost:</strong> <%= step.cost %>€</p>
             <p><strong>Stays:</strong> <%= step.stays %> night(s) in <%= step.city_stop %></p>
