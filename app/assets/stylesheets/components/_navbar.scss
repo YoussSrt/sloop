@@ -14,8 +14,8 @@
 
 /* Navbar */
 .navbar {
-  background-color: $secondary-color; /* Fond de la navbar */
-  padding: 10px 20px;
+  background-color: var(--secondary-color); /* Fond de la navbar */
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,17 +24,18 @@
   top: 0; /* Positionne-la en haut de la page */
   left: 0; /* Assure que la navbar commence à gauche */
   right: 0; /* Assure que la navbar s'étend sur toute la largeur */
-  z-index: 1000; /* Met la navbar au-dessus des autres éléments */
+  z-index: 9999; /* Met la navbar au-dessus des autres éléments */
   width: 100%; /* S'assure que la navbar prend toute la largeur de la page */
   margin-top: 0; /* Enlève l'espace en haut */
+  height: 76px;
 }
-
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 
 .navbar-brand img {
@@ -43,6 +44,7 @@
   text-transform: uppercase;
   text-decoration: none;
   margin-right: 20px;
+  max-height: 50px;
 }
 
 /* Liens (les 4 boutons au centre) */
@@ -51,6 +53,7 @@
   align-items: center; /* Alignement des éléments sur la même ligne */
   justify-content: center; /* Centrer les boutons au centre de la navbar */
   flex-grow: 1; /* Prend tout l'espace restant pour centrer les boutons */
+  height: 100%;
 }
 
 .navbar-links {
@@ -140,6 +143,9 @@
 .user-dropdown {
   position: relative; /* Nécessaire pour positionner le menu par rapport au bouton */
   margin-left: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 
   .dropdown-toggle {
     padding: 10px 40px 10px 20px;
