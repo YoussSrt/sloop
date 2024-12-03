@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :sloopies do
     member do
       patch :update_save
+      patch :update_status
     end
   end
 
