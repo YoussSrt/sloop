@@ -6,7 +6,6 @@
   padding: 10px 20px; /* Espacement intérieur */
   text-align: center;
   height: 70px; /* Hauteur fixe pour le footer */
-  margin-top: auto; /* Assure que le footer est toujours au bas de la page */
 }
 
 .footer-container {
@@ -64,4 +63,10 @@
 .footer-links .footer-button:active {
   color: var(--tertiary-color); /* Couleur du texte au clic */
   border-color: var(--tertiary-color); /* Bordure au clic */
+}
+
+.page-container {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
 }

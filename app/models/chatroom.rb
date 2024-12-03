@@ -11,5 +11,10 @@ class Chatroom < ApplicationRecord
     current_user == first_user ? second_user : first_user
   end
 
+  def self.between_users(user1, user2)
+    where("(first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
+          user1.id, user2.id, user2.id, user1.id)
+  end
+
   # validates :first_user_id, uniqueness: { scope: :second_user_id, message: "le chatroom existe déjà entre ces utilisateurs" }
 end
