@@ -13,6 +13,9 @@ srand(1234)
 
 puts "La seed est effacée, les anciennes données sont supprimées..."
 
+Message.destroy_all
+# Question.destroy_all
+Chatroom.destroy_all
 User.destroy_all
 Sloopy.destroy_all
 
@@ -102,7 +105,7 @@ puts "Création des preferences"
   "Relaxation",
   "Social",
   "Party"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "favorite_activities",
     choice: preference
@@ -117,7 +120,7 @@ end
   "Relaxed",
   "Flexible",
   "Lazy"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "ideal_travel_pace",
     choice: preference
@@ -132,7 +135,7 @@ end
   "Food & drinks",
   "Shopping",
   "Learning"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "exciting_experiences",
     choice: preference
@@ -146,7 +149,7 @@ end
   "Family",
   "Friends",
   "Group"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "traveling_with",
     choice: preference
@@ -162,21 +165,21 @@ end
   "Minimal",
   "Social",
   "Lonely"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "preferred_vibe",
     choice: preference
   )
 end
 
-# main_travel_goal 
+# main_travel_goal
  [
   "Adventure",
   "Relaxation",
   "Discovering cultures",
   "Trying new foods",
   "Connecting with people"
-].each do |preference| 
+].each do |preference|
   Preference.create(
     category: "main_travel_goal",
     choice: preference

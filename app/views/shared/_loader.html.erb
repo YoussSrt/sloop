@@ -1,0 +1,10 @@
+<%# locals: container_id (optional), container_class (optional), message (optional), hint (optional) %>
+<div class="loader-container <%= local_assigns[:container_class] %>" <%= "id=#{container_id}" if local_assigns[:container_id] %>>
+  <div class="loader">
+    <div class="spinner"></div>
+    <p><%= local_assigns.fetch(:message, "Generating your Sloopy adventure...") %></p>
+    <% if local_assigns[:hint].present? %>
+      <p class="loader-hint"><%= hint %></p>
+    <% end %>
+  </div>
+</div>

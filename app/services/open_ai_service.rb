@@ -45,8 +45,8 @@ class OpenAiService
       end
     end
 
-    # Diffuser la mise à jour à tous les clients
-    Turbo::StreamsChannel.broadcast_update_to(
+    # Remplacer la card en chargement par la card complète
+    Turbo::StreamsChannel.broadcast_replace_to(
       "sloopies",
       target: "sloopy_#{@sloopy.id}",
       partial: "sloopies/sloopy",
