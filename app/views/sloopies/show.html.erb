@@ -32,7 +32,7 @@
         <% if @sloopy.steps.any? %>
           <p class="steps-line">
             <strong>Steps:</strong>
-            <span class="city-stops"><%= @sloopy.steps.map(&:city).join(" ↬ ") %></span>
+            <span class="city-stops"><%= @sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
           </p>
         <% end %>
 
@@ -88,6 +88,7 @@
       </div>
 
       <%= render "questions/form", question: @question, sloopy: @sloopy %>
+      <%= link_to "Update Sloopy", sloopy_step_path(@sloopy), data: { turbo_method: :patch } %>
     </div>
   </div>
 </div>
