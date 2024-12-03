@@ -36,9 +36,7 @@
             <% end %>
 
             <p class="justified"><%= sloopy.summary %></p>
-            <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated.split('€')[1] %>€</p>
-            <%= link_to "See details", sloopy_path(sloopy), class: "btn-sloopy" %>
-
+            <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated %></p>
 
             <!-- Save/Unsave button -->
               <%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
