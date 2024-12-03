@@ -46,6 +46,7 @@ class SloopiesController < ApplicationController
 
   def show
     @sloopy = Sloopy.find(params[:id])
+    @question = Question.new 
     @markers = []
     route_coordinates = []
 
@@ -100,7 +101,7 @@ class SloopiesController < ApplicationController
   def create
 
     Sloopy.where(user: current_user, is_saved: false).destroy_all
-    
+
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first

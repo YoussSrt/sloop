@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :sloopies
+  resources :sloopies do
+    resources :questions, only: [:index, :create]
+  end
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
@@ -33,4 +35,5 @@ Rails.application.routes.draw do
       get :edit
     end
   end
+
 end
