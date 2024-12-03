@@ -34,16 +34,10 @@ Rails.application.routes.draw do
     patch :update_status
    end
   end
-end
-
-
-
-
 
   resources :user_preferences, only: [] do
     collection do
       get :edit
     end
   end
-
 end

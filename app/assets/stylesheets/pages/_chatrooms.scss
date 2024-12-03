@@ -29,9 +29,9 @@ $transition-default: all 0.2s ease;
 
 .chat-wrapper {
   display: flex;
-  height: calc(100vh - 86px);
+  height: calc(100vh - 156px);
   background-color: $secondary-color;
-  margin: 20px auto;
+  margin: 90px auto 20px auto;
   width: 75%;
   max-width: 1400px;
   overflow: hidden;

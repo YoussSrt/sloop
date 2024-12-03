@@ -29,23 +29,6 @@
         </div>
       </div>
 
-      <div class="profile-sections">
-        <div class="profile-section">
-          <h2>Personal Info</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
-              <span><%= @user.email %></span>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-calendar"></i>
-              <span>Member since <%= @user.created_at.strftime("%B %Y") %></span>
-            </div>
-          </div>
-          <%= link_to edit_user_registration_path, class: "btn-edit-profile mt-3" do %>
-            <i class="fas fa-pencil-alt"></i> Edit Profile
-          <% end %>
-        </div>
 
         <div class="profile-section">
           <h2>My Sloopies</h2>
@@ -73,6 +56,23 @@
             <% end %>
           </div>
           <%= link_to "Update Preferences", edit_user_preferences_path, class: "btn-see-all mt-3" %>
+        </div>
+      <div class="profile-sections">
+        <div class="profile-section">
+          <h2>Personal Info</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <span><%= @user.email %></span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-calendar"></i>
+              <span>Member since <%= @user.created_at.strftime("%B %Y") %></span>
+            </div>
+          </div>
+          <%= link_to edit_user_registration_path, class: "btn-edit-profile mt-3" do %>
+            <i class="fas fa-pencil-alt"></i> Edit Profile
+          <% end %>
         </div>
       </div>
     </div>
