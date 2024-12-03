@@ -47,6 +47,7 @@ class SloopiesController < ApplicationController
   def show
     @sloopy = Sloopy.find(params[:id])
     @review = @sloopy.reviews.new
+    @question = Question.new 
     @markers = []
     route_coordinates = []
 
@@ -99,16 +100,28 @@ class SloopiesController < ApplicationController
   end
 
   def create
-    # Nous gardons tous les sloopies générés, qu'ils soient sauvegardés ou non
+    Sloopy.where(user: current_user, is_saved: false).destroy_all
+
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
     formatted_preferences = current_user.formatted_preferences
+
     if @sloopy.save
-      current_index = current_user.sloopies.length
+      current_index = current_user.sloopies.length - 1
+
+      # Afficher immédiatement la card en chargement
+      # Turbo::StreamsChannel.broadcast_append_to(
+      #   "sloopies",
+      #   target: "sloopies",
+      #   partial: "sloopies/loading_card",
+      #   locals: { sloopy: @sloopy, index: current_index }
+      # )
+
+      # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Job was successfully created.'
+      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
     else
       render :new, status: :unprocessable_entity
     end
@@ -173,6 +186,26 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def copy
+    @original_sloopy = Sloopy.find(params[:id])
+
+    # Créer une nouvelle instance du Sloopy pour l'utilisateur actuel
+    @sloopy_copy = @original_sloopy.dup
+    @sloopy_copy.user_id = current_user.id
+    @sloopy_copy.is_saved = true
+
+    # Sauvegarder la copie
+    if @sloopy_copy.save
+      respond_to do |format|
+        format.html { redirect_to sloopies_path, notice: 'Sloopy copied successfully!' }
+        format.js   { render turbo_stream: turbo_stream.replace("btn-copy-toggle-#{@original_sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy_copy }) }
+      end
+    else
+      redirect_to sloopies_path, alert: 'Failed to copy Sloopy.'
+    end
+  end
+
+
 
   private
 
@@ -212,9 +245,9 @@ class SloopiesController < ApplicationController
     end
   end
 
-  # def set_sloopy
-  #   @sloopy = Sloopy.find(params[:id])
-  # end
+  def set_sloopy
+    @sloopy = Sloopy.find(params[:id])
+  end
 
   def set_sloopy
     @sloopy = Sloopy.find_by(id: params[:id]) # Use `find_by` to avoid exceptions if not found

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
   # config/routes.rb
 
   root to: "pages#home"
@@ -9,15 +9,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   get "profile", to: "pages#profile"
+  get 'feed', to: 'pages#feed', as: 'feed'
   post "preferences", to: "users#update_preferences", as: :preferences
   # get "preferences", to: "users#edit_preferences", as: :edit_preferences
-
-
 
   # Defines the root path route ("/")
   # root "posts#index"
   resources :sloopies do
-    resources :reviews, only: [:new, :create]
+    resources :questions, only: [:index, :create]
+    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
   end
 
   resources :reviews, only: [:show, :edit, :update, :destroy]
@@ -27,15 +27,22 @@ Rails.application.routes.draw do
   end
 
   resources :sloopies do
-    member do
-      patch :update_save
-      patch :update_status
-    end
+    post 'copy', on: :member
+  member do
+    patch :update_save
+    patch :update_status
+   end
   end
+end
+
+
+
+
 
   resources :user_preferences, only: [] do
     collection do
       get :edit
     end
   end
+
 end

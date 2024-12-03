@@ -45,8 +45,8 @@ class OpenAiService
       end
     end
 
-    # Diffuser la mise à jour à tous les clients
-    Turbo::StreamsChannel.broadcast_update_to(
+    # Remplacer la card en chargement par la card complète
+    Turbo::StreamsChannel.broadcast_replace_to(
       "sloopies",
       target: "sloopy_#{@sloopy.id}",
       partial: "sloopies/sloopy",
@@ -71,7 +71,7 @@ class OpenAiService
     <<~PROMPT
       Generate one distinct round-trip itineraries between #{@sloopy.origin} and #{@sloopy.destination} for a trip from #{@sloopy.departure_date}, with a maximum transport budget of #{@sloopy.budget}€.
       The itinerary should include:
-      Outbound: Several stops where I can stay a few days (At least 3 stops logically located between #{@sloopy.origin} and #{@sloopy.destination} (e.g., cities or towns geographically aligned on a plausible route)) and do several activities (with the adresses) in relation with my tastes: #{@formatted_preferences}.
+      Outbound: Several stops where I can stay a few days (At least 3 stops logically located between #{@sloopy.origin} and #{@sloopy.destination} and for each steps give me the country, it's mandatory) and do several activities (with the adresses) in relation with my tastes: #{@formatted_preferences}.
       In #{@sloopy.destination}: A stay of #{@sloopy.duration} full days and very important, with a list of daily activities (with addresses) that match my tastes: #{@formatted_preferences}.
       Return: A different itinerary from the outbound, with at least 2 or 3 new stops where I can stay for one or more nights.
       Return to #{@sloopy.origin} on #{@sloopy.return_date}.
