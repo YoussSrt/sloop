@@ -1,0 +1,3 @@
+<%= form_with url: copy_sloopy_path(sloopy), method: :post, remote: true, html: { id: "copy-form-#{sloopy.id}" } do |form| %>
+  <%= form.submit 'Copy', class: "btn-copy-toggle btn-orange flex-grow: 1;", id: "btn-copy-toggle-#{sloopy.id}" %>
+<% end %>

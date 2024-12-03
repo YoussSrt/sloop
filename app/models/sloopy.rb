@@ -11,5 +11,5 @@ class Sloopy < ApplicationRecord
 
   # reverse_geocoded_by :destination_latitude, :destination_longitude, address: :destination
 
-  
+
 end

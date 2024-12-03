@@ -174,6 +174,26 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def copy
+    @original_sloopy = Sloopy.find(params[:id])
+
+    # Créer une nouvelle instance du Sloopy pour l'utilisateur actuel
+    @sloopy_copy = @original_sloopy.dup
+    @sloopy_copy.user_id = current_user.id
+    @sloopy_copy.is_saved = true
+
+    # Sauvegarder la copie
+    if @sloopy_copy.save
+      respond_to do |format|
+        format.html { redirect_to sloopies_path, notice: 'Sloopy copied successfully!' }
+        format.js   { render turbo_stream: turbo_stream.replace("btn-copy-toggle-#{@original_sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy_copy }) }
+      end
+    else
+      redirect_to sloopies_path, alert: 'Failed to copy Sloopy.'
+    end
+  end
+
+
 
   private
 
@@ -213,9 +233,9 @@ class SloopiesController < ApplicationController
     end
   end
 
-  # def set_sloopy
-  #   @sloopy = Sloopy.find(params[:id])
-  # end
+  def set_sloopy
+    @sloopy = Sloopy.find(params[:id])
+  end
 
   def set_sloopy
     @sloopy = Sloopy.find_by(id: params[:id]) # Use `find_by` to avoid exceptions if not found
