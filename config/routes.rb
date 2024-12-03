@@ -9,28 +9,36 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   get "profile", to: "pages#profile"
+  get 'feed', to: 'pages#feed', as: 'feed'
   post "preferences", to: "users#update_preferences", as: :preferences
   # get "preferences", to: "users#edit_preferences", as: :edit_preferences
-
-
 
   # Defines the root path route ("/")
   # root "posts#index"
   resources :sloopies do
     resources :questions, only: [:index, :create]
     resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+    resources :steps, only: [:update]
   end
+
+  resources :reviews, only: [:show, :edit, :update, :destroy]
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
   resources :sloopies do
-    member do
-      patch :update_save
-      patch :update_status
-    end
+    post 'copy', on: :member
+  member do
+    patch :update_save
+    patch :update_status
+   end
   end
+end
+
+
+
+
 
   resources :user_preferences, only: [] do
     collection do
