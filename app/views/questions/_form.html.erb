@@ -8,6 +8,6 @@
        <!-- Inclure les données de l'itinéraire -->
     <%= hidden_field_tag :sloopy_id, @sloopy.id %>
     <%= hidden_field_tag :current_steps, @sloopy.steps.map(&:city).join(',') %>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary" %>
+    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary send" %>
   </div>
 <% end %>

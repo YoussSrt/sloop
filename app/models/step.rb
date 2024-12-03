@@ -8,4 +8,18 @@ class Step < ApplicationRecord
 
   #  validates :city_name, :step_duration, presence: true
   #  validates :step_duration, numericality: { greater_than: 0 }
+
+  def serialize_step
+    {
+      "city" => city,
+      "transport" => transport,
+      "cost" => cost,
+      "duration" => duration,
+      "latitude" => latitude,
+      "longitude" => longitude,
+      "city_stop" => city_stop,
+      "stays" => stays,
+      "activities" => activities.map { |activity| activity.serialize_activity }
+    }
+  end
 end

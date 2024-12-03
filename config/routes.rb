@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :sloopies do
     resources :questions, only: [:index, :create]
     resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+    resources :steps, only: [:update]
   end
 
   resources :chatrooms, only: [:index, :show, :create] do
