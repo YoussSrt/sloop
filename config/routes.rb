@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create, :edit, :update, :destroy]
   end
 
+  resources :reviews, only: [:show, :edit, :update, :destroy]
+
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
   member do
     patch :update_save
     patch :update_status
+   end
   end
 end
 

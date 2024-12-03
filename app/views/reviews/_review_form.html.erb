@@ -1,11 +1,18 @@
-<%= simple_form_for [@sloopy, review], html: { class: "review-form" } do |f| %>
-  <div class="form-group">
-    <%= f.input :content, label: "Your Review", as: :text %>
-  </div>
-  <div class="form-group">
-    <%= f.input :rating, label: "Rating (1 to 5)", as: :select, collection: 1..5 %>
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit, (review.persisted? ? "Update Review" : "Submit Review"), class: "btn btn-primary" %>
-  </div>
+
+<%= turbo_frame_tag('review-section') do %>
+  <%= simple_form_for [@sloopy, @review], html: { class: "review-form" } do |f| %>
+    <div class="form-group">
+      <%= f.input :content, label: "Your Review", as: :text %>
+    </div>
+    <div class="form-group">
+      <%= f.input :rating, label: "Rating (1 to 5)", as: :select, collection: 1..5 %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, (review.persisted? ? "Update Review" : "Submit Review"), class: "btn-orange" %>
+    </div>
+  <% end %>
+  <% if review.persisted? %>
+    <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
+  <% end %>
 <% end %>
+
