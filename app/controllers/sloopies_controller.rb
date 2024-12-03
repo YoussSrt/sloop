@@ -98,16 +98,26 @@ class SloopiesController < ApplicationController
   end
 
   def create
-    # Nous gardons tous les sloopies générés, qu'ils soient sauvegardés ou non
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first
     @sloopy.return_date = sloopy_params[:departure_date].split("to").last
     formatted_preferences = current_user.formatted_preferences
+
     if @sloopy.save
-      current_index = current_user.sloopies.length
+      current_index = current_user.sloopies.length - 1
+
+      # Afficher immédiatement la card en chargement
+      # Turbo::StreamsChannel.broadcast_append_to(
+      #   "sloopies",
+      #   target: "sloopies",
+      #   partial: "sloopies/loading_card",
+      #   locals: { sloopy: @sloopy, index: current_index }
+      # )
+
+      # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Job was successfully created.'
+      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
     else
       render :new, status: :unprocessable_entity
     end
