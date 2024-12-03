@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @sloopy = Sloopy.new
-    @sloopy.budget = 750 # Valeur par défaut au milieu de la plage (0-1500)
+    @sloopy.budget = 500 # Valeur par défaut au milieu de la plage (0-1500)
   end
 
   def profile

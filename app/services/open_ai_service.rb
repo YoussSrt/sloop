@@ -45,13 +45,13 @@ class OpenAiService
       end
     end
 
-    Turbo::StreamsChannel.broadcast_replace_to(
-      "sloopy_#{@sloopy.id}",
+    # Diffuser la mise à jour à tous les clients
+    Turbo::StreamsChannel.broadcast_update_to(
+      "sloopies",
       target: "sloopy_#{@sloopy.id}",
       partial: "sloopies/sloopy",
-      locals: { sloopy: @sloopy, index: @current_index - 1 }
+      locals: { sloopy: @sloopy, index: @current_index }
     )
-
   end
 
   private
