@@ -21,7 +21,7 @@
 }
 
 .sloopy-card-index {
-  background-color: #ffffff;
+  background-color: $bonus-color;
   border: 2px solid #d64545;
   border-radius: 20px;
   width: 300px;
@@ -42,6 +42,14 @@
 .div-sloopy {
   margin-top: 100px;
   margin-bottom: 80px;
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .main-content {
+    margin-top: 0;
+  }
 }
 
 .sloopy-title {

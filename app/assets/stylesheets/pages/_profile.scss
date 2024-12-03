@@ -137,6 +137,7 @@ $bonus-color: #F3C59D;
 }
 
 .profile-section {
+  margin-top: 3rem;
   background: white;
   padding: 1.5rem;
   border-radius: 8px;
@@ -144,10 +145,11 @@ $bonus-color: #F3C59D;
 
   h2 {
     font-size: 1.2rem;
-    color: $primary-color;
+    color: $tertiary-color;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
   }
 }
 
@@ -203,8 +205,8 @@ $bonus-color: #F3C59D;
 .profile-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin: 1.5rem 0;
+  gap: 1rem;
+  margin: 1rem 0;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -212,13 +214,17 @@ $bonus-color: #F3C59D;
   .profile-card {
     background-color: $tertiary-color;
     border-radius: 10px;
-    padding: 1.5rem;
+    padding: 0.75rem;
     text-align: center;
     color: white;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     &::before {
       content: '';
