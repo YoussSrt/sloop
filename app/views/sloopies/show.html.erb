@@ -38,7 +38,7 @@
 
        <div class="button-container" style="display: flex; gap: 24px;">
       <!-- Save/Unsave button -->
-      <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+      <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, data: { turbo: true } do |form| %>
         <%= form.submit @sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
                         class: "btn-save-toggle btn-orange flex-grow: 1;",
                         id: "btn-save-toggle-#{@sloopy.id}" %>

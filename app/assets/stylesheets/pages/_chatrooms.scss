@@ -61,65 +61,84 @@ $transition-default: all 0.2s ease;
   }
 
   .users-list {
+    flex: 1;
     overflow-y: auto;
-    flex-grow: 1;
     @include scrollbar;
-  }
 
-  .user-item {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: $border-light;
-    text-decoration: none;
-    color: $tertiary-color;
-    transition: $transition-default;
-    background-color: white;
-
-    &:hover {
-      background-color: rgba($bonus-color, 0.1);
-    }
-
-    &.active {
-      background-color: rgba($primary-color, 0.1);
-    }
-  }
-
-  .user-avatar {
-    margin-right: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: rgba($tertiary-color, 0.1);
+    .user-item {
       display: flex;
       align-items: center;
-      justify-content: center;
+      padding: 15px 20px;
+      text-decoration: none;
       color: $tertiary-color;
-      font-size: 20px;
-    }
-  }
+      transition: $transition-default;
+      border-bottom: $border-light;
+      position: relative;
 
-  .user-info {
-    flex-grow: 1;
-    overflow: hidden;
+      &:hover {
+        background-color: rgba($tertiary-color, 0.05);
+      }
 
-    .user-name {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: $tertiary-color;
-    }
+      &.active {
+        background-color: rgba($primary-color, 0.1);
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: $primary-color;
+        }
+        
+        .user-name {
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
 
-    .last-message {
-      font-size: 0.9rem;
-      color: rgba($tertiary-color, 0.7);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        overflow: hidden;
+
+        .avatar {
+          font-size: 18px;
+          color: #666;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .user-info {
+        flex: 1;
+        min-width: 0;
+
+        .user-name {
+          font-size: 16px;
+          margin-bottom: 4px;
+        }
+
+        .last-message {
+          font-size: 14px;
+          color: rgba($tertiary-color, 0.6);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 }
