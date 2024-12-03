@@ -43,9 +43,10 @@ class SloopiesController < ApplicationController
       markers
     end
   end
-
+    
   def show
     @sloopy = Sloopy.find(params[:id])
+    @review = @sloopy.reviews.new
     @markers = []
     route_coordinates = []
 

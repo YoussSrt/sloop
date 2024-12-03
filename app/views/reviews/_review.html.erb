@@ -1,0 +1,10 @@
+<%= turbo_frame_tag("review-section") do %>
+  <% if review.present? %>
+  <p>Your review</p>
+  <p><%= review.content %></p>
+  <p>Your rating</p>
+  <p><%= review.rating %></p>
+  <%= link_to "edit", edit_review_path(review), class: "btn bt-primary" %>
+  <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
+  <% end  %>
+<% end %>

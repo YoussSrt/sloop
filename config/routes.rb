@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :sloopies do
-    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+    resources :reviews, only: [:new, :create]
   end
+
+  resources :reviews, only: [:show, :edit, :update, :destroy]
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
