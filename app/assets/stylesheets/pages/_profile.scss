@@ -6,7 +6,7 @@ $bonus-color: #F3C59D;
 
 // Profil Page Styles
 .profile-page {
-  padding-top: 76px;
+  padding-top: 86px;
   min-height: 100vh;
   background-image: asset-url("background_homepage.jpg");
   background-size: cover;
@@ -36,7 +36,7 @@ $bonus-color: #F3C59D;
 
 .profile-header {
   position: relative;
-  height: 250px;
+  height: 280px;
   margin-bottom: 3rem;
 }
 
@@ -61,9 +61,9 @@ $bonus-color: #F3C59D;
 
 .profile-content {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
 }
 
 .profile-main-info {
@@ -71,14 +71,14 @@ $bonus-color: #F3C59D;
   margin-bottom: 3rem;
 
   .profile-name {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: $primary-color;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .profile-username {
     color: #6c757d;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -87,22 +87,47 @@ $bonus-color: #F3C59D;
   justify-content: center;
   gap: 3rem;
   margin-bottom: 3rem;
+  padding: 1.5rem 0;
 
   .stat-item {
     text-align: center;
 
     .stat-number {
       display: block;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 600;
       color: $primary-color;
+      margin-bottom: 0.5rem;
     }
 
     .stat-label {
+      font-size: 1.1rem;
       color: #6c757d;
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
     }
+  }
+}
+
+.profile-description {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 1.5rem;
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: $tertiary-color;
+  }
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 0.8rem 2rem;
   }
 }
 
@@ -172,6 +197,84 @@ $bonus-color: #F3C59D;
       margin-right: 0.5rem;
       color: $primary-color;
     }
+  }
+}
+
+.profile-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .profile-card {
+    background-color: $tertiary-color;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(39, 64, 40, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .card-count {
+        transform: scale(1.1);
+      }
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-count {
+      font-size: 1.8rem;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+    }
+
+    .card-description {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
