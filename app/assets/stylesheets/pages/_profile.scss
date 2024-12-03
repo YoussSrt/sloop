@@ -1,228 +1,248 @@
-// Profile Page Styles
-.profile {
-  &-container {
-    width: 100%;
-    min-height: calc(100vh - 76px); // Hauteur totale moins la navbar
-    background-color: $secondary-color;
-    padding: 2rem;
-  }
+// Charte graphique
+$primary-color: #CF5847;
+$secondary-color: #F5F3ED;
+$tertiary-color: #274028;
+$bonus-color: #F3C59D;
 
-  &-header {
-    position: relative;
-    height: 250px;
-    margin-bottom: 3rem;
-  }
+// Profil Page Styles
+.profile-page {
+  padding-top: 76px;
+  min-height: 100vh;
+  background-image: asset-url("background_homepage.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
 
-  &-cover-photo {
-    height: 100%;
-    background: linear-gradient(45deg, $primary-color, $bonus-color);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+}
+
+.profile-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.profile-header {
+  position: relative;
+  height: 250px;
+  margin-bottom: 3rem;
+}
+
+.profile-cover-photo {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 20px;
   }
+}
 
-  &-main-info {
+.profile-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.profile-main-info {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .profile-name {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-username {
+    color: #6c757d;
+    font-size: 1rem;
+  }
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+
+  .stat-item {
     text-align: center;
-    margin-bottom: 4rem;
 
-    .profile-name {
-      font-size: 3rem;
-      color: $tertiary-color;
-      margin: 0;
-      font-weight: bold;
-    }
-
-    .profile-username {
-      color: $primary-color;
-      margin: 1rem 0 2rem;
+    .stat-number {
+      display: block;
       font-size: 1.5rem;
-      font-weight: 500;
-    }
-  }
-
-  &-stats {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 2rem;
-
-    .stat-item {
-      text-align: center;
-      background: white;
-      padding: 1.5rem 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba($tertiary-color, 0.1);
-      min-width: 150px;
-
-      .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: $primary-color;
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-label {
-        color: $tertiary-color;
-        font-size: 1.2rem;
-        font-weight: 500;
-      }
-    }
-  }
-
-  &-sections {
-    display: grid;
-    gap: 3rem;
-    margin-top: 3rem;
-  }
-
-  &-section {
-    background: white;
-    border-radius: 20px;
-    padding: 2.5rem;
-    border: 1px solid rgba($tertiary-color, 0.1);
-    box-shadow: 0 4px 12px rgba($tertiary-color, 0.05);
-
-    h2 {
-      color: $tertiary-color;
-      margin-bottom: 2rem;
-      font-size: 2rem;
       font-weight: 600;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid $primary-color;
+      color: $primary-color;
+    }
+
+    .stat-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
     }
   }
 }
 
-// Information Grid
+.profile-sections {
+  display: grid;
+  gap: 2rem;
+}
+
+.profile-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+
+  h2 {
+    font-size: 1.2rem;
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+}
+
 .info-grid {
   display: grid;
-  gap: 1.5rem;
+  gap: 1rem;
 
   .info-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: $secondary-color;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateX(10px);
-    }
+    gap: 0.75rem;
 
     i {
       color: $primary-color;
-      font-size: 1.5rem;
-      width: 30px;
+      font-size: 1rem;
     }
 
     span {
-      color: $tertiary-color;
-      font-size: 1.2rem;
+      color: #6c757d;
+      font-size: 0.95rem;
     }
   }
 }
 
-// Buttons
-.btn {
-  &-edit-profile {
-    @extend .btn;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    background-color: $primary-color;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-
-    i {
-      font-size: 1.2rem;
-    }
-
-    &:hover {
-      background-color: darken($primary-color, 10%);
-      transform: translateY(-2px);
-    }
-  }
-
-  &-see-all {
-    @extend .btn;
-    display: block;
-    text-align: center;
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: transparent;
-    color: $primary-color;
-    border: 3px solid $primary-color;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: $primary-color;
-      color: white;
-      transform: translateY(-2px);
-    }
-  }
-}
-
-// Sloopies Grid
 .sloopies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 1rem;
+}
 
-  .sloopy-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    border: 1px solid rgba($tertiary-color, 0.1);
-    transition: all 0.3s ease;
-    height: 100%;
+.sloopy-card {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba($tertiary-color, 0.15);
-      border-color: $primary-color;
+  h3 {
+    font-size: 1rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+
+    i {
+      margin-right: 0.5rem;
+      color: $primary-color;
     }
+  }
+}
 
-    .sloopy-info {
-      h3 {
-        margin: 0 0 1.5rem;
-        color: $tertiary-color;
-        font-size: 1.5rem;
-        font-weight: 600;
-        line-height: 1.4;
-      }
+// Chat Button (Floating)
+.slooper-chat-btn {
+  position: fixed;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, $tertiary-color, darken($tertiary-color, 10%));
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba($tertiary-color, 0.3);
+  transition: all 0.3s ease;
 
-      p {
-        margin: 1rem 0;
-        color: $tertiary-color;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
+  i {
+    font-size: 1.2rem;
+  }
 
-        &:last-child {
-          color: $primary-color;
-          font-weight: bold;
-          font-size: 1.2rem;
-          margin-top: 1.5rem;
-        }
-      }
+  span {
+    font-size: 1rem;
+  }
 
-      i {
-        color: $primary-color;
-        font-size: 1.2rem;
-      }
+  .chat-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: $tertiary-color;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-left: 5px;
+
+    i {
+      font-size: 0.8rem;
     }
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($tertiary-color, 0.4);
+    color: white;
+    background: linear-gradient(135deg, lighten($tertiary-color, 5%), $tertiary-color);
+  }
+}
+
+.btn-edit-profile, .btn-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: $primary-color;
+  background: transparent;
+  border: 1px solid $primary-color;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $primary-color;
+    color: white;
+  }
+
+  i {
+    font-size: 0.9rem;
   }
 }
 

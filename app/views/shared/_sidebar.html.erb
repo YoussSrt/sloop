@@ -8,7 +8,7 @@
       <% chatroom = chatrooms.find { |c| c.participants.include?(user) } %>
       <%= link_to(chatroom ? chatroom_path(chatroom) : chatrooms_path(second_user_id: user.id),
           data: { turbo_method: chatroom ? :get : :post },
-          class: "user-item #{'active' if local_assigns[:current_chatroom]&.participants&.include?(user)}") do %>
+          class: "user-item #{'active' if @chatroom&.participants&.include?(user)}") do %>
         <div class="user-avatar">
           <i class="fa-solid fa-user avatar"></i>
         </div>

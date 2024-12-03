@@ -1,76 +1,80 @@
-<div class="profile-container homepage">
-  <div class="profile-header">
-    <div class="profile-cover-photo"></div>
-  </div>
-
-  <div class="profile-content">
-    <div class="profile-main-info">
-      <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
-      <p class="profile-username">@<%= @user.nickname %></p>
-      <div class="profile-stats">
-        <div class="stat-item">
-          <span class="stat-number"><%= @user.sloopies.count %></span>
-          <span class="stat-label">Sloopies</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number"><%= @user.reviews.count %></span>
-          <span class="stat-label">Reviews</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number"><%= @user.favorites.count %></span>
-          <span class="stat-label">Favorite Sloops</span>
-        </div>
+<div class="profile-page">
+  <div class="profile-container">
+    <%= link_to chatrooms_path, class: "slooper-chat-btn" do %>
+      <i class="fas fa-comments"></i>
+      <span>Chat with Sloopers</span>
+      <div class="chat-badge">
+        <i class="fas fa-users"></i>
       </div>
-    </div>
+    <% end %>
 
-    <div class="profile-sections">
-      <div class="profile-section">
-        <h2>Personal Infos</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <i class="fas fa-envelope"></i>
-            <span><%= @user.email %></span>
+    <div class="profile-content">
+      <div class="profile-main-info">
+        <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
+        <p class="profile-username">@<%= @user.nickname %></p>
+
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-number"><%= @user.sloopies.count %></span>
+            <span class="stat-label">Sloopies</span>
           </div>
-          <div class="info-item">
-            <i class="fas fa-calendar"></i>
-            <span>Member since <%= @user.created_at.strftime("%B %Y") %></span>
+          <div class="stat-item">
+            <span class="stat-number"><%= @user.reviews.count %></span>
+            <span class="stat-label">Reviews</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number"><%= @user.favorites.count %></span>
+            <span class="stat-label">Favorites</span>
           </div>
         </div>
-        <%= link_to edit_user_registration_path, class: "btn-edit-profile" do %>
-          <i class="fas fa-pencil-alt"></i> Update my profile
-        <% end %>
       </div>
 
-      <div class="profile-section">
-        <h2>My Sloopies</h2>
-        <div class="sloopies-grid">
-          <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
-            <div class="sloopy-card">
-              <div class="sloopy-info">
-                <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
-                <p>
-                  <i class="fas fa-calendar"></i>
-                  <%= l(sloopy.departure_date, format: :long) %>
-                </p>
-                <% if sloopy.reviews.any? %>
-                  <p><i class="fas fa-star"></i> <%= sloopy.reviews.average(:rating).round(1) %>/5</p>
-                <% end %>
-              </div>
+      <div class="profile-sections">
+        <div class="profile-section">
+          <h2>Personal Info</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <span><%= @user.email %></span>
             </div>
+            <div class="info-item">
+              <i class="fas fa-calendar"></i>
+              <span>Member since <%= @user.created_at.strftime("%B %Y") %></span>
+            </div>
+          </div>
+          <%= link_to edit_user_registration_path, class: "btn-edit-profile mt-3" do %>
+            <i class="fas fa-pencil-alt"></i> Edit Profile
           <% end %>
         </div>
 
-      </div>
-      <div class="profile-section mb-3">
-        <h2>My Preferences</h2>
+        <div class="profile-section">
+          <h2>My Sloopies</h2>
           <div class="sloopies-grid">
-            <% @user.preferences_by_category.each do |category, choices| %>
-              <p><%= category.humanize %> → <%= choices.join(", ") %></p>
+            <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
+              <div class="sloopy-card">
+                <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+                <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
+                <% if sloopy.reviews.any? %>
+                  <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+                <% end %>
+              </div>
             <% end %>
           </div>
+        </div>
 
-      <%= link_to "Change my preferences", edit_user_preferences_path, class: "btn-see-all" %> 
-
+        <div class="profile-section">
+          <h2>My Preferences</h2>
+          <div class="info-grid">
+            <% @user.preferences_by_category.each do |category, choices| %>
+              <div class="info-item">
+                <i class="fas fa-check"></i>
+                <span><%= category.humanize %>: <%= choices.join(", ") %></span>
+              </div>
+            <% end %>
+          </div>
+          <%= link_to "Update Preferences", edit_user_preferences_path, class: "btn-see-all mt-3" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
