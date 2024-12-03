@@ -98,9 +98,7 @@ class SloopiesController < ApplicationController
   end
 
   def create
-
-    Sloopy.where(user: current_user, is_saved: false).destroy_all
-
+    # Nous gardons tous les sloopies générés, qu'ils soient sauvegardés ou non
     @sloopy = Sloopy.new(sloopy_params)
     @sloopy.user = current_user
     @sloopy.departure_date = sloopy_params[:departure_date].split("to").first

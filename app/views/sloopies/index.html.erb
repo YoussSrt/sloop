@@ -15,9 +15,10 @@
     </div>
 
     <div class="sloopy-section">
+      <%= turbo_stream_from "sloopies" %>
       <div class="sloopy-container" id="sloopies">
         <% @sloopies.each_with_index do |sloopy, index| %>
-          <div class="sloopy-card">
+          <div id="sloopy_<%= sloopy.id %>" class="sloopy-card">
             <h2>Sloopy <%= index + 1 %></h2>
             <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
 
@@ -60,7 +61,6 @@
                           class: "btn btn-deleter" %>
             <% end %>
           </div>
-          <%= render "sloopy", sloopy: sloopy, index: index %>
         <% end %>
       </div>
     </div>
