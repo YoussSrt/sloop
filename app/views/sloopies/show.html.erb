@@ -61,7 +61,7 @@
         <!-- Back to all Sloopies Link -->
         <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-orange flex-grow: 1;" %>
       </div>
-      
+
         <% @sloopy.steps.each do |step| %>
           <div class="step-details">
             <h3><%= step.city %></h3>
@@ -86,14 +86,14 @@
       </div>
     </div>
 
-    <div class="container chatbot">
+    <%# <div class="container chatbot">
       <h1>Chat with us</h1>
       <div id="questions">
         <%= render partial: "questions/question", collection: @questions, as: :question %>
-      </div>
+      <%# </div> %>
 
-      <%= render "questions/form", question: @question, sloopy: @sloopy %>
-      <%= link_to "Update Sloopy", sloopy_step_path(@sloopy), data: { turbo_method: :patch } %>
+      <%# <%= render "questions/form", question: @question, sloopy: @sloopy %>
+      <%# <%= link_to "Update Sloopy", sloopy_step_path(@sloopy), data: { turbo_method: :patch } %>
     </div>
   </div>
 </div>

@@ -9,9 +9,14 @@
     <% end %>
 
     <div class="profile-content">
-      <div class="profile-main-info">
+      <div class="profile-main-info position-relative">
         <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
         <p class="profile-username">@<%= @user.nickname %></p>
+        <% if current_user&.avatar.present? %>
+         <%= cl_image_tag(current_user.avatar.key, class: 'avatar-profile') %>
+        <% else %>
+         <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar-profile') %>
+        <% end %>
       </div>
 
       <div class="profile-cards">
