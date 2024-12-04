@@ -178,7 +178,7 @@ class SloopiesController < ApplicationController
     # Sauvegarder la copie
     if @sloopy_copy.save
       respond_to do |format|
-        format.html { redirect_to sloopies_path, notice: 'Sloopy copied successfully!' }
+        format.html { redirect_to profile_path, notice: 'Sloopy copied successfully!' }
         format.js   { render turbo_stream: turbo_stream.replace("btn-copy-toggle-#{@original_sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy_copy }) }
       end
     else
