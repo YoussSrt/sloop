@@ -1,0 +1,9 @@
+<%= link_to sloopy_path(sloopy), class: "sloopy-card-link", id: "sloopy_#{sloopy.id}" do %>
+  <div class="sloopy-card">
+    <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+    <p><i class="fas fa-calendar"></i> <%= l(sloopy.departure_date, format: :long) %></p>
+    <% if sloopy.reviews.any? %>
+      <p><i class="fas fa-star"></i> <%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+    <% end %>
+  </div>
+<% end %>

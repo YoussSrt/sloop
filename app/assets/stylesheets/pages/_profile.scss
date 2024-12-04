@@ -179,10 +179,28 @@ $bonus-color: #F3C59D;
   gap: 1rem;
 }
 
+.sloopy-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
 .sloopy-card {
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
 
   h3 {
     font-size: 1rem;

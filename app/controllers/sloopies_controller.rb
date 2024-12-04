@@ -4,9 +4,9 @@ class SloopiesController < ApplicationController
 
   def index
     @sloopies = if user_signed_in?
-                  current_user.sloopies
+                  current_user.sloopies.where(is_saved: false).order(created_at: :desc).limit(1)
                 else
-                  Sloopy.all
+                  Sloopy.none
                 end
 
     @markers = @sloopies.flat_map.with_index do |sloopy, index|
@@ -16,11 +16,11 @@ class SloopiesController < ApplicationController
 
     Rails.logger.info "Final markers for index: #{@markers.inspect}"
   end
-    
+
   def show
     @sloopy = Sloopy.find(params[:id])
     @review = @sloopy.reviews.new
-    @question = Question.new 
+    @question = Question.new
     @markers = []
     route_coordinates = []
 
@@ -112,23 +112,31 @@ class SloopiesController < ApplicationController
     if @sloopy.save
       respond_to do |format|
         format.turbo_stream do
-          # Mettre à jour les éléments nécessaires avec turbo_stream
-          render turbo_stream: [
-            turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy }),
-            turbo_stream.replace("btn-save-toggle-#{@sloopy.id}", partial: "sloopies/save_button", locals: { sloopy: @sloopy })
-          ]
+          if @sloopy.is_saved
+            # Quand on sauvegarde un sloopy
+            render turbo_stream: [
+              turbo_stream.remove("sloopy_#{@sloopy.id}"),
+              turbo_stream.append("sloopies-grid", partial: "sloopies/profile_card", locals: { sloopy: @sloopy }),
+              turbo_stream.update("sloopies-count", @sloopy.user.sloopies.where(is_saved: true).count)
+            ]
+          else
+            # Quand on retire un sloopy des sauvegardés
+            render turbo_stream: [
+              turbo_stream.remove("sloopy_#{@sloopy.id}"),
+              turbo_stream.update("sloopies-count", @sloopy.user.sloopies.where(is_saved: true).count)
+            ]
+          end
         end
-        format.html { redirect_to request.referer, notice: "Sloopy save status updated!" }
+        format.html { redirect_to request.referer, notice: "Sloopy #{@sloopy.is_saved ? 'saved' : 'unsaved'}!" }
       end
     else
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy })
-        end
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy }) }
         format.html { redirect_to request.referer, alert: "Unable to update save status." }
       end
     end
   end
+
 
   def update_status
     # Ensure @sloopy is properly set here
