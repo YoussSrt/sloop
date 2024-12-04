@@ -60,8 +60,13 @@ export default class extends Controller {
       step: '📍'
     }
 
+    if (!this.markersValue || this.markersValue.length === 0) {
+      console.log("No markers to add")
+      return
+    }
+
+    console.log("Adding markers:", this.markersValue)
     this.markersValue.forEach((marker) => {
-      console.log("Adding marker:", marker)
       const el = document.createElement('div')
       el.style.fontSize = '30px'
       el.innerHTML = icons[marker.type]
@@ -73,63 +78,52 @@ export default class extends Controller {
   }
 
   #addRouteToMap() {
-    const colors = [
-      '#FF0000', // Rouge
-      '#00FF00', // Vert vif
-      '#0000FF', // Bleu
-      '#FFA500', // Orange
-      '#800080', // Violet
-      '#008080', // Turquoise
-      '#FF69B4', // Rose
-      '#4B0082', // Indigo
-      '#FFD700', // Or
-      '#32CD32'  // Vert lime
-    ];
+    // Trouver le dernier marqueur avec des coordonnées de route
+    const markerWithRoute = this.markersValue.findLast(marker => 
+      marker.route_coordinates && marker.route_coordinates.length >= 2
+    );
 
-    this.markersValue.forEach((marker) => {
-      if (!marker.route_coordinates || marker.route_coordinates.length < 2) return;
+    if (!markerWithRoute) return;
 
-      const routeId = marker.route_id;
-      const sourceId = `route-${routeId}`;
-      const layerId = `route-layer-${routeId}`;
-      const color = colors[routeId % colors.length];
+    const color = '#FF0000'; // Rouge pour l'itinéraire
+    const sourceId = 'active-route';
+    const layerId = 'active-route-layer';
 
-      // Supprimer l'ancienne route si elle existe
-      if (this.map.getSource(sourceId)) {
-        this.map.removeLayer(layerId);
-        this.map.removeSource(sourceId);
+    // Supprimer l'ancienne route si elle existe
+    if (this.map.getSource(sourceId)) {
+      this.map.removeLayer(layerId);
+      this.map.removeSource(sourceId);
+    }
+
+    this.map.addSource(sourceId, {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'LineString',
+          coordinates: markerWithRoute.route_coordinates
+        }
       }
+    });
 
-      this.map.addSource(sourceId, {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'LineString',
-            coordinates: marker.route_coordinates
-          }
-        }
-      });
-
-      this.map.addLayer({
-        id: layerId,
-        type: 'line',
-        source: sourceId,
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': color,
-          'line-width': 3
-        }
-      });
+    this.map.addLayer({
+      id: layerId,
+      type: 'line',
+      source: sourceId,
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': color,
+        'line-width': 3
+      }
     });
   }
 
   #fitMapToMarkers() {
-    if (!this.markersValue.length) {
+    if (!this.markersValue || this.markersValue.length === 0) {
       console.log("No markers to fit map to")
       return
     }

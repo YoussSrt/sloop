@@ -218,6 +218,29 @@ $bonus-color: #F3C59D;
       color: $primary-color;
     }
   }
+
+  &.realized {
+    border: 2px solid #4CAF50;
+    position: relative;
+    
+    .realized-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
 }
 
 .profile-cards {
@@ -299,6 +322,32 @@ $bonus-color: #F3C59D;
   .profile-cards {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+}
+
+.btn-complete {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+  width: 100%;
+  justify-content: center;
+
+  i {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: darken(#4CAF50, 10%);
+    transform: translateY(-2px);
   }
 }
 
