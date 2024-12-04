@@ -173,6 +173,11 @@ class SloopiesController < ApplicationController
     # Créer une nouvelle instance du Sloopy pour l'utilisateur actuel
     @sloopy_copy = @original_sloopy.dup
     @sloopy_copy.user_id = current_user.id
+    @original_sloopy.steps.each do |step|
+      new_step = step.dup
+      new_step.sloopy = @sloopy_copy
+      new_step.save
+    end
     @sloopy_copy.is_saved = true
 
     # Sauvegarder la copie

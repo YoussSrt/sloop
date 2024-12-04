@@ -2,7 +2,7 @@
 // Appliquer l'image de fond à la page entière
 
 .div_home {
-  min-height: 100vh;
+  min-height: calc(100vh - 12rem);
   display: flex;
   align-items: center;
   justify-content: center;
