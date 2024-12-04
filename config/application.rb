@@ -16,6 +16,7 @@ module Sloop
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
+    config.active_job.queue_adapter = :solid_queue
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -29,6 +30,5 @@ module Sloop
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.active_job.queue_adapter = :solid_queue
   end
 end

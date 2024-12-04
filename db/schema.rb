@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_04_093147) do
     t.date "return_date"
     t.integer "budget"
     t.integer "duration"
-    t.string "status", default: "f"
+    t.boolean "status", default: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -293,6 +293,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_04_093147) do
     t.string "nickname"
     t.string "first_name"
     t.string "last_name"
+    t.string "avatar_url"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

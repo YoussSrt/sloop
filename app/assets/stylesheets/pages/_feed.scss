@@ -1,8 +1,9 @@
 .sloopy-container-feed {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6.25rem; /* Espace de 100px (6.25rem) entre les cartes */
-  max-height: calc(100vh - 8rem);
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-height: calc(100vh - 12rem);
   overflow-y: auto;
   padding: 0.5rem 1rem 1rem 0;
   margin-left: 150px;
