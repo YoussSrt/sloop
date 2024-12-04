@@ -40,7 +40,6 @@ class Preference < ApplicationRecord
     "Adventure",
     "Chill",
     "Luxury",
-    "Off-the-beaten-path",
     "Minimal",
     "Social",
     "Lonely"
