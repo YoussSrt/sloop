@@ -18,7 +18,7 @@
         <div class="profile-card">
           <i class="bi bi-infinity card-icon"></i>
           <h3 class="card-title">Sloopies</h3>
-          <div class="card-count"><%= @user.sloopies.count %></div>
+          <div class="card-count" id="sloopies-count"><%= @user.sloopies.where(is_saved: true).count %></div>
           <p class="card-description">My completed adventures</p>
         </div>
 
@@ -38,16 +38,18 @@
       </div>
 
         <div class="profile-section">
-          <h2>My Sloopies</h2>
+          <h2>My Future Sloopies</h2>
           <div class="sloopies-grid">
             <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
-              <div class="sloopy-card">
-                <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
-                <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
-                <% if sloopy.reviews.any? %>
-                  <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
-                <% end %>
-              </div>
+              <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
+                <div class="sloopy-card">
+                  <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+                  <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
+                  <% if sloopy.reviews.any? %>
+                    <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

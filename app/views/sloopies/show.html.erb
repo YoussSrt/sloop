@@ -61,7 +61,7 @@
         <!-- Back to all Sloopies Link -->
         <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-orange flex-grow: 1;" %>
       </div>
-      
+
         <% @sloopy.steps.each do |step| %>
           <div class="step-details">
             <h3><%= step.city %></h3>

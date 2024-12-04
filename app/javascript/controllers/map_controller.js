@@ -73,21 +73,31 @@ export default class extends Controller {
   }
 
   #addRouteToMap() {
-    this.markersValue.forEach((marker) => {
-      if (!marker.route_coordinates || marker.route_coordinates.length < 2) {
-        console.log("No valid route coordinates for marker:", marker)
-        return
-      }
+    const colors = [
+      '#FF0000', // Rouge
+      '#00FF00', // Vert vif
+      '#0000FF', // Bleu
+      '#FFA500', // Orange
+      '#800080', // Violet
+      '#008080', // Turquoise
+      '#FF69B4', // Rose
+      '#4B0082', // Indigo
+      '#FFD700', // Or
+      '#32CD32'  // Vert lime
+    ];
 
-      console.log("Adding route for coordinates:", marker.route_coordinates)
-      const routeId = marker.route_id
-      const sourceId = `route-${routeId}`
-      const layerId = `route-layer-${routeId}`
+    this.markersValue.forEach((marker) => {
+      if (!marker.route_coordinates || marker.route_coordinates.length < 2) return;
+
+      const routeId = marker.route_id;
+      const sourceId = `route-${routeId}`;
+      const layerId = `route-layer-${routeId}`;
+      const color = colors[routeId % colors.length];
 
       // Supprimer l'ancienne route si elle existe
       if (this.map.getSource(sourceId)) {
-        this.map.removeLayer(layerId)
-        this.map.removeSource(sourceId)
+        this.map.removeLayer(layerId);
+        this.map.removeSource(sourceId);
       }
 
       this.map.addSource(sourceId, {
@@ -100,7 +110,7 @@ export default class extends Controller {
             coordinates: marker.route_coordinates
           }
         }
-      })
+      });
 
       this.map.addLayer({
         id: layerId,
@@ -111,11 +121,11 @@ export default class extends Controller {
           'line-cap': 'round'
         },
         paint: {
-          'line-color': '#FF0000',
+          'line-color': color,
           'line-width': 3
         }
-      })
-    })
+      });
+    });
   }
 
   #fitMapToMarkers() {
