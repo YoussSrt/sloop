@@ -1,0 +1,62 @@
+<div class="profile-page">
+  <div class="profile-container">
+    <div class="profile-content">
+      <div class="profile-main-info">
+        <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
+        <p class="profile-username">@<%= @user.nickname %></p>
+      </div>
+
+      <div class="profile-cards">
+        <div class="profile-card">
+          <i class="bi bi-infinity card-icon"></i>
+          <h3 class="card-title">Sloopies</h3>
+          <div class="card-count"><%= @user.sloopies.count %></div>
+          <p class="card-description">My completed adventures</p>
+        </div>
+
+        <div class="profile-card">
+          <i class="bi bi-star card-icon"></i>
+          <h3 class="card-title">Stars</h3>
+          <div class="card-count"><%= @user.reviews.count %></div>
+          <p class="card-description">Stars on my Sloopies</p>
+        </div>
+
+        <div class="profile-card">
+          <i class="bi bi-heart card-icon"></i>
+          <h3 class="card-title">Favorites</h3>
+          <div class="card-count"><%= @user.favorites.count %></div>
+          <p class="card-description">My favorite Sloopies</p>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h2>@<%= @user.nickname %> Sloopies</h2>
+        <div class="sloopies-grid">
+          <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
+            <div class="sloopy-card">
+              <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+              <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
+              <% if sloopy.reviews.any? %>
+                <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h2>Personal Info</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <span><%= @user.email %></span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-calendar"></i>
+            <span>Member since <%= @user.created_at.strftime("%B %Y") %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

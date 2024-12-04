@@ -15,7 +15,11 @@
         </div> <!-- Close top-right-title-container -->
 
         <!-- Display user information -->
-        <p class="user-name"><strong>User:</strong> <%= sloopy.user.nickname %></p>
+        <p class="user-name">
+          <strong>User:</strong>
+          <%= link_to sloopy.user.nickname, other_user_profile_path(sloopy.user.id) %>
+        </p>
+
         <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
         <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
         <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>

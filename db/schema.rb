@@ -86,7 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_113032) do
     t.date "return_date"
     t.integer "budget"
     t.integer "duration"
-    t.boolean "status", default: false
+    t.string "status", default: "f"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,8 +95,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_113032) do
     t.float "origin_longitude"
     t.float "destination_latitude"
     t.float "destination_longitude"
-    t.string "budget_estimated"
     t.boolean "is_saved", default: false, null: false
+    t.string "budget_estimated"
     t.index ["user_id"], name: "index_sloopies_on_user_id"
   end
 
@@ -236,7 +236,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_113032) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "transport"
-    t.string "cost"
+    t.integer "cost"
     t.integer "duration"
     t.float "latitude"
     t.float "longitude"

@@ -11,6 +11,10 @@ class PagesController < ApplicationController
     @user = current_user
   end
 
+  def other_user_profile
+    @user = User.find(params[:id])  # Trouve l'utilisateur par son ID
+  end
+
   # def feed
   #   @user = current_user  # Définit l'utilisateur connecté dans la variable @user
   #   @sloopies = Sloopy.all # Ou toute autre logique pour récupérer les Sloopies
