@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from "mapbox-gl"
+import morphdom from "morphdom";
+
 
 export default class extends Controller {
   static values = {
@@ -13,7 +15,14 @@ export default class extends Controller {
 
   connect() {
     console.log("Map controller connected")
+
+    this.element.addEventListener("turbo:before-frame-render", (e) => {
+      console.log("Prout");
+
+    });
+    
     this.initializeMap()
+
   }
 
   disconnect() {
@@ -25,6 +34,7 @@ export default class extends Controller {
   }
 
   initializeMap() {
+
     console.log("Initializing map with markers:", this.markersValue)
     if (this.map) {
       this.map.remove()
@@ -37,6 +47,8 @@ export default class extends Controller {
       style: "mapbox://styles/mapbox/streets-v12",
       zoom: 1 // Ajout d'un zoom par défaut
     })
+
+
 
     this.map.on('load', () => {
       console.log("Map loaded, adding markers and routes")
@@ -54,7 +66,7 @@ export default class extends Controller {
   }
 
   #addMarkersToMap() {
-    const icons = { 
+    const icons = {
       origin: '🚩',
       destination: '🏁',
       step: '📍'
@@ -70,7 +82,7 @@ export default class extends Controller {
       const el = document.createElement('div')
       el.style.fontSize = '30px'
       el.innerHTML = icons[marker.type]
-      
+
       new mapboxgl.Marker({ element: el })
         .setLngLat([marker.lng, marker.lat])
         .addTo(this.map)
@@ -79,7 +91,7 @@ export default class extends Controller {
 
   #addRouteToMap() {
     // Trouver le dernier marqueur avec des coordonnées de route
-    const markerWithRoute = this.markersValue.findLast(marker => 
+    const markerWithRoute = this.markersValue.findLast(marker =>
       marker.route_coordinates && marker.route_coordinates.length >= 2
     );
 

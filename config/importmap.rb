@@ -11,3 +11,4 @@ pin "flatpickr" # @4.6.13
 pin "mapbox-gl" # @3.1.2
 pin "process" # @2.1.0
 
+pin "morphdom" # @2.7.4

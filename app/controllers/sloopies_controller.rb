@@ -13,7 +13,7 @@ class SloopiesController < ApplicationController
       Rails.logger.info "Processing sloopy #{sloopy.id} for markers"
       sloopy.to_markers(index)
     end
-
+    
     Rails.logger.info "Final markers for index: #{@markers.inspect}"
   end
 
@@ -151,8 +151,8 @@ class SloopiesController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.remove("sloopy_card_#{@sloopy.id}"),
-            turbo_stream.prepend("realized_sloopies", 
-              partial: "sloopies/realized_card", 
+            turbo_stream.prepend("realized_sloopies",
+              partial: "sloopies/realized_card",
               locals: { sloopy: @sloopy }
             )
           ]
