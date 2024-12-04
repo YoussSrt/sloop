@@ -2,7 +2,7 @@
 <%= turbo_frame_tag('review-section') do %>
   <%= simple_form_for [@sloopy, @review], html: { class: "review-form" } do |f| %>
     <div class="form-group">
-      <%= f.input :content, label: "Your Review", as: :text %>
+      <%= f.input :content, label: "Review your sloopy", as: :text %>
     </div>
     <div class="form-group">
       <%= f.input :rating, label: "Rating (1 to 5)", as: :select, collection: 1..5 %>
