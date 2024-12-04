@@ -1,3 +1,4 @@
+
 .loader-container {
   display: flex;
   justify-content: center;
@@ -17,7 +18,7 @@
   width: 300px;
   padding: 20px;
   box-shadow: 4px 4px 0px var(--primary-color);
-  
+
   h2 {
     margin-bottom: 1rem;
     color: var(--primary-color);
@@ -28,7 +29,7 @@
 .loader {
   text-align: center;
   padding: 2rem 1rem;
-  
+
   p {
     color: var(--primary-color);
     margin-top: 15px;
