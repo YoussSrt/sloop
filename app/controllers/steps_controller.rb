@@ -5,14 +5,16 @@ class StepsController < ApplicationController
 
   def update
     @sloopy = Sloopy.find(params[:sloopy_id])
-    raise
     new_step = eval(@sloopy.questions.last.ai_answer.split(/:\s*\n\n(?<data>{.*})/)[1])
     old_city_sentence = @sloopy.questions.last.ai_answer.split(/:\s*\n\n(?<data>{.*})/)[0]
 
-    all_cities = @sloopy.steps.pluck(:city_stop)
+    all_cities = @sloopy.steps.pluck(:city_stop) # Récupère les noms des villes
+    regex = /remplacer\s+([A-Z][a-zéèêëàâäîïôöùûüç]+)/
+
     all_cities.each do |city|
-      # found the regex
-      # old_city = all_cities.match(city)
+      if city.match(regex)
+        old_city = city.match(regex)
+      end
     end
 
     modified_step = @sloppy.steps.find_by(old_city: old_city)
@@ -27,10 +29,11 @@ class StepsController < ApplicationController
       activities: new_step[:activities].map do |activity|
         Activity.new(name: activity[:name], address: activity[:address])
       end
-    )
+      )
+      raise
 
-    # find next step
-    # if @sloopy.find(modified_step.id + 1)
+      # find next step
+      # if @sloopy.find(modified_step.id + 1)
     #   @sloopy.find(modified_step.id + 1).gsub(old_city, modified_step.city_stop)
 
 

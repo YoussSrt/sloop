@@ -8,7 +8,7 @@ class ChatbotJob < ApplicationJob
       parameters: {
         model: "gpt-4o-mini",
         messages: questions_formatted_for_openai, # to code as private method
-        temperature: 0.5
+        temperature: 0.7
       }
     )
     new_content = chatgpt_response["choices"][0]["message"]["content"]
