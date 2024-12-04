@@ -1,36 +1,40 @@
-<div id="sloopy_<%= sloopy.id %>" class="sloopy-container">
-  <%= turbo_stream_from "sloopy_#{sloopy.id}" %>
-    <% if sloopy.steps.empty? %>
-      <%= render "loading_card", sloopy: sloopy, index: index %>
-    <% else %>
-      <div class="sloopy-card">
-        <h2><%= sloopy.origin.capitalize %> - <%= sloopy.destination.capitalize %></h2>
+<%= turbo_stream_from "sloopy_#{sloopy.id}" %>
+<div id="sloopy_<%= sloopy.id %>" class="sloopy-card">
+  <% if sloopy.steps.empty? %>
+    <%= render "loading_card", sloopy: sloopy, index: index %>
+  <% else %>
+    <div class="sloopy-header">
+      <h2><%= sloopy.origin.capitalize %> - <%= sloopy.destination.capitalize %></h2>
+      <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
+                  sloopy_path(sloopy),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  },
+                  class: "btn btn-deleter" %>
+    </div>
+
+    <div class="sloopy-content">
+      <div class="dates">
         <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
+      </div>
+
+      <div class="locations">
         <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
         <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>
-
-        <% if sloopy.steps.any? %>
-          <p class="steps-line">
-            <strong>Steps:</strong>
-            <span class="city-stops"><%= sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
-          </p>
-
-        <% end %>
-
-        <p class="justified"><%= sloopy.summary %></p>
-        <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated %></p>
-
-        <%= link_to "See Details", sloopy_path(sloopy), class: "btn-sloopy" %>
-
-        <!-- Delete button for the owner -->
-        <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
-                    sloopy_path(sloopy),
-                    data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "Are you sure?"
-                    },
-                    class: "btn btn-deleter" %>
       </div>
-    <% end %>
 
+      <% if sloopy.steps.any? %>
+        <p class="steps-line">
+          <strong>Steps:</strong>
+          <span class="city-stops"><%= sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
+        </p>
+      <% end %>
+
+      <p class="justified"><%= sloopy.summary %></p>
+      <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated %></p>
+
+      <%= link_to "See Details", sloopy_path(sloopy), class: "btn-sloopy" %>
+    </div>
+  <% end %>
 </div>

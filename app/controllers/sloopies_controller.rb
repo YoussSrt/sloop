@@ -139,31 +139,28 @@ class SloopiesController < ApplicationController
 
 
   def update_status
-    # Ensure @sloopy is properly set here
     if @sloopy.nil?
       redirect_to sloopies_path, alert: "Sloopy not found."
       return
     end
 
-    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
+    @sloopy.status = 'completed'
 
     if @sloopy.save
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
-            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+            turbo_stream.remove("sloopy_card_#{@sloopy.id}"),
+            turbo_stream.prepend("realized_sloopies", 
+              partial: "sloopies/realized_card", 
+              locals: { sloopy: @sloopy }
+            )
           ]
         end
-        format.html { redirect_to request.referer, notice: "Sloopy status updated!" }
+        format.html { redirect_to profile_path, notice: "Sloopy marked as completed!" }
       end
     else
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
-        end
-        format.html { redirect_to request.referer, alert: "Unable to update status." }
-      end
+      redirect_to profile_path, alert: "Unable to update status."
     end
   end
 
@@ -173,6 +170,11 @@ class SloopiesController < ApplicationController
     # Créer une nouvelle instance du Sloopy pour l'utilisateur actuel
     @sloopy_copy = @original_sloopy.dup
     @sloopy_copy.user_id = current_user.id
+    @original_sloopy.steps.each do |step|
+      new_step = step.dup
+      new_step.sloopy = @sloopy_copy
+      new_step.save
+    end
     @sloopy_copy.is_saved = true
 
     # Sauvegarder la copie

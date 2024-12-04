@@ -43,6 +43,6 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
 
-if Rails.env.development?
+if rails_env == "development"
   plugin :solid_queue
 end

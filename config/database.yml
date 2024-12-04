@@ -77,8 +77,21 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# production:
+#   <<: *default
+#   database: sloop_production
+#   username: sloop
+#   password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
+#   queue:
+#     database: sloop_production_queue
+
+
 production:
-  <<: *default
-  database: sloop_production
-  username: sloop
-  password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: sloop_production
+    username: sloop
+    password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
+  queue:
+    <<: *primary_production
+    database: sloop_production_queue

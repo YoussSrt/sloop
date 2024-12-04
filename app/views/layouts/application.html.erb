@@ -14,11 +14,11 @@
   </head>
 
   <body>
-    <div class="page-container">
-      <div> <%= render "shared/navbar" %></div>
-      <div><%= render "shared/flashes" %></div>
-      <div><%= yield %></div>
-      <div><%= render "shared/footer" %></div>
+    <div class="page-container" style="padding-top: 6rem;">
+      <%= render "shared/navbar" %>
+      <%= render "shared/flashes" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
     </div>
   </body>
 </html>

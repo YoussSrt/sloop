@@ -1,18 +1,60 @@
 // Masque les cases à cocher
+.form-container-home {
+  min-width: 750px;
+}
+
 .user_preferences {
   input[type="checkbox"] {
     display: none; 
   }
   
-  .tag-item:has(> input[type=checkbox]:checked) {
-    background-color: $primary-color;
-    color: white;
+  .form-check:has(> input[type=checkbox]:checked) {
+    .tag-item {
+      background-color: $primary-color;
+      color: white;
+    }
   }
+
+  .sloopie-form-container{
+    min-height: 216px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .h2 {
+    color: $secondary-color;
+    font-weight: normal;
+  }
+
+  .btn-orange {
+    cursor: pointer;
+    height: 100%;
+  }
+
   
   fieldset {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+    width: 100%;
+    column-gap: 0.8rem;
   }
+
+  .form-check {
+    cursor: pointer;
+    display: unset;
+    min-height: unset;
+    padding-left: unset;
+    margin-bottom: unset;
+    width: 23%;
+  }
+  
+  fieldset .form-check-input {
+    text-align: center; /* Centrer le contenu des boutons */
+  }
+  
+  
 }
 

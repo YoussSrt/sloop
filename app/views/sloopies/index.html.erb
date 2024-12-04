@@ -1,15 +1,18 @@
 <div class="div-sloopy">
-  <h1>We have generated <%= @sloopies.count %> Sloopies for you, are you ready to trip?</h1>
+  <h1>Adventure is calling, are you in? <br>
+  Your next one starts here!</h1>
 
   <div class="main-content">
-    <%= turbo_stream_from "maps" %>
-    <turbo-frame id="map-section">
-      <%= render "map", markers: @markers %>
-    </turbo-frame>
+    <div class="map-side">
+      <%= turbo_stream_from "maps" %>
+      <turbo-frame id="map-section">
+        <%= render "map", markers: @markers %>
+      </turbo-frame>
+    </div>
 
-    <div class="sloopy-section">
+    <div class="cards-side">
       <%= turbo_stream_from "sloopies" %>
-      <div class="sloopy-container" id="sloopies">
+      <div id="sloopies">
         <% @sloopies.each_with_index do |sloopy, index| %>
           <%= render "sloopies/sloopy", sloopy: sloopy, index: index %>
         <% end %>
