@@ -12,6 +12,15 @@ class OpenAiService
   def call
     chatgpt_call
     parse_itinerary(chatgpt_call)
+    markers = Sloopy.where(user: @sloopy.user).flat_map.with_index { |s, i| s.to_markers(i) }
+    Rails.logger.info "Generated markers: #{markers.inspect}"
+    
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "maps",
+      target: "map-section",
+      partial: "sloopies/map",
+      locals: { markers: markers }
+    )
   end
 
   def parse_itinerary(response_text)

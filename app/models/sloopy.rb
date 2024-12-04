@@ -27,4 +27,37 @@ class Sloopy < ApplicationRecord
     }
   end
 
+  def to_markers(index)
+    route_coordinates = []
+    markers = []
+
+    # Départ
+    if origin_latitude && origin_longitude
+      route_coordinates << [origin_longitude, origin_latitude]
+      markers << { lat: origin_latitude, lng: origin_longitude, type: "origin" }
+    end
+
+    # Étapes
+    steps.each do |step|
+      if step.latitude && step.longitude
+        route_coordinates << [step.longitude, step.latitude]
+        markers << { lat: step.latitude, lng: step.longitude, type: "step" }
+      end
+    end
+
+    # Arrivée
+    if destination_latitude && destination_longitude
+      route_coordinates << [destination_longitude, destination_latitude]
+      markers << { lat: destination_latitude, lng: destination_longitude, type: "destination" }
+    end
+
+    # Fermer la boucle
+    route_coordinates << route_coordinates.first if route_coordinates.any?
+
+    # Ajouter les coordonnées du tracé au premier marqueur
+    markers.first[:route_coordinates] = route_coordinates if markers.any?
+    markers.first[:route_id] = index if markers.any?
+    markers
+  end
+
 end
