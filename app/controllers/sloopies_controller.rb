@@ -10,38 +10,11 @@ class SloopiesController < ApplicationController
                 end
 
     @markers = @sloopies.flat_map.with_index do |sloopy, index|
-      route_coordinates = []
-      markers = []
-
-      # Départ
-      if sloopy.origin_latitude && sloopy.origin_longitude
-        route_coordinates << [sloopy.origin_longitude, sloopy.origin_latitude]
-        markers << { lat: sloopy.origin_latitude, lng: sloopy.origin_longitude, type: "origin" }
-      end
-
-      # Étapes
-      sloopy.steps.each do |step|
-        if step.latitude && step.longitude
-          route_coordinates << [step.longitude, step.latitude]
-          markers << { lat: step.latitude, lng: step.longitude, type: "step" }
-        end
-      end
-
-      # Arrivée
-      if sloopy.destination_latitude && sloopy.destination_longitude
-        route_coordinates << [sloopy.destination_longitude, sloopy.destination_latitude]
-        markers << { lat: sloopy.destination_latitude, lng: sloopy.destination_longitude, type: "destination" }
-      end
-
-      # Fermer la boucle en ajoutant le point de départ à la fin
-      if route_coordinates.any?
-        route_coordinates << route_coordinates.first
-      end
-
-      markers.first[:route_coordinates] = route_coordinates if markers.any?
-      markers.first[:route_id] = index if markers.any?
-      markers
+      Rails.logger.info "Processing sloopy #{sloopy.id} for markers"
+      sloopy.to_markers(index)
     end
+
+    Rails.logger.info "Final markers for index: #{@markers.inspect}"
   end
     
   def show
