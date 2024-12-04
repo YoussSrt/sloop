@@ -1,17 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-
   def edit_preferences
-
-
   end
 
   def update_preferences
     current_user.update_preferences(preferences_params)
-
     redirect_to new_sloopy_path, anchor: "#form_new_sloop", notice: "Your preferences were updated successfully"
-
   end
 
   private
