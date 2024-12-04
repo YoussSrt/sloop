@@ -222,7 +222,7 @@ $bonus-color: #F3C59D;
   &.realized {
     border: 2px solid #4CAF50;
     position: relative;
-    
+
     .realized-badge {
       position: absolute;
       top: 10px;
@@ -245,7 +245,7 @@ $bonus-color: #F3C59D;
 
 .profile-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin: 1rem 0;
   max-width: 900px;
