@@ -9,10 +9,22 @@
     color: white;
   }
   
-  fieldset {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .h2 {
+    color: $secondary-color;
+    font-weight: normal;
   }
+
+  
+  fieldset {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+    gap: 15px; /* Espacement entre les éléments */
+  }
+  
+  fieldset .form-check-input {
+    text-align: center; /* Centrer le contenu des boutons */
+  }
+  
+  
 }
 

@@ -10,7 +10,7 @@
 
       <%= simple_form_for :user_preferences, url: preferences_path, data: { next_button_target: "form" }, method: :post do |f| %>
         <% steps.each do |step| %>
-          <div class="d-flex justify-content-center align-items-center min-vh-70" >
+          <div class="d-flex justify-content-center align-items-center min-vh-70 mb-3" >
             <div class="form-container-home d-none">
               <%= render "sloopies/steps/experiences", category: step, f: f %>
             </div>
