@@ -10,7 +10,11 @@
 
           <div class="top-right-image">
             <!-- Decorative Image -->
-            <img src="https://i.pinimg.com/736x/e6/70/32/e67032aa02135ad3443616f62f45fb44.jpg" alt="Decorative image">
+            <% if current_user.photo.attached? %>
+              <%= cl_image_tag(current_user.photo.key, class: 'top-right-image') %>
+            <% else %>
+              <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'tp-right-image') %>
+            <% end %>
           </div>
         </div> <!-- Close top-right-title-container -->
 

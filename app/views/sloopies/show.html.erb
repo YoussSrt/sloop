@@ -7,10 +7,11 @@
            data-map-markers-value="<%= @markers.to_json %>"
            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
            style="width: 100%; height: 400px;">
-    </div>
-      <% if @sloopy.status == true %>%
+      </div>
+      <%# <% if @sloopy.is_saved %>
+         <% if @sloopy.status == true %>%
       <!-- Formulaire de review -->
-     <div class="sloopy-card" style= "height: 300px;">
+     <div class="sloopy-card">
         <% if @sloopy.reviews.first.content == nil  %>
           <%= render 'reviews/review_form', review: @review %>
         <% else %>
@@ -18,8 +19,9 @@
         <% end %>
       <% end %>
     </div>
-     
- </div>
+
+    </div>
+
     <div class="sloopy-section">
       <div class="sloopy-card">
         <h2>Sloopy Details</h2>
@@ -85,16 +87,5 @@
         <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-sloopy" %>
       </div>
     </div>
-
-    <%# <div class="container chatbot">
-      <h1>Chat with us</h1>
-      <div id="questions">
-        <%= render partial: "questions/question", collection: @questions, as: :question %>
-      <%# </div> %>
-
-      <%# <%= render "questions/form", question: @question, sloopy: @sloopy %>
-      <%# <%= link_to "Update Sloopy", sloopy_step_path(@sloopy), data: { turbo_method: :patch } %>
-    </div>
   </div>
-  
 </div>
