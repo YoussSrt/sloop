@@ -67,6 +67,6 @@
 
 .page-container {
   display: grid;
-  min-height: 100vh;
+  min-height: calc(100vh - 12rem);
   grid-template-rows: auto 1fr auto;
 }
