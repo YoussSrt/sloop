@@ -8,9 +8,6 @@
         <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
         <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
         <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>
-        <p id="save-status-<%= sloopy.id %>">
-          <strong>Saved:</strong> <%= sloopy.is_saved ? 'Yes' : 'No' %>
-        </p>
 
         <% if sloopy.steps.any? %>
           <p class="steps-line">
