@@ -81,4 +81,4 @@ production:
   <<: *default
   database: sloop_production
   username: sloop
-  password: <%= ENV['SLOOP_DATABASE_PASSWORD'] %>
+  password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
