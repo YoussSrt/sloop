@@ -27,7 +27,7 @@
   z-index: 9999; /* Met la navbar au-dessus des autres éléments */
   width: 100%; /* S'assure que la navbar prend toute la largeur de la page */
   margin-top: 0; /* Enlève l'espace en haut */
-  height: 76px;
+  height: 6rem;
 }
 
 .container {
@@ -45,6 +45,7 @@
   text-decoration: none;
   margin-right: 20px;
   max-height: 50px;
+  object-fit: contain;
 }
 
 /* Liens (les 4 boutons au centre) */
