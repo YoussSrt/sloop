@@ -9,14 +9,15 @@
               class: "form-check-input"
             },
             wrapper_html: {
-              data: { controller: "preferences-form", next_button_target: "wrapper" }
+              data: { controller: "preferences-form", next_button_target: "wrapper" },
+              class: "mb-0"
             },
-            item_wrapper_class: 'tag-item btn-orange mx-3' %>
+            item_label_class: "tag-item btn-orange" %>
         
 </div>
 <div class="sloopie-form-container-bis" data-controller="preferences-form">
   
-  <div class="d-flex justify-content-between align-items-center mt-3">
+  <div class="d-flex justify-content-between align-items-center">
      
     <% if category_title(category.to_sym) == "What is your main travel goal?" %>
       <!--Submit -->

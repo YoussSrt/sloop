@@ -111,7 +111,10 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 4px 4px 0px var(--primary-color); /* Ombre avec la couleur principale */
+  box-shadow: 4px 4px 0px var(--primary-color);
+  label {
+  white-space: nowrap;
+  } /* Ombre avec la couleur principale */
 }
 
 /* Rectangle au bas du bouton */
