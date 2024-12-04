@@ -86,17 +86,27 @@
     const budgetSlider = document.getElementById('budget');
     const budgetValue = document.getElementById('budget-value');
 
-    // Fonction pour mettre à jour la valeur du budget
+    // Fonction pour mettre à jour la valeur du budget et la position du texte
     function updateBudgetValue() {
       const value = budgetSlider.value;
       budgetValue.textContent = `${value}€`;
+
+      // Calculer la position du curseur en prenant en compte la largeur du parent
+      const sliderRect = budgetSlider.getBoundingClientRect();
+      const position = (value - budgetSlider.min) / (budgetSlider.max - budgetSlider.min);
+      const offset = position * sliderRect.width;
+      
+      // Ajuster la position en tenant compte de la largeur du texte
+      const valueWidth = budgetValue.offsetWidth;
+      budgetValue.style.left = `${offset - (valueWidth / 2)}px`;
     }
 
-    // Mettre à jour la valeur quand on déplace le curseur
+    // Appel de la fonction lors du changement de valeur du slider
     budgetSlider.addEventListener('input', updateBudgetValue);
-
-    // Mettre à jour la valeur initiale
-    updateBudgetValue();
+    
+    // Appel initial pour positionner correctement la valeur au chargement de la page
+    // Attendre que le DOM soit complètement chargé pour avoir les bonnes dimensions
+    window.addEventListener('load', updateBudgetValue);
 
     // Fonction pour afficher un message d'erreur au-dessus de l'input sans affecter l'alignement
     function showError(inputElement, message) {
