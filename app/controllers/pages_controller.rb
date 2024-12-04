@@ -16,12 +16,13 @@ class PagesController < ApplicationController
   end
 
   # def feed
-  #   @user = current_user  # Définit l'utilisateur connecté dans la variable @user
-  #   @sloopies = Sloopy.all # Ou toute autre logique pour récupérer les Sloopies
+  #   # @user = current_user  # Définit l'utilisateur connecté dans la variable @user
+  #   # @sloopies = Sloopy.all # Ou toute autre logique pour récupérer les Sloopies
   # end
 
 
   def feed
+  #  @user = User.find(params[:id])
     if user_signed_in? # Vérifie si un utilisateur est connecté
       @sloopies = Sloopy.where.not(user_id: current_user.id) # Exclut les sloops créés par l'utilisateur actuel
                          .order(created_at: :desc)         # Trie par date de création (plus récents d'abord)
