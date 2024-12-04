@@ -79,6 +79,15 @@ test:
 #
 production:
   <<: *default
-  database: sloop_production
-  username: sloop
-  password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
+  database: your_production_database_name
+  username: your_database_username
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: your_database_host
+
+queue:
+  production:
+    <<: *default
+    database: queue_database_name
+    username: your_database_username
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: your_database_host
