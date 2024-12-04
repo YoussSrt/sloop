@@ -1,28 +1,18 @@
-.div-sloopy {
-  padding: 100px 20px 20px 20px; 
-  max-width: 1400px;
-  margin: 0 auto;
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 2;
-  }
-}
+
 
 .main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   position: relative;
+  margin-top: 20px;
 }
 
 .map-side {
   position: sticky;
-  top: 100px; 
-  height: calc(100vh - 300px); 
-  
+  top: 100px;
+  height: calc(100vh - 300px);
+
   #map-container {
     width: 100%;
     height: 100%;
@@ -33,21 +23,21 @@
 }
 
 .cards-side {
-  margin-top: 10px; 
-  
+  margin-top: 10px;
+
   #sloopies {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding-bottom: 40px;
   }
-  
+
   .sloopy-card, .loading-card {
     background: white;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 250px; 
+    min-height: 250px;
     display: flex;
     flex-direction: column;
   }
@@ -55,7 +45,7 @@
   .loading-card {
     justify-content: center;
     align-items: center;
-    
+
     h2 {
       margin-bottom: 20px;
     }
