@@ -7,7 +7,7 @@
     <div class="navbar-menu">
     <div class="navbar-links">
       <%= link_to "NEW SLOOP", new_sloopy_path, class: "btn-navbar", data: { turbo: false } %>
-      <a href="#" class="btn-navbar">WHO WE ARE</a>
+      <%= link_to "WHO WE ARE", about_path, class: "btn-navbar" %>
       <%= link_to "MY SLOOPIES", sloopies_path, class: "btn-navbar" %>
       <%= link_to "SLOOPY FEED", feed_path, class: "btn-navbar" %> <!-- Modification ici -->
     </div>

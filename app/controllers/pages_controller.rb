@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home ]
+  skip_before_action :authenticate_user!, only: [ :home, :about ]
   before_action :authenticate_user!
 
   def home
@@ -29,4 +29,8 @@ class PagesController < ApplicationController
       @sloopies = Sloopy.none # Si aucun utilisateur connecté, aucun sloops à afficher
     end
   end
+
+  def about
+  end
+
 end

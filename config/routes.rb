@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "profile", to: "pages#profile"
   get 'feed', to: 'pages#feed', as: 'feed'
   get 'profile/:id', to: 'pages#other_user_profile', as: 'other_user_profile'
+  get 'about', to: 'pages#about', as: 'about'
 
   post "preferences", to: "users#update_preferences", as: :preferences
   # get "preferences", to: "users#edit_preferences", as: :edit_preferences
