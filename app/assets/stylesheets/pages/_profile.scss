@@ -122,12 +122,29 @@ $bonus-color: #F3C59D;
 .profile-actions {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  margin: 1rem 0;
 
-  .btn {
-    font-size: 1.1rem;
-    padding: 0.8rem 2rem;
+  .chat-button {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
   }
 }
 
@@ -366,6 +383,7 @@ $bonus-color: #F3C59D;
   font-weight: 600;
   box-shadow: 0 4px 15px rgba($tertiary-color, 0.3);
   transition: all 0.3s ease;
+  z-index: 9999;
 
   i {
     font-size: 1.2rem;
