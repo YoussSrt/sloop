@@ -5,7 +5,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   position: relative;
-  margin-top: 20px;
 }
 
 .map-side {
@@ -23,23 +22,23 @@
 }
 
 .cards-side {
-  margin-top: 10px;
+  // margin-top: 10px;
 
   #sloopies {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-bottom: 40px;
+    // gap: 20px;
+    // padding-bottom: 40px;
   }
 
   .sloopy-card, .loading-card {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
+  //   background: white;
+  //   border-radius: 8px;
+  //   padding: 20px;
+  //   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  //   min-height: 250px;
+  //   display: flex;
+  //   flex-direction: column;
   }
 
   .loading-card {
@@ -66,4 +65,126 @@
 .mapboxgl-map {
   height: 100%;
   width: 100%;
+}
+
+
+
+.index_page {
+  background-image: url(/assets/background_homepage-42f451fcb4025eedd293e8623180346ce4ad81ba66a6dbbb076a94b3596fe805.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div-sloopy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centrer si utilisé seul */
+  height: 100vh; /* Prendre toute la hauteur de l'écran */
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding-bottom: 12rem;
+}
+
+h1 {
+  text-align: center !important;
+  font-size: 60px;
+  font-weight: 700;
+  color: #F5F3ED;
+  -webkit-text-stroke: 1px #CF5847;
+  text-shadow: 0px 3px 0px #CF5847;
+  margin-bottom: 20px; /* Ajouter un espace */
+}
+
+.sous-titre {
+  font-size: 30px;
+  font-weight: 700;
+  color: #274028;
+  margin-bottom: 20px; /* Ajouter un espace */
+}
+
+.main-content {
+  display: flex;
+  width: 100%;
+  height: 100vh; /* Prenez toute la hauteur de l'écran */
+  padding: 0 100px; /* Ajouter une marge de 100px de chaque côté */
+  box-sizing: border-box;
+}
+
+
+.map-side, .cards-side {
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 60vh; /* Hauteur de 60% de la hauteur de l'écran */
+}
+
+.map-side {
+
+}
+
+.cards-side {
+
+}
+
+
+
+.btn-orange-index {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: $avenir-heavy;
+  border-radius: 5px;
+  background-color: var(--secondary-color); /* Couleur de fond */
+  color: var(--primary-color); /* Couleur du texte */
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--primary-color); /* Bordure avec la couleur principale */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px var(--primary-color);
+  label {
+  white-space: nowrap;
+  } /* Ombre avec la couleur principale */
+}
+
+/* Rectangle au bas du bouton */
+.btn-orange-index::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* Décalage de 8px en bas */
+  right: -8px; /* Décalage de 8px à droite */
+  width: 100%; /* Largeur du rectangle de la même taille que le bouton */
+  height: 15px; /* Hauteur du rectangle */
+  background-color: var(--primary-color); /* Couleur de fond du rectangle */
+  z-index: -1; /* Place le rectangle sous le bouton */
+}
+
+/* Effet au survol */
+.btn-orange-index:hover {
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au survol */
+}
+
+/* Effet au clic (active) */
+.btn-orange-index:active {
+  color: var(--tertiary-color); /* Texte en couleur tertiary */
+  box-shadow: 4px 4px 0px var(--tertiary-color); /* Ombre en tertiary color */
+  border-color: var(--tertiary-color); /* Bordure passe en tertiary color au clic */
 }

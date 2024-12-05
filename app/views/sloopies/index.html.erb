@@ -1,22 +1,32 @@
-<div class="div-sloopy">
-  <h1>Adventure is calling, are you in? <br>
-  Your next one starts here!</h1>
-
-  <div class="main-content">
-    <div class="map-side">
-      <%# turbo_stream_from "maps" %>
-      <div id="map-section" data-controller="map">
-        <%= render "map", markers: @markers %>
+<div class="div-sloopy index_page">
+  <% if @sloopies.empty? %>
+    <div class="empty-state">
+      <h1>Adventure is calling, are you in?</h1>
+      <p class="sous-titre">You have no new sloopie, please make a new one</p>
+      <div class="no-sloopy-action">
+        <a href="/sloopies/new" class="btn-orange-index">Create New Sloopy</a>
       </div>
     </div>
+  <% else %>
+    <h1>Adventure is calling, are you in?</h1>
+    <p class="sous-titre">Your next one starts here!</p>
 
-    <div class="cards-side">
-      <%= turbo_stream_from "sloopies" %>
-      <div id="sloopies">
-        <% @sloopies.each_with_index do |sloopy, index| %>
-          <%= render "sloopies/sloopy", sloopy: sloopy, index: index %>
-        <% end %>
+    <div class="main-content">
+      <div class="map-side">
+        <%# turbo_stream_from "maps" %>
+        <div id="map-section" data-controller="map">
+          <%= render "map", markers: @markers %>
+        </div>
+      </div>
+
+      <div class="cards-side">
+        <%= turbo_stream_from "sloopies" %>
+        <div id="sloopies">
+          <% @sloopies.each_with_index do |sloopy, index| %>
+            <%= render "sloopies/sloopy", sloopy: sloopy, index: index %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
