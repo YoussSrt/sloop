@@ -12,8 +12,8 @@
 
           <div class="top-right-image">
             <!-- Decorative Image -->
-            <% if current_user.photo.attached? %>
-              <%= cl_image_tag(current_user.photo.key, class: 'top-right-image') %>
+            <% if sloopy.user.photo.attached? %>
+              <%= cl_image_tag(sloopy.user.photo.key, class: 'top-right-image') %>
             <% else %>
               <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'tp-right-image') %>
             <% end %>
