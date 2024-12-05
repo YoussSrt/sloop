@@ -24,15 +24,15 @@
           <i class="bi bi-infinity card-icon"></i>
           <h3 class="card-title">Sloopies</h3>
           <div class="card-count" id="sloopies-count"><%= @user.sloopies.where(is_saved: true, status: ["done"]).count %></div>
-          <p class="card-description">My completed adventures</p>
+          <p class="card-description">My Completed Adventures</p>
         </div>
 
 
         <div class="profile-card">
           <i class="bi bi-heart card-icon"></i>
           <h3 class="card-title">Favorites</h3>
-          <div class="card-count"><%= @user.sloopies.where(is_saved: true, status: ["false", "f", "delate", "in_progress"]).count %></div>
-          <p class="card-description">My favorite Sloopies</p>
+          <div class="card-count"><%= @user.sloopies.where(is_saved: true, status: ["false", "f", "delete", "in_progress"]).count %></div>
+          <p class="card-description">My Favorite Sloopies</p>
         </div>
       </div>
 
@@ -81,7 +81,7 @@
             <% @user.sloopies.where(is_saved: true, copy: true, status: ["false", "f", "delate", "in_progress"]).order(created_at: :desc).limit(3).each do |sloopy| %>
               <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
                 <div class="sloopy-card">
-                  <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+                  <h3><%= sloopy.origin %> ∞ <%= sloopy.destination %></h3>
                   <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
                   <% if sloopy.reviews.any? %>
                     <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
@@ -117,25 +117,15 @@
           <h2>My Realized Sloopies</h2>
           <div class="sloopies-grid">
             <% @user.sloopies.where(is_saved: true, status: ["done"]).order(created_at: :desc).limit(3).each do |sloopy| %>
-              <%#= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
+              <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
                 <div class="sloopy-card">
-                  <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
-                  <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
-                  <%# <% if sloopy.status == 'done' %>
-                  <!-- Formulaire de review -->
-                    <%# <% if !sloopy.reviews.any? %> 
-                      <%# <%= render 'reviews/review_form', review: Review.new, sloopy: sloopy %> 
-                    <%# <% else %> 
-                      <%# <%= render 'reviews/review', review: sloopy.reviews.where.not(id: nil).last %> 
-                    <%# <% end %>  
-                  <%# <% end %>
+                  <h3><%= sloopy.origin %> ∞ <%= sloopy.destination %></h3>
+                  <p><i class="fas fa-calendar"></i> <%= l(sloopy.departure_date, format: :long) %></p>
                 </div>
-              <%# end %>
+              <% end %>
             <% end %>
           </div>
-
         </div>
-            
 
         <div class="profile-section">
           <h2>My Preferences</h2>
