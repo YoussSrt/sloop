@@ -11,15 +11,16 @@
     <h1>Adventure is calling, are you in?</h1>
     <p class="sous-titre">Your next one starts here!</p>
 
-    <div class="main-content">
-      <div class="map-side">
+
+    <div class="main-content" style="width: 100%;">
+      <div class="map-side" style="width: 100%;">
         <%# turbo_stream_from "maps" %>
         <div id="map-section" data-controller="map">
           <%= render "map", markers: @markers %>
         </div>
       </div>
 
-      <div class="cards-side">
+      <div class="cards-side" style="width: 100%;">
         <%= turbo_stream_from "sloopies" %>
         <div id="sloopies">
           <% @sloopies.each_with_index do |sloopy, index| %>

@@ -1,7 +1,7 @@
 <div class="sloopie-form-wrapper">
   <div class="login-form-container-ter" style="max-width: unset;">
     <div class="sloopie-form-actions d-flex justify-content-center btn-new-sloopes" >
-      <h2>Discover a new sloopy!</h2>
+      <h2>Unlock Your Sloopy Adventure!</h2>
     </div>
   </div>
 
@@ -75,7 +75,7 @@
 
   <div class="sloopie-form-container-bis">
     <div class="sloopie-form-actions d-flex justify-content-center btn-new-sloopes btn">
-      <%= f.button :submit, "Generate your Sloopies" %>
+      <%= f.button :submit, "Generate your Sloopy" %>
     </div>
   </div>
 </div>
@@ -95,7 +95,7 @@
       const sliderRect = budgetSlider.getBoundingClientRect();
       const position = (value - budgetSlider.min) / (budgetSlider.max - budgetSlider.min);
       const offset = position * sliderRect.width;
-      
+
       // Ajuster la position en tenant compte de la largeur du texte
       const valueWidth = budgetValue.offsetWidth;
       budgetValue.style.left = `${offset - (valueWidth / 2)}px`;
@@ -103,7 +103,7 @@
 
     // Appel de la fonction lors du changement de valeur du slider
     budgetSlider.addEventListener('input', updateBudgetValue);
-    
+
     // Appel initial pour positionner correctement la valeur au chargement de la page
     // Attendre que le DOM soit complètement chargé pour avoir les bonnes dimensions
     window.addEventListener('load', updateBudgetValue);
