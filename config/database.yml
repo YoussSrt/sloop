@@ -87,11 +87,7 @@ test:
 
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: sloop_production
-    username: sloop
-    password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
-  queue:
-    <<: *primary_production
-    database: sloop_production_queue
+  <<: *default
+  database: sloop_production
+  username: sloop
+  password: <%= ENV["SLOOP_DATABASE_PASSWORD"] %>
