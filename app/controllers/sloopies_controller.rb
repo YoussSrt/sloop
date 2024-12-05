@@ -98,7 +98,7 @@ class SloopiesController < ApplicationController
 
       # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
+      redirect_to sloopies_path
     else
       render :new, status: :unprocessable_entity
     end
