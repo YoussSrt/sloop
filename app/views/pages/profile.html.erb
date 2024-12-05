@@ -51,7 +51,7 @@
                 <!-- Ajout du bouton delete -->
                 <div class="sloopy-card-actions">
                   <%= link_to '<i class="fa-regular fa-circle-xmark"></i>'.html_safe,
-                              profile_path,
+                              sloopy_path(sloopy),
                               data: {
                                 turbo_method: :delete,
                                 turbo_confirm: "Are you sure?"
