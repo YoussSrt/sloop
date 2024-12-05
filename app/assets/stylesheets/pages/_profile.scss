@@ -71,6 +71,7 @@ $bonus-color: #F3C59D;
   margin-bottom: 3rem;
 
   .profile-name {
+    text-shadow: none;
     font-size: 2.5rem;
     color: $primary-color;
     margin-bottom: 0.75rem;
@@ -207,15 +208,7 @@ $bonus-color: #F3C59D;
   }
 }
 .sloopy-card {
-  background: $secondary-color;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  // cursor: pointer;
-  position: relative;
 
-  // &:hover {
-  //   transform: translateY(-5px);
-  //   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  // }
 
   h3 {
     font-size: 1rem;

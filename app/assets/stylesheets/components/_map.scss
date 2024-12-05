@@ -1,12 +1,4 @@
 
-.div-sloopy {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: $secondary-color;
-  align-items: center;
-  padding: 2rem;
-}
 
 h1 {
   width: 100%;
@@ -17,16 +9,7 @@ h1 {
   font-size: 2rem;
 }
 
-.main-content {
-  display: flex;
-  gap: 3rem;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: flex-start;
 
-}
 
 .map-section {
   width: 650px;
@@ -42,10 +25,6 @@ h1 {
   box-shadow: 4px 4px 0px $tertiary-color;
   border: 2px solid $tertiary-color;
   overflow: hidden;
-}
-
-.sloopy-section {
-  margin-top: -7px;
 }
 
 .sloopy-container {
@@ -172,18 +151,15 @@ h1 {
 }
 
 .sloopy-card {
-  background: $bonus-color;
-  border-radius: 12px;
+  position: relative;
   padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
   box-shadow: 6px 6px 0px $primary-color;
   border: 2px solid $primary-color;
   transition: all 0.2s ease;
-
-
-  // &:hover {
-  //   transform: translateY(-2px);
-  //   box-shadow: 8px 8px 0px $primary-color;
-  // }
+  background: $secondary-color;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   h2 {
     font-size: 2.5rem;

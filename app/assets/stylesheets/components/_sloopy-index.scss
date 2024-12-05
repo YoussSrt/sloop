@@ -41,24 +41,23 @@
 }
 
 .div-sloopy {
+  min-height: 100vh; /* Prendre toute la hauteur de l'écran */
+  padding: 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centrer si utilisé seul */
   min-height: 100vh;
   background-color: $secondary-color;
   align-items: center;
-  // padding: 2rem;
-  padding: 30px 20px 20px 20px;
-  // margin-bottom: 80px;
-  // margin: 0 auto;
+}
 
-  h1 {
-    margin-bottom: 0.5rem;
-    text-align: center;
-    // margin-bottom: 30px;
-    position: relative;
-    z-index: 2;
-  }
-
+h1 {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  // margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
 }
 
 
