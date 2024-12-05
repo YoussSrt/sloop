@@ -8,7 +8,7 @@ $bonus-color: #F3C59D;
 .profile-page {
   padding-top: 86px;
   min-height: 100vh;
-  background-image: asset-url("background_homepage.jpg");
+  background-image: url('/assets/background_homepage.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -253,9 +253,12 @@ $bonus-color: #F3C59D;
         color: darken(#cf5847, 10%);
       }
 
-      i {
-        pointer-events: none; // Empêche les icônes de bloquer le clic.
-        
+          i {
+            pointer-events: none; // Empêche les icônes de bloquer le clic.
+          }
+        }
+      }
+
   &.realized {
     border: 2px solid #4CAF50;
     position: relative;
