@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home, :about ]
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   def home
     @sloopy = Sloopy.new
