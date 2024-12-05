@@ -1,0 +1,59 @@
+.about-page {
+  background-color: $secondary-color;
+  padding: 2rem 0;
+
+  h1 {
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  .card {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+    h2 {
+      color: $tertiary-color;
+      border-bottom: 2px solid $bonus-color;
+    }
+
+    p {
+      color: $tertiary-color;
+    }
+  }
+
+  .team-card {
+    background-color: $tertiary-color;
+
+    h2 {
+      color: $bonus-color;
+      border-bottom: 2px solid $bonus-color;
+    }
+
+    p {
+      color: $secondary-color;
+    }
+
+    .team-member {
+      .team-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid $bonus-color;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      .member-name {
+        color: $bonus-color;
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
