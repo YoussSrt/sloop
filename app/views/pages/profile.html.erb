@@ -7,32 +7,37 @@
         <i class="fas fa-users"></i>
       </div>
     <% end %>
+
     <div class="profile-content">
       <div class="profile-main-info position-relative">
         <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
         <p class="profile-username">@<%= @user.nickname %></p>
-        <% if current_user.photo.attached? %>
-          <%= cl_image_tag(current_user.photo.key, class: 'avatar-profile') %>
+        <% if current_user&.avatar.present? %>
+         <%= cl_image_tag(current_user.avatar.key, class: 'avatar-profile') %>
         <% else %>
-          <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar-profile') %>
+         <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar-profile') %>
         <% end %>
       </div>
+
       <div class="profile-cards">
         <div class="profile-card">
           <i class="bi bi-infinity card-icon"></i>
           <h3 class="card-title">Sloopies</h3>
-          <div class="card-count" id="sloopies-count"><%= @user.sloopies.where(is_saved: true).count %></div>
+          <div class="card-count" id="sloopies-count"><%= @user.sloopies.where(is_saved: true, status: ["done"]).count %></div>
           <p class="card-description">My completed adventures</p>
         </div>
+
+
         <div class="profile-card">
           <i class="bi bi-heart card-icon"></i>
           <h3 class="card-title">Favorites</h3>
-          <div class="card-count"><%= @user.favorites.count %></div>
+          <div class="card-count"><%= @user.sloopies.where(is_saved: true, status: ["false", "f", "delate", "in_progress"]).count %></div>
           <p class="card-description">My favorite Sloopies</p>
         </div>
       </div>
+
         <div class="profile-section">
-        <h2>My Future Sloopies</h2>
+        <h2>My saved Sloopies</h2>
         <div class="sloopies-grid">
           <% @user.sloopies.where(is_saved: true, copy: false, status: ["false", "f", "delate", "in_progress"]).order(created_at: :desc).limit(3).each do |sloopy| %>
             <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
@@ -53,6 +58,17 @@
                               },
                               class: "btn-delete-sloopy" %>
                 </div>
+
+                 <!-- Ajout du bouton 'Done' ou 'In Progress' -->
+                 <div class="sloopy-status-toggle">
+                  <% if sloopy.is_saved %>
+                    <%= form_with model: sloopy, url: update_status_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+                      <%= form.submit sloopy.status == 'done' ? 'In Progress' : 'Done',
+                                      class: "btn-status-toggle btn-orange flex-grow: 1;",
+                                      id: "btn-status-toggle-#{sloopy.id}" %>
+                    <% end %>
+                  <% end %>
+                </div>
               </div>
             <% end %>
           <% end %>
@@ -60,7 +76,7 @@
       </div>
 
           <div class="profile-section">
-          <h2>My Copy Sloopies</h2>
+          <h2>My liked Sloopies</h2>
           <div class="sloopies-grid">
             <% @user.sloopies.where(is_saved: true, copy: true, status: ["false", "f", "delate", "in_progress"]).order(created_at: :desc).limit(3).each do |sloopy| %>
               <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
@@ -73,7 +89,7 @@
 
                   <div class="sloopy-card-actions">
                   <%= link_to '<i class="fa-regular fa-circle-xmark"></i>'.html_safe,
-                              profile_path,
+                              sloopy_path(sloopy),
                               data: {
                                 turbo_method: :delete,
                                 turbo_confirm: "Are you sure?"
@@ -109,22 +125,12 @@
                     <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
                   <% end %>
 
-<!-- Ajout du bouton 'Done' ou 'In Progress' -->
- <div class="sloopy-status-toggle">
-  <% if sloopy.is_saved %>
-    <%= form_with model: sloopy, url: update_status_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
-      <%= form.submit sloopy.status == 'done' ? 'remove' : 'Done',
-                      class: "btn-status-toggle btn-orange flex-grow: 1;",
-                      id: "btn-status-toggle-#{sloopy.id}" %>
-    <% end %>
-  <% end %>
-</div>
-
                 </div>
               <% end %>
             <% end %>
           </div>
         </div>
+
         <div class="profile-section">
           <h2>My Preferences</h2>
           <div class="info-grid">
