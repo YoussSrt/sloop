@@ -1,13 +1,19 @@
 <%= simple_form_for [sloopy, question],
-  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }} do |f| %>
+  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } } do |f| %>
   <div class="input-group mb-3 w-100">
-    <div class="form-floating">
-      <%= f.input :user_question, label: false, wrapper: false %>
-      <%= f.label :user_question, "Your question" %>
+    <div class="form-floating flex-grow-1">
+      <%= f.input :user_question,
+                  label: false,
+                  wrapper: false,
+                  input_html: { class: "form-control", placeholder: "Type your question here..." } %>
+      <%= f.label :user_question, "Your question", class: "form-label" %>
     </div>
-       <!-- Inclure les données de l'itinéraire -->
-    <%= hidden_field_tag :sloopy_id, @sloopy.id %>
-    <%= hidden_field_tag :current_steps, @sloopy.steps.map(&:city).join(',') %>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary send" %>
+    <button type="submit" class="btn btn-primary send" id="new-question-button">
+      <i class="fas fa-paper-plane"></i> Ask
+    </button>
   </div>
+
+  <!-- Hidden fields to include itinerary data -->
+  <%= hidden_field_tag :sloopy_id, @sloopy.id %>
+  <%= hidden_field_tag :current_steps, @sloopy.steps.map(&:city).join(',') %>
 <% end %>
