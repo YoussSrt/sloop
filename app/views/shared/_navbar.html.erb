@@ -18,10 +18,14 @@
     <button class="btn dropdown-toggle" id="userDropdown" aria-expanded="false">
       <%= current_user.nickname %>
     </button>
-    <% if current_user&.avatar.present? %>
-      <%= cl_image_tag(current_user.avatar.key, class: 'avatar') %>
+    <% if current_user.photo.attached? %>
+      <%= link_to profile_path do %>
+        <%= cl_image_tag(current_user.photo.key, class: 'avatar-navbar') %>
+      <% end %>
     <% else %>
-      <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar') %>
+      <%= link_to profile_path do %>
+        <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar-navbar') %>
+      <% end %>
     <% end %>
     <ul class="dropdown-menu" aria-labelledby="userDropdown">
       <li><a href="<%= profile_path %>" class="dropdown-item">My Profile</a></li>

@@ -7,22 +7,13 @@
            data-map-markers-value="<%= @markers.to_json %>"
            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
            style="width: 100%; height: 400px;">
-    </div>
-      <% if @sloopy.status == true %>%
-      <!-- Formulaire de review -->
-     <div class="sloopy-card" style= "height: 300px;">
-        <% if @sloopy.reviews.first.content == nil  %>
-          <%= render 'reviews/review_form', review: @review %>
-        <% else %>
-          <%= render 'reviews/review', review: @sloopy.reviews.where.not(id: nil).last %>
-        <% end %>
-      <% end %>
-    </div>
+      </div>
+      
+   </div>
 
- </div>
     <div class="sloopy-section">
       <div class="sloopy-card">
-        <h2>Sloopy Details</h2>
+        <h2> <%= @sloopy.origin.capitalize %> ∞ <%= @sloopy.destination.capitalize %> </h2>
         <p><strong>Dates:</strong> <%= @sloopy.departure_date %> to <%= @sloopy.return_date %></p>
         <p><strong>From:</strong> <%= @sloopy.origin %></p>
         <p><strong>To:</strong> <%= @sloopy.destination %></p>
@@ -79,16 +70,4 @@
         <%= link_to "Back to my Sloopies", profile_path, class: "btn-orange flex-grow-1;" %>
       </div>
     </div>
-
-    <%# <div class="container chatbot">
-      <h1>Chat with us</h1>
-      <div id="questions">
-        <%= render partial: "questions/question", collection: @questions, as: :question %>
-      <%# </div> %>
-
-      <%# <%= render "questions/form", question: @question, sloopy: @sloopy %>
-      <%# <%= link_to "Update Sloopy", sloopy_step_path(@sloopy), data: { turbo_method: :patch } %>
-    </div>
   </div>
-
-</div>

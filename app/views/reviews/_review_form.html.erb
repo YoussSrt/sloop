@@ -15,4 +15,15 @@
     <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
   <% end %>
 <% end %>
-
+<%# 
+<%# <% if @sloopy.is_saved %>
+         <%# <% if @sloopy.status == true %> 
+      <!-- Formulaire de review -->
+     <%# <div class="sloopy-card"> %>
+        <%# <% if @sloopy.reviews.first.content == nil  %> 
+          <%# <%= render 'reviews/review_form', review: @review %>
+        <%# <% else %> 
+          <%# <%= render 'reviews/review', review: @sloopy.reviews.where.not(id: nil).last %> 
+        <%# <% end %> 
+      <%# <% end %>
+    <%# </div>  %>

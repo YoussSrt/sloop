@@ -5,7 +5,7 @@
     </div>
     <div class="sign-up-form-container">
 
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation" }) do |f| %>
         <%= f.error_notification %>
 
         <div class="form-inputs sign-up-form-row">
@@ -22,12 +22,16 @@
           </div>
         </div>
 
+          <div class="sign-up-input-group">
+            <%= f.input :photo, as: :file, label: false, input_html: { class: "sign-up-form-control" } %>
+          </div>
+
         <div class="sign-up-form-row">
           <div class="sign-up-input-group">
             <%= f.input :email, required: true, label: false, placeholder: "Email", input_html: { autocomplete: "email", class: "sign-up-form-control" } %>
           </div>
         </div>
-        
+
         <div class="sign-up-form-row">
           <div class="sign-up-input-group">
             <%= f.input :password, required: true, label: false, placeholder: "Password", hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password", class: "sign-up-form-control" } %>

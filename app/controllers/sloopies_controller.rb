@@ -119,6 +119,32 @@ class SloopiesController < ApplicationController
     end
   end
 
+  def update_status
+    if @sloopy.nil?
+      redirect_to sloopies_path, alert: "Sloopy not found."
+      return
+    end
+
+    @sloopy.status = 'completed'
+
+    if @sloopy.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.remove("sloopy_card_#{@sloopy.id}"),
+            turbo_stream.prepend("realized_sloopies",
+              partial: "sloopies/realized_card",
+              locals: { sloopy: @sloopy }
+            )
+          ]
+        end
+        format.html { redirect_to profile_path, notice: "Sloopy marked as completed!" }
+      end
+    else
+      redirect_to profile_path, alert: "Unable to update status."
+    end
+  end
+
 
   def copy
     @original_sloopy = Sloopy.find(params[:id])

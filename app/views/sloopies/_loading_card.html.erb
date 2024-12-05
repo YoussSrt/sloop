@@ -1,8 +1,6 @@
-<div id="sloopy_<%= sloopy.id %>" class="sloopy-card-index loading-card">
-  <h2>Sloopy <%= index + 1 %></h2>
-  <%= render "shared/loader", 
-    container_id: "loader_#{sloopy.id}",
-    container_class: "sloopy-loader",
-    hint: "This may take a few moments..." 
-  %>
-</div>
+<h2><%= sloopy.origin.capitalize %> - <%= sloopy.destination.capitalize %></h2>
+<%= render "shared/loader",
+  container_id: "loader_#{sloopy.id}",
+  container_class: "sloopy-loader",
+  hint: "This may take a few moments..."
+%>

@@ -16,8 +16,8 @@ class PagesController < ApplicationController
   end
 
   # def feed
-  #   @user = current_user  # Définit l'utilisateur connecté dans la variable @user
-  #   @sloopies = Sloopy.all # Ou toute autre logique pour récupérer les Sloopies
+  #   # @user = current_user  # Définit l'utilisateur connecté dans la variable @user
+  #   # @sloopies = Sloopy.all # Ou toute autre logique pour récupérer les Sloopies
   # end
 
 

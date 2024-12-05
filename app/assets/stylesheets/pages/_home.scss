@@ -2,11 +2,14 @@
 // Appliquer l'image de fond à la page entière
 
 .div_home {
-  min-height: calc(100vh - 12rem);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.info{
+  margin-top: -50px;
 }
 
 .homepage {
