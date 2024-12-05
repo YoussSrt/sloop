@@ -6,6 +6,14 @@
         <p class="profile-username">@<%= @user.nickname %></p>
       </div>
 
+      <%= button_to chatrooms_path(second_user_id: @user.id), method: :post, class: "slooper-chat-btn" do %>
+        <i class="fas fa-comments"></i>
+        <span>Chat with @<%= @user.nickname %></span>
+        <div class="chat-badge">
+          <i class="fas fa-user"></i>
+        </div>
+      <% end %>
+
       <div class="profile-cards">
         <div class="profile-card">
           <i class="bi bi-infinity card-icon"></i>
