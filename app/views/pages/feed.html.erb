@@ -1,54 +1,71 @@
 <div class="sloopy-container-feed">
-  <h1 class = "title_home">MY FEED</h1>
-  <div class= "d-flex flex-wrap justify-content-around">
-    <% if @sloopies.any? %> <!-- Check if there are any sloopies -->
-      <% @sloopies.each_with_index do |sloopy, index| %>
+  <h1 class="title_home">MY FEED</h1>
+  <div class="feed-container">
+    <% if @sloopies.any? %>
+      <% @sloopies.each do |sloopy| %>
         <div class="sloopy-card-feed">
-          <!-- Image and Title Section -->
           <div class="top-right-title-container">
-            <!-- Title displaying the number of the Sloopy -->
-            <h2>Sloopy <%= index + 1 %></h2>
+            <div class="user-info">
+              <% if sloopy.user.photo.attached? %>
+                <%= cl_image_tag(sloopy.user.photo.key, class: 'top-right-image') %>
+              <% else %>
+                <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'top-right-image') %>
+              <% end %>
+              <%= link_to sloopy.user.nickname, other_user_profile_path(sloopy.user.id), class: 'user-name' %>
+            </div>
+            <div class="post-date">
+              <%= time_ago_in_words(sloopy.created_at) %> ago
+            </div>
+          </div>
 
+          <h2 class="trip-title">
+            <i class="fas fa-train"></i>
+            <%= sloopy.origin.capitalize %> ∞ <%= sloopy.destination.capitalize %>
+          </h2>
 
-          <div class="top-right-image">
-            <!-- Decorative Image -->
-            <% if current_user.photo.attached? %>
-              <%= cl_image_tag(current_user.photo.key, class: 'top-right-image') %>
-            <% else %>
-              <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'tp-right-image') %>
+          <div class="trip-details">
+            <p class="dates">
+              <i class="fas fa-calendar"></i>
+              <%= l(sloopy.departure_date, format: :short) %> - <%= l(sloopy.return_date, format: :short) %>
+            </p>
+
+            <% if sloopy.steps.any? %>
+              <p class="steps-line">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="city-stops">
+                  <%= sloopy.steps.map { |step| content_tag(:span, step.city_stop) }.join(" ↬ ").html_safe %>
+                </span>
+              </p>
+            <% end %>
+
+            <% if sloopy.summary.present? %>
+              <div class="summary">
+                <i class="fas fa-quote-left"></i>
+                <%= sloopy.summary %>
+              </div>
+            <% end %>
+
+            <p class="budget">
+              <i class="fas fa-coins"></i>
+              <%= number_to_currency(sloopy.budget_estimated, unit: "", precision: 0) %>
+            </p>
+
+            <% if sloopy.reviews.any? %>
+              <div class="review">
+                <p class="rating">
+                  <i class="fas fa-star"></i>
+                  <%= sloopy.reviews.first.rating %>/5
+                </p>
+                <% if sloopy.reviews.first.content.present? %>
+                  <p class="review-content">
+                    "<%= sloopy.reviews.first.content %>"
+                  </p>
+                <% end %>
+              </div>
             <% end %>
           </div>
-        </div> <!-- Close top-right-title-container -->
 
-
-          <!-- Display user information -->
-          <p class="user-name">
-            <strong>User:</strong>
-            <%= link_to sloopy.user.nickname, other_user_profile_path(sloopy.user.id) %>
-          </p>
-
-          <p><strong>Dates:</strong> <%= sloopy.departure_date %> to <%= sloopy.return_date %></p>
-          <p><strong>From:</strong> <%= sloopy.origin.capitalize %></p>
-          <p><strong>To:</strong> <%= sloopy.destination.capitalize %></p>
-
-          <% if sloopy.steps.any? %>
-            <p class="steps-line">
-              <strong>Steps:</strong>
-              <span class="city-stops"><%= sloopy.steps.map(&:city_stop).join(" ↬ ") %></span>
-            </p>
-          <% end %>
-
-          <p class="justified"><%= sloopy.summary %></p>
-          <p><strong>Estimated budget:</strong> <%= sloopy.budget_estimated %></p>
-
-          <% if sloopy.reviews.any? %>
-            <p><strong>Review:</strong> <%= sloopy.reviews.first.content %></p>
-            <p><strong>Rating:</strong> <%= sloopy.reviews.first.rating %></p>
-          <% end %>
-
-          <!-- Button and Link Container -->
           <div class="btn-container">
-            <!-- Save/Unsave Button -->
             <% if sloopy.user_id == current_user.id %>
               <%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
                 <%= form.submit sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
@@ -57,17 +74,16 @@
               <% end %>
             <% else %>
               <%= form_with url: copy_sloopy_path(sloopy), method: :post, remote: true, html: { class: "sloopy-form" } do |form| %>
-                <%= form.submit 'Copy', class: "btn-copy-toggle btn-orange", id: "btn-copy-toggle-#{sloopy.id}" %>
+                <%= form.submit 'Like this Sloopy', class: "btn-copy-toggle btn-orange", id: "btn-copy-toggle-#{sloopy.id}" %>
               <% end %>
             <% end %>
 
-            <!-- See Details Link -->
             <%= link_to "See Details", sloopy_path(sloopy), class: "btn-orange" %>
-          </div> <!-- Close btn-container -->
-        </div> <!-- Close sloopy-card-feed -->
+          </div>
+        </div>
       <% end %>
     <% else %>
-      <p>No sloopies to display.</p>
+      <p class="no-sloopies">No sloopies found in your feed yet!</p>
     <% end %>
   </div>
-</div> <!-- Close sloopy-container-feed -->
+</div>

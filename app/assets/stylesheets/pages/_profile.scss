@@ -366,6 +366,7 @@ $bonus-color: #F3C59D;
   font-weight: 600;
   box-shadow: 0 4px 15px rgba($tertiary-color, 0.3);
   transition: all 0.3s ease;
+  z-index: 9999;
 
   i {
     font-size: 1.2rem;

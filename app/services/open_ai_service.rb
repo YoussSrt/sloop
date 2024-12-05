@@ -14,7 +14,7 @@ class OpenAiService
     parse_itinerary(chatgpt_call)
     markers = Sloopy.where(user: @sloopy.user).flat_map.with_index { |s, i| s.to_markers(i) }
     Rails.logger.info "Generated markers: #{markers.inspect}"
-    
+
     Turbo::StreamsChannel.broadcast_replace_to(
       "maps",
       target: "map-section",
@@ -36,7 +36,9 @@ class OpenAiService
         new_step = Step.create(
           sloopy: @sloopy,
           city: detail["city"],
-          city_stop: detail["city"].split('to')[-1].strip,
+          country: detail["country"],
+          region: detail["region"],
+          city_stop: detail["city"].split(' to ')[-1].strip,
           transport: detail["transport"],
           cost: detail["cost"],
           duration: detail["duration"],
@@ -99,6 +101,8 @@ class OpenAiService
           "details": [
             {
               "city": "Paris to Strasbourg",
+              "country": "France",
+              "region": "Europe",
               "transport": "Train (SNCF)",
               "cost": "€50",
               "duration": "2 hours",
@@ -110,6 +114,8 @@ class OpenAiService
             },
             {
               "city": "Strasbourg to Munich",
+              "country": "Germany",
+              "region": "Europe",
               "transport": "Train (DB)",
               "cost": "€40",
               "duration": "3.5 hours",
@@ -121,6 +127,8 @@ class OpenAiService
             },
             {
               "city": "Munich to Thessaloniki",
+              "country": "Greece",
+              "region": "Europe",
               "transport": "Bus (Flixbus)",
               "cost": "€100",
               "duration": "20 hours",
@@ -132,6 +140,8 @@ class OpenAiService
             },
             {
               "city": "Thessaloniki to Athens",
+              "country": "Greece",
+              "region": "Europe",
               "transport": "Bus (KTEL)",
               "cost": "€20",
               "duration": "5 hours",
@@ -164,6 +174,8 @@ class OpenAiService
           "details": [
             {
               "city": "Athens to Corinth",
+              "country": "Greece",
+              "region": "Europe",
               "transport": "Train (TrainOSE)",
               "cost": "€10",
               "duration": "1 hour",
