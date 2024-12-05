@@ -8,22 +8,12 @@
            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
            style="width: 100%; height: 400px;">
       </div>
-      <%# <% if @sloopy.is_saved %>
-         <% if @sloopy.status == true %>%
-      <!-- Formulaire de review -->
-     <div class="sloopy-card">
-        <% if @sloopy.reviews.first.content == nil  %>
-          <%= render 'reviews/review_form', review: @review %>
-        <% else %>
-          <%= render 'reviews/review', review: @sloopy.reviews.where.not(id: nil).last %>
-        <% end %>
-      <% end %>
-    </div>
+      
    </div>
 
     <div class="sloopy-section">
       <div class="sloopy-card">
-        <h2>Sloopy Details</h2>
+        <h2> <%= @sloopy.origin.capitalize %> ∞ <%= @sloopy.destination.capitalize %> </h2>
         <p><strong>Dates:</strong> <%= @sloopy.departure_date %> to <%= @sloopy.return_date %></p>
         <p><strong>From:</strong> <%= @sloopy.origin %></p>
         <p><strong>To:</strong> <%= @sloopy.destination %></p>
