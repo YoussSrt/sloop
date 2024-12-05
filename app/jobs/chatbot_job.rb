@@ -46,7 +46,7 @@ class ChatbotJob < ApplicationJob
   def questions_formatted_for_openai
     questions = @question.user.questions
     results = []
-    results << { role: "system", content: "You are an assistant for a travel itinerary generation website. The user is planning a trip and has already created an itinerary. Which is this one #{@sloopy}, here are all the steps #{@sloopy.steps} and their activities, answer considering all the informations serialized here #{@sloopy.serialize_sloopy}, like the time, the price etc... answer with just the data, no fantasy words'." }
+    results << { role: "system", content: "You are an assistant for a travel itinerary generation website. The user is planning a trip and has already created an itinerary. Which is this one #{@sloopy}... answer with a quick answer, not the activities, no fantasy words'." }
     questions.each do |question|
       results << { role: "user", content: question.user_question }
       results << { role: "assistant", content: question.ai_answer || "" }

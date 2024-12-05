@@ -44,7 +44,6 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 1400px;
   background-color: $secondary-color;
   align-items: center;
   // padding: 2rem;
@@ -82,4 +81,8 @@
 }
 .btn-save-toggle {
   transition: background-color 0.3s ease; /* Animation légère pour le hover */
+}
+
+.new-sloopy-form{
+  height: 100vh;
 }
