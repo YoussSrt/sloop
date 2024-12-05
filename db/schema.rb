@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_093635) do
     t.date "return_date"
     t.integer "budget"
     t.integer "duration"
-    t.boolean "status", default: false
+    t.string "status", default: "f"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

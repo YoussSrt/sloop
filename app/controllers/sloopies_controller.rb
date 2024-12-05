@@ -15,10 +15,9 @@ class SloopiesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # default behavior
+      format.html
       format.json { render json: @markers }
     end
-
     Rails.logger.info "Final markers for index: #{@markers.inspect}"
   end
 
@@ -99,7 +98,7 @@ class SloopiesController < ApplicationController
 
       # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
+      redirect_to sloopies_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -107,8 +106,8 @@ class SloopiesController < ApplicationController
 
   def destroy
     @sloopy = Sloopy.find(params[:id])
-    @sloopy.destroy
-    redirect_to sloopies_path, status: :see_other
+    @sloopy.destroy!
+    redirect_to profile_path, status: :see_other
   end
 
   def update_save
@@ -125,30 +124,38 @@ class SloopiesController < ApplicationController
   end
 
   def update_status
+    # Ensure @sloopy is properly set here
     if @sloopy.nil?
-      redirect_to sloopies_path, alert: "Sloopy not found."
+      redirect_to profile_path, alert: "Sloopy not found."  # Redirection vers profile_path si le sloopy n'est pas trouvé
       return
     end
 
-    @sloopy.status = 'completed'
+    # Toggle the status of sloopy between 'done' and 'in_progress'
+    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
 
     if @sloopy.save
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.remove("sloopy_card_#{@sloopy.id}"),
-            turbo_stream.prepend("realized_sloopies",
-              partial: "sloopies/realized_card",
-              locals: { sloopy: @sloopy }
-            )
+            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
+            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
           ]
         end
-        format.html { redirect_to profile_path, notice: "Sloopy marked as completed!" }
+        # Redirection vers profile_path après la mise à jour du statut
+        format.html { redirect_to profile_path, notice: "Sloopy status updated!" }
       end
     else
-      redirect_to profile_path, alert: "Unable to update status."
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
+        end
+        # Redirection vers profile_path même si la mise à jour échoue
+        format.html { redirect_to profile_path, alert: "Unable to update status." }
+      end
     end
   end
+
+
 
 
   def copy
@@ -174,16 +181,6 @@ class SloopiesController < ApplicationController
     else
       redirect_to sloopies_path, alert: 'Failed to copy Sloopy.'
     end
-  end
-
-  def update_status
-    # Vérifie si le statut est 'done' et le change en 'false' ou 'f'
-    if @sloopy.status == 'done'
-      @sloopy.update(status: 'false')
-    end
-
-    # Redirige vers la page de profil après la mise à jour du statut
-    redirect_to profile_path, notice: "Sloopy status updated to false."
   end
 
 
@@ -241,4 +238,3 @@ end
 def disable_caching
   response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
 end
-
