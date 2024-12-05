@@ -1,3 +1,5 @@
-<%= form_with model: sloopy, url: update_save_sloopy_path(sloopy), method: :patch, data: { turbo: true, 'csrf-token': Rails.application.config.action_controller.forgery_protection_token } do |form| %>
-  <%= form.submit sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy', class: "btn-save-toggle btn-orange", id: "btn-save-toggle-#{sloopy.id}" %>
-<% end %>
+ <% if !@sloopy.is_saved %>
+          <!-- Save/Unsave button -->
+            <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { class: "sloopy-form", data: { turbo: true } } do |form| %>
+              <%= form.submit 'Save ?' %>
+            <% end %>

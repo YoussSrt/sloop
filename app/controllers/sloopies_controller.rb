@@ -107,65 +107,18 @@ class SloopiesController < ApplicationController
   end
 
   def update_save
-    @sloopy.is_saved = !@sloopy.is_saved
+    @sloopy.is_saved = true # Toujours sauvegarder, ne pas toggler
 
     if @sloopy.save
-      respond_to do |format|
-        format.turbo_stream do
-          if @sloopy.is_saved
-            # Quand on sauvegarde un sloopy
-            render turbo_stream: [
-              turbo_stream.remove("sloopy_#{@sloopy.id}"),
-              turbo_stream.append("sloopies-grid", partial: "sloopies/profile_card", locals: { sloopy: @sloopy }),
-              turbo_stream.update("sloopies-count", @sloopy.user.sloopies.where(is_saved: true).count)
-            ]
-          else
-            # Quand on retire un sloopy des sauvegardés
-            render turbo_stream: [
-              turbo_stream.remove("sloopy_#{@sloopy.id}"),
-              turbo_stream.update("sloopies-count", @sloopy.user.sloopies.where(is_saved: true).count)
-            ]
-          end
-        end
-        format.html { redirect_to request.referer, notice: "Sloopy #{@sloopy.is_saved ? 'saved' : 'unsaved'}!" }
-      end
+      redirect_to request.referer, notice: "Sloopy saved!"
     else
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.replace("save-status-#{@sloopy.id}", partial: "sloopies/save_status", locals: { sloopy: @sloopy }) }
-        format.html { redirect_to request.referer, alert: "Unable to update save status." }
+        format.html { redirect_to request.referer, alert: "Unable to save Sloopy." }
       end
     end
   end
 
-
-  def update_status
-    # Ensure @sloopy is properly set here
-    if @sloopy.nil?
-      redirect_to sloopies_path, alert: "Sloopy not found."
-      return
-    end
-
-    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
-
-    if @sloopy.save
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("status-toggle-form-#{@sloopy.id}", partial: "sloopies/status_button", locals: { sloopy: @sloopy }),
-            turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
-          ]
-        end
-        format.html { redirect_to request.referer, notice: "Sloopy status updated!" }
-      end
-    else
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("status-text-#{@sloopy.id}", partial: "sloopies/status_text", locals: { sloopy: @sloopy })
-        end
-        format.html { redirect_to request.referer, alert: "Unable to update status." }
-      end
-    end
-  end
 
   def copy
     @original_sloopy = Sloopy.find(params[:id])
@@ -179,6 +132,7 @@ class SloopiesController < ApplicationController
       new_step.save
     end
     @sloopy_copy.is_saved = true
+    @sloopy_copy.copy = true
 
     # Sauvegarder la copie
     if @sloopy_copy.save
@@ -189,6 +143,16 @@ class SloopiesController < ApplicationController
     else
       redirect_to sloopies_path, alert: 'Failed to copy Sloopy.'
     end
+  end
+
+  def update_status
+    # Vérifie si le statut est 'done' et le change en 'false' ou 'f'
+    if @sloopy.status == 'done'
+      @sloopy.update(status: 'false')
+    end
+
+    # Redirige vers la page de profil après la mise à jour du statut
+    redirect_to profile_path, notice: "Sloopy status updated to false."
   end
 
 
@@ -242,3 +206,8 @@ class SloopiesController < ApplicationController
     end
   end
 end
+
+def disable_caching
+  response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+end
+

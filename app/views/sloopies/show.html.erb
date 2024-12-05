@@ -27,8 +27,6 @@
         <p><strong>From:</strong> <%= @sloopy.origin %></p>
         <p><strong>To:</strong> <%= @sloopy.destination %></p>
 
-
-
         <% if @sloopy.steps.any? %>
           <p class="steps-line">
             <strong>Steps:</strong>
@@ -40,26 +38,22 @@
         <% if @sloopy.user_id != current_user.id %>
           <!-- Copy Button -->
           <%= form_with url: copy_sloopy_path(@sloopy), method: :post, remote: true, html: { id: "copy-form-#{@sloopy.id}" } do |form| %>
-            <%= form.submit 'Copy', class: "btn-copy-toggle btn-orange flex-grow: 1;", id: "btn-copy-toggle-#{@sloopy.id}" %>
+            <%= form.submit 'Copy', class: "btn-copy-toggle btn-orange flex-grow-1;", id: "btn-copy-toggle-#{@sloopy.id}" %>
           <% end %>
         <% else %>
+        <!-- Done/In Progress Button -->
+          <% if !@sloopy.is_saved %>
           <!-- Save/Unsave button -->
-          <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "save-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
-            <%= form.submit @sloopy.is_saved ? 'Unsave Sloopy' : 'Save Sloopy',
-                            class: "btn-save-toggle btn-orange flex-grow: 1;",
-                            id: "btn-save-toggle-#{@sloopy.id}" %>
-          <% end %>
-          <!-- Done/In Progress Button -->
-          <% if @sloopy.is_saved %>
-            <%= form_with model: @sloopy, url: update_status_sloopy_path(@sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{@sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
-              <%= form.submit @sloopy.status == 'done' ? 'In Progress' : 'Done',
-                              class: "btn-status-toggle btn-orange flex-grow: 1;",
-                              id: "btn-status-toggle-#{@sloopy.id}" %>
+            <%= form_with model: @sloopy, url: update_save_sloopy_path(@sloopy), method: :patch, remote: true, html: { class: "sloopy-form", data: { turbo: true } } do |form| %>
+              <%= button_tag "Save", class: "btn-copy-toggle btn-orange", id: "btn-copy-toggle-#{@sloopy.id}" %>
             <% end %>
           <% end %>
         <% end %>
+
+
+
         <!-- Back to all Sloopies Link -->
-        <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-orange flex-grow: 1;" %>
+        <%= link_to "Back to my Sloopies", profile_path, class: "btn-orange flex-grow-1;" %>
       </div>
 
         <% @sloopy.steps.each do |step| %>
@@ -82,7 +76,7 @@
             <% end %>
           </div>
         <% end %>
-        <%= link_to "Back to all Sloopies", sloopies_path, class: "btn-sloopy" %>
+        <%= link_to "Back to my Sloopies", profile_path, class: "btn-orange flex-grow-1;" %>
       </div>
     </div>
 

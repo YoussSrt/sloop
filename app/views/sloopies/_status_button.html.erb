@@ -1,6 +1,6 @@
-<!-- _status_button.html.erb -->
 <%= form_with model: sloopy, url: update_status_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
   <%= form.submit sloopy.status == 'done' ? 'In Progress' : 'Done',
                   class: "btn-status-toggle btn-blue",
                   id: "btn-status-toggle-#{sloopy.id}" %>
 <% end %>
+

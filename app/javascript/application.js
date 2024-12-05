@@ -18,18 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("turbo:load", () => {
-  const forms = document.querySelectorAll(".sloopy-form");
+  const saveButtons = document.querySelectorAll(".btn-save-toggle");
 
-  forms.forEach(form => {
-    form.addEventListener("submit", function (event) {
-      // Vérifiez si le formulaire a un bouton "Unsave Sloopy"
-      const btn = form.querySelector("input[type='submit']");
-      if (btn && btn.value === "Unsave Sloopy") {
-        const confirmMessage = "Are you sure you want to unsave this Sloopy?";
-        // Si l'utilisateur confirme, continuez la soumission du formulaire, sinon annulez
-        if (!confirm(confirmMessage)) {
-          event.preventDefault();
-        }
+  saveButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      if (!button.disabled) {
+        button.disabled = true;
+        button.classList.add("disabled");
       }
     });
   });

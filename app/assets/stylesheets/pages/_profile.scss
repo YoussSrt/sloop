@@ -189,17 +189,17 @@ $bonus-color: #F3C59D;
     color: inherit;
   }
 }
-
 .sloopy-card {
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 6px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
+  position: relative;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
   h3 {
@@ -218,7 +218,31 @@ $bonus-color: #F3C59D;
       color: $primary-color;
     }
   }
+
+  .sloopy-card-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    .btn-delete-sloopy {
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: #cf5847;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: darken(#cf5847, 10%);
+      }
+
+      i {
+        pointer-events: none; // Empêche les icônes de bloquer le clic.
+      }
+    }
+  }
 }
+
 
 .profile-cards {
   display: grid;
