@@ -4,7 +4,7 @@
     <%= render "loading_card", sloopy: sloopy, index: index %>
   <% else %>
     <div class="sloopy-header">
-      <h2><%= sloopy.origin.capitalize %> - <%= sloopy.destination.capitalize %></h2>
+      <h2><%= sloopy.origin.capitalize %> ∞ <%= sloopy.destination.capitalize %></h2>
       <%= link_to '<i class="fa-regular fa-circle-xmark" style="color: #cf5847;"></i>'.html_safe,
                   sloopy_path(sloopy),
                   data: {
