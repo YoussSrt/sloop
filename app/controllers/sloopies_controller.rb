@@ -14,6 +14,11 @@ class SloopiesController < ApplicationController
       sloopy.to_markers(index)
     end
 
+    respond_to do |format|
+      format.html # default behavior
+      format.json { render json: @markers }
+    end
+
     Rails.logger.info "Final markers for index: #{@markers.inspect}"
   end
 
