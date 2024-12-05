@@ -80,13 +80,7 @@
   justify-content: center;
 }
 
-.div-sloopy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Centrer si utilisé seul */
-  height: 100vh; /* Prendre toute la hauteur de l'écran */
-}
+
 
 .empty-state {
   display: flex;
@@ -115,17 +109,11 @@ h1 {
   margin-bottom: 20px; /* Ajouter un espace */
 }
 
-.main-content {
-  display: flex;
-  width: 100%;
-  height: 100vh; /* Prenez toute la hauteur de l'écran */
-  padding: 0 100px; /* Ajouter une marge de 100px de chaque côté */
-  box-sizing: border-box;
-}
+
 
 
 .map-side, .cards-side {
-  width: 50%;
+  // width: 50%;
   padding: 20px;
   box-sizing: border-box;
   height: 60vh; /* Hauteur de 60% de la hauteur de l'écran */

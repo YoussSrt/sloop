@@ -14,3 +14,18 @@
   -webkit-text-stroke: 1px #CF5847;
   text-shadow: 0px 3px 0px #CF5847;
 }
+
+
+#sloopy-show {
+  .main-content {
+    display: grid;
+    grid-template-column: 1fr 1fr 1fr;
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 100px; /* Ajouter une marge de 100px de chaque côté */
+    box-sizing: border-box;
+  }
+}
