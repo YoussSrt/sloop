@@ -1,0 +1,8 @@
+<div class="container chatbot">
+      <h1>Chat with us</h1>
+      <div id="questions">
+        <%= render partial: "questions/question", collection: @questions, as: :question %>
+       </div>
+
+      <%= render "questions/form", question: @question, sloopy: @sloopy %>
+</div>

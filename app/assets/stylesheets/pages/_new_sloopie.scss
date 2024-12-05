@@ -23,6 +23,16 @@
   min-width: 750px;
 }
 
+.sloopie-form-wrapper-new {
+  height: 0vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: -95px;
+  min-width: 750px;
+}
+
 .sloopie-form-container,
 .sloopie-form-container-bis {
   width: 100%;

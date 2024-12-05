@@ -23,7 +23,7 @@ class SloopiesController < ApplicationController
 
   def show
     @sloopy = Sloopy.find(params[:id])
-    @review = @sloopy.reviews.new
+    # @review = @sloopy.reviews.new
     @question = Question.new
     @markers = []
     route_coordinates = []
@@ -98,7 +98,7 @@ class SloopiesController < ApplicationController
 
       # Lancer la génération en arrière-plan
       GenerateSloopyJob.perform_later(@sloopy, formatted_preferences, current_index)
-      redirect_to sloopies_path, notice: 'Generating your Sloopy...'
+      redirect_to sloopies_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -131,7 +131,7 @@ class SloopiesController < ApplicationController
     end
 
     # Toggle the status of sloopy between 'done' and 'in_progress'
-    @sloopy.status = @sloopy.status == 'done' ? 'in_progress' : 'done'
+    @sloopy.update(status: @sloopy.status == 'done' ? 'in_progress' : 'done')
 
     if @sloopy.save
       respond_to do |format|

@@ -452,6 +452,20 @@ $bonus-color: #F3C59D;
   font-size: 0.9rem;
   transition: all 0.2s ease;
 
+  .btn-delete-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: $primary-color;
+    background: transparent;
+    border: 1px solid $primary-color;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
   &:hover {
     background: $primary-color;
     color: white;
