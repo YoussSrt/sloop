@@ -1,10 +1,14 @@
 <%= turbo_frame_tag("review-section") do %>
   <% if review.present? %>
-  <p>Your review</p>
-  <p><%= review.content %></p>
-  <p>Your rating</p>
-  <p><%= review.rating %></p>
-  <%= link_to "edit", edit_review_path(review), class: "btn bt-primary" %>
-  <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
+  <div class="d-flex gap-2">
+    <p><strong>Your review: </strong></p>
+    <p><%= review.content%></p>
+    <p><strong>rating: </strong></p>
+    <p><%= review.rating %></p>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "edit", edit_review_path(review), class: "btn btn-orange" %>
+    <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
+</div>
   <% end  %>
 <% end %>

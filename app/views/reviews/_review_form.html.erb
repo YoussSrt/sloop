@@ -1,29 +1,17 @@
 
-<%= turbo_frame_tag('review-section') do %>
-  <%= simple_form_for [@sloopy, @review], html: { class: "review-form" } do |f| %>
-    <div class="form-group">
-      <%= f.input :content, label: "Review your sloopy", as: :text %>
-    </div>
-    <div class="form-group">
-      <%= f.input :rating, label: "Rating (1 to 5)", as: :select, collection: 1..5 %>
-    </div>
-    <div class="form-actions">
-      <%= f.button :submit, (review.persisted? ? "Update Review" : "Submit Review"), class: "btn-orange" %>
-    </div>
-  <% end %>
-  <% if review.persisted? %>
-    <%= link_to "destroy", review_path(review), data: { turbo_method: :delete }, class: "btn btn-primary" %>
-  <% end %>
-<% end %>
-<%# 
-<%# <% if @sloopy.is_saved %>
-         <%# <% if @sloopy.status == true %> 
-      <!-- Formulaire de review -->
-     <%# <div class="sloopy-card"> %>
-        <%# <% if @sloopy.reviews.first.content == nil  %> 
-          <%# <%= render 'reviews/review_form', review: @review %>
-        <%# <% else %> 
-          <%# <%= render 'reviews/review', review: @sloopy.reviews.where.not(id: nil).last %> 
-        <%# <% end %> 
-      <%# <% end %>
-    <%# </div>  %>
+<%# <%= turbo_frame_tag('review-section') do %> 
+  <%# <%= simple_form_for [sloopy, review], html: { class: "review-form" } do |f| %> 
+    <%# <div class="form-group"> %>
+      <%# <%= f.input :content, label: "Review your sloopy", as: :text %> 
+    <%# </div> %>
+    <%# <div class="form-group"> %>
+      <%# <%= f.input :rating, label: "Rating (1 to 5)", as: :select, collection: 1..5 %> 
+    <%# </div> %>
+    <%# <div class="form-actions"> %>
+      <%# <%= f.button :submit, (review.persisted? ? "Update Review" : "Submit Review"), class: "btn-orange" %> 
+    <%# </div> %>
+  <%# <% end %> 
+  <%# <% if review.persisted? %>
+    <%# <%= link_to "destroy", sloopy_review_path(sloopy, review), data: { turbo_method: :delete }, class: "btn-delete-form" %> 
+  <%# <% end %> 
+<%# <% end %> 
