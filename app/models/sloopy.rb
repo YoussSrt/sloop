@@ -8,6 +8,7 @@ class Sloopy < ApplicationRecord
 
   validates :origin, :destination, :departure_date, :duration, presence: true
   validates :duration, numericality: { greater_than: 0 }
+  validates :is_saved, inclusion: { in: [true, false] }
 
   # geocoded_by :origin, latitude: :origin_latitude, longitude: :origin_longitude
 

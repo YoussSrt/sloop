@@ -32,9 +32,37 @@
         </div>
       </div>
         <div class="profile-section">
-          <h2>My Future Sloopies</h2>
+        <h2>My Future Sloopies</h2>
+        <div class="sloopies-grid">
+          <% @user.sloopies.where(is_saved: true, copy: false, status: ["false", "f", "delate", "in_progress"]).order(created_at: :desc).limit(3).each do |sloopy| %>
+            <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
+              <div class="sloopy-card">
+                <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+                <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
+                <% if sloopy.reviews.any? %>
+                  <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+                <% end %>
+
+                <!-- Ajout du bouton delete -->
+                <div class="sloopy-card-actions">
+                  <%= link_to '<i class="fa-regular fa-circle-xmark"></i>'.html_safe,
+                              profile_path,
+                              data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "Are you sure?"
+                              },
+                              class: "btn-delete-sloopy" %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+          <div class="profile-section">
+          <h2>My Copy Sloopies</h2>
           <div class="sloopies-grid">
-            <% @user.sloopies.where(is_saved: true).order(created_at: :desc).limit(3).each do |sloopy| %>
+            <% @user.sloopies.where(is_saved: true, copy: true, status: ["false", "f", "delate", "in_progress"]).order(created_at: :desc).limit(3).each do |sloopy| %>
               <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
                 <div class="sloopy-card">
                   <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
@@ -42,6 +70,56 @@
                   <% if sloopy.reviews.any? %>
                     <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
                   <% end %>
+
+                  <div class="sloopy-card-actions">
+                  <%= link_to '<i class="fa-regular fa-circle-xmark"></i>'.html_safe,
+                              profile_path,
+                              data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "Are you sure?"
+                              },
+                              class: "btn-delete-sloopy" %>
+                </div>
+
+                <!-- Ajout du bouton 'Done' ou 'In Progress' -->
+                 <div class="sloopy-status-toggle">
+                  <% if sloopy.is_saved %>
+                    <%= form_with model: sloopy, url: update_status_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+                      <%= form.submit sloopy.status == 'done' ? 'In Progress' : 'Done',
+                                      class: "btn-status-toggle btn-orange flex-grow: 1;",
+                                      id: "btn-status-toggle-#{sloopy.id}" %>
+                    <% end %>
+                  <% end %>
+                </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <h2>My Realized Sloopies</h2>
+          <div class="sloopies-grid">
+            <% @user.sloopies.where(is_saved: true, status: ["done"]).order(created_at: :desc).limit(3).each do |sloopy| %>
+              <%= link_to sloopy_path(sloopy), class: "sloopy-card-link" do %>
+                <div class="sloopy-card">
+                  <h3><%= sloopy.origin %> → <%= sloopy.destination %></h3>
+                  <p><i class="fas fa-calendar"></i><%= l(sloopy.departure_date, format: :long) %></p>
+                  <% if sloopy.reviews.any? %>
+                    <p><i class="fas fa-star"></i><%= sloopy.reviews.average(:rating).round(1) %>/5</p>
+                  <% end %>
+
+<!-- Ajout du bouton 'Done' ou 'In Progress' -->
+ <div class="sloopy-status-toggle">
+  <% if sloopy.is_saved %>
+    <%= form_with model: sloopy, url: update_status_sloopy_path(sloopy), method: :patch, remote: true, html: { id: "status-toggle-form-#{sloopy.id}", class: "sloopy-form", data: { turbo: "false" } } do |form| %>
+      <%= form.submit sloopy.status == 'done' ? 'remove' : 'Done',
+                      class: "btn-status-toggle btn-orange flex-grow: 1;",
+                      id: "btn-status-toggle-#{sloopy.id}" %>
+    <% end %>
+  <% end %>
+</div>
+
                 </div>
               <% end %>
             <% end %>

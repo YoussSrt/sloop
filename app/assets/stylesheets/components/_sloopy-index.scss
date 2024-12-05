@@ -74,3 +74,12 @@
 .justified {
   text-align: justify;
 }
+
+.btn-save-toggle.disabled {
+  background-color: #d3d3d3; /* Gris pour un état désactivé */
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.btn-save-toggle {
+  transition: background-color 0.3s ease; /* Animation légère pour le hover */
+}
