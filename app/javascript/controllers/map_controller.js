@@ -2,10 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 import mapboxgl from "mapbox-gl"
 
 export default class extends Controller {
-  static values = {
-    apiKey: String,
-    markers: Array
-  }
+  static targets = ["map"]
+  // static values = {
+  //   apiKey: String,
+  //   markers: Array
+  // }
 
   initialize() {
     this.map = null
@@ -14,32 +15,54 @@ export default class extends Controller {
   connect() {
     console.log("Map controller connected")
     this.initializeMap()
+    this.fetchData()
   }
 
   disconnect() {
-    console.log("Map controller disconnected")
+    // console.log("Map controller disconnected")
     if (this.map) {
       this.map.remove()
       this.map = null
     }
   }
 
+  fetchData() {
+    document.addEventListener("turbo:before-stream-render", (e) => {
+      fetch("/sloopies", {
+        headers: { "Accept": "application/json",
+          "X-CSRF-Token": document.querySelector('[name="csrf-token"]').content,
+         }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.mapTarget.dataset.markers = JSON.stringify(data)
+        // this.#addMarkersToMap()
+        // this.#addRouteToMap()
+        // this.#fitMapToMarkers()
+        this.initializeMap();
+      })
+    })
+  }
+
   initializeMap() {
-    console.log("Initializing map with markers:", this.markersValue)
+    // console.log("Initializing map with markers:", this.markersValue)
     if (this.map) {
       this.map.remove()
     }
 
-    mapboxgl.accessToken = this.apiKeyValue
+    mapboxgl.accessToken = this.mapTarget.dataset.key
 
     this.map = new mapboxgl.Map({
-      container: this.element,
+      container: this.mapTarget,
       style: "mapbox://styles/mapbox/streets-v12",
       zoom: 1 // Ajout d'un zoom par défaut
     })
 
+    this.markersValue = JSON.parse(this.mapTarget.dataset.markers)
+    console.log(this.markersValue)
     this.map.on('load', () => {
-      console.log("Map loaded, adding markers and routes")
+      // console.log("Map loaded, adding markers and routes")
       this.#addMarkersToMap()
       this.#addRouteToMap()
       this.#fitMapToMarkers()
@@ -47,30 +70,30 @@ export default class extends Controller {
   }
 
   markersValueChanged() {
-    console.log("Markers value changed:", this.markersValue)
+    // console.log("Markers value changed:", this.markersValue)
     if (this.map) {
       this.initializeMap()
     }
   }
 
   #addMarkersToMap() {
-    const icons = { 
+    const icons = {
       origin: '🚩',
       destination: '🏁',
       step: '📍'
     }
 
     if (!this.markersValue || this.markersValue.length === 0) {
-      console.log("No markers to add")
+      // console.log("No markers to add")
       return
     }
 
-    console.log("Adding markers:", this.markersValue)
+    // console.log("Adding markers:", this.markersValue)
     this.markersValue.forEach((marker) => {
       const el = document.createElement('div')
       el.style.fontSize = '30px'
       el.innerHTML = icons[marker.type]
-      
+
       new mapboxgl.Marker({ element: el })
         .setLngLat([marker.lng, marker.lat])
         .addTo(this.map)
@@ -79,7 +102,7 @@ export default class extends Controller {
 
   #addRouteToMap() {
     // Trouver le dernier marqueur avec des coordonnées de route
-    const markerWithRoute = this.markersValue.findLast(marker => 
+    const markerWithRoute = this.markersValue.findLast(marker =>
       marker.route_coordinates && marker.route_coordinates.length >= 2
     );
 
@@ -124,7 +147,7 @@ export default class extends Controller {
 
   #fitMapToMarkers() {
     if (!this.markersValue || this.markersValue.length === 0) {
-      console.log("No markers to fit map to")
+      // console.log("No markers to fit map to")
       return
     }
 
@@ -133,7 +156,7 @@ export default class extends Controller {
       bounds.extend([marker.lng, marker.lat])
     })
 
-    console.log("Fitting map to bounds:", bounds)
+    // console.log("Fitting map to bounds:", bounds)
     this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 500 })
   }
 }
