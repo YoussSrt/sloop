@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :sloopies do
     resources :questions, only: [:index, :create]
-    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+    # resources :reviews, only: [:new, :create, :edit, :update, :destroy]
     resources :steps, only: [:update]
   end
 
-  resources :reviews, only: [:show, :edit, :update, :destroy]
+  # resources :reviews, only: [:show, :edit, :update, :destroy]
 
   resources :chatrooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
