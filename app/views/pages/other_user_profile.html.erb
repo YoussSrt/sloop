@@ -4,6 +4,11 @@
       <div class="profile-main-info">
         <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
         <p class="profile-username">@<%= @user.nickname %></p>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag(@user.photo.key, class: 'avatar_other_profile' ) %>
+        <% else %>
+          <%= image_tag('https://img.freepik.com/photos-premium/collage-impressionnant-du-concept-voyage-accessoires-voyageur-avion-valise-rendu-3d_741910-15686.jpg?w=740', class: 'avatar_other_profile ') %>
+        <% end %>
       </div>
 
       <%= button_to chatrooms_path(second_user_id: @user.id), method: :post, class: "slooper-chat-btn" do %>
